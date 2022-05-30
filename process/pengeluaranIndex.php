@@ -1,5 +1,5 @@
 <?php
-include_once('../connect.php'); 
+require_once '../connect.php';
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +75,7 @@ include_once('../connect.php');
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:55px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pengeluaran</a>
@@ -83,13 +83,6 @@ include_once('../connect.php');
                 </ol>
             </nav>
         </div>
-        <?php
-        $sql ="select * from tabel_pengeluaran ORDER BY id_pengeluaran ASC";
-
-        return pg_query($sql);
-
-        $tabel_pengeluarans = $obj->$sql;
-        ?>
 
         <div class="row">
             <div class="col-12">
@@ -104,6 +97,7 @@ include_once('../connect.php');
                                         <input class="btn btn-success" type="submit" name="add" value="Create" style="width:10%;margin-left:20px;background-color:#F64E60">
                                         </div>
                                         <table id="myTable" class="table table-hover" >
+                                        
                                             <thead >
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th>Tanggal</th>
@@ -112,32 +106,34 @@ include_once('../connect.php');
                                                     <th>Harga</th>
                                                     <th>ID Pegawai</th>
                                                     <th>Action</th>
-                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <?php while($tabel_pengeluaran = pg_fetch_object($tabel_pengeluarans)): ?>   
+                                            <?php 
+                                            $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran");
+
+                                            while($row=pg_fetch_array($result)){
+                                            ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <td ><?=$tabel_pengeluaran->tanggal_pengeluaran?></td>
-                                                <td><?=$tabel_pengeluaran->id_pengeluaran?></td>
-                                                <td><?=$tabel_pengeluaran->id_katpengeluaran?></td>
-                                                <td><?=$tabel_pengeluaran->harga?></td>
-                                                <td><?=$tabel_pengeluaran->id_pegawai?></td>
+                                                <td ><?=$row['tanggal_pengeluaran']?></td>
+                                                <td><?=$row['id_pengeluaran']?></td>
+                                                <td><?=$row['id_katpengeluaran']?></td>
+                                                <td><?=$row['harga']?></td>
+                                                <td><?=$row['id_pegawai']?></td>
                                                 <td>
-                                                    <form method="post">
-                                                        <input type="submit" class="btn btn-success" name= "update" value="Update">   
-                                                        <input type="submit" onClick="return confirm('Please confirm deletion');" class="btn btn-danger" name= "delete" value="Delete">
-                                                        <input type="hidden" value="<?=$tabel_pengeluaran->id_pengeluaran?>" name="id_pengeluaran">
-                                                    </form>
+                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
+                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                 </td>
                                             </tr>
-                                            <?php endwhile; ?>  
+                                            <?php
+                                            }
+                                            ?>  
                                             <tfoot>
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th></th>
                                                     <th></th>
                                                     <th>Total Penjualan</th>
-                                                    <th>Rp.0</th>
+                                                    <th>96000</th>
                                                     <th></th>
                                                     <th></th>
                                                 </tr>

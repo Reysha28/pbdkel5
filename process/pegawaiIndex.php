@@ -1,3 +1,7 @@
+<?php
+require_once '../connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,7 +76,7 @@
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:55px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pegawai</a>
@@ -108,36 +112,29 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php 
+                                            $result = pg_query($conn,"SELECT * from tabel_pegawai");
+
+                                            while($row=pg_fetch_array($result)){
+                                            ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>P001</th>
-                                                <th>Ananda Fitria</th>
-                                                <th>Pemilik</th>
-                                                <th>085312776321</th>
-                                                <th>Jati Baru</th>
-                                                <th>nanda123</th>
-                                                <th>********</th>
-                                                <th>2</th>
-                                                <th>
+                                                <td ><?=$row['id_pegawai']?></td>
+                                                <td><?=$row['nama_pegawai']?></td>
+                                                <td><?=$row['status_pegawai']?></td>
+                                                <td><?=$row['telepon']?></td>
+                                                <td><?=$row['alamat']?></td>
+                                                <td><?=$row['username']?></td>
+                                                <td>********</td>
+                                                <td><?=$row['id_role']?></td>
+                                                <td>
                                                     <button type="button" class="btn btn-warning" style="background-color: #FFA63E;"><i class="fa fa-key" style="color: white;"></i></button>
                                                     <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
                                                     <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
+                                                </td>
                                             </tr>
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>P002</th>
-                                                <th>Suci Hidayah</th>
-                                                <th>Staf Produksi</th>
-                                                <th>081212709321</th>
-                                                <th>Jati Baru</th>
-                                                <th>suciiiyah</th>
-                                                <th>********</th>
-                                                <th>4</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #FFA63E;"><i class="fa fa-key" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
-                                            </tr>
+                                            <?php
+                                            }
+                                            ?> 
                                             </tbody>
                                         </table>
                                     </div>

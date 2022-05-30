@@ -1,3 +1,6 @@
+<?php
+require_once '../connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +74,7 @@
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:55px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Barang</a>
@@ -105,36 +108,29 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php 
+                                            $result = pg_query($conn,"SELECT * FROM tabel_barang");
+
+                                            while($row=pg_fetch_array($result)){
+                                            ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>A001</th>
-                                                <th>Strep Mask</th>
-                                                <th>B4</th>
-                                                <th>Hitam</th>
-                                                <th>Rp.10.000</th>
-                                                <th>20</th>
-                                                <th>Stok Cukup</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #FFA63E;"><i class="fa fa-add" style="color: white;"></i></button>
+                                                <td ><?=$row['id_barang']?></td>
+                                                <td><?=$row['nama_barang']?></td>
+                                                <td><?=$row['id_katbarang']?></td>
+                                                <td><?=$row['warna_barang']?></td>
+                                                <td><?=$row['harga_barang']?></td>
+                                                <td><?=$row['stok_tersedia']?></td>
+                                                <td>Tersedia
+                                                </td>
+                                                <td>
+                                                <button type="button" class="btn btn-warning" style="background-color: #FFA63E;"><i class="fa fa-add" style="color: white;"></i></button>
                                                     <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
                                                     <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
+                                                </td>
                                             </tr>
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>A002</th>
-                                                <th>Pouch</th>
-                                                <th>B6</th>
-                                                <th>Merah</th>
-                                                <th>Rp.20.000</th>
-                                                <th>4</th>
-                                                <th>
-                                                    <input class="btn btn-success" type="submit" name="add" value="Restok" style="width:60%;height:30%;background-color:#F64E60">
-                                                </th>
-                                                <th>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #FFA63E;"><i class="fa fa-add" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
-                                            </tr>
+                                            <?php
+                                            }
+                                            ?> 
                                             </tbody>
                                         </table>
                                     </div>
