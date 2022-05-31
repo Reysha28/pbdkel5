@@ -97,7 +97,7 @@
 
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_pengeluaran" style="margin-bottom:10px">ID Pengeluaran</label>
-                                        <input type="text" class="form-control" readonly name="id_pengeluaran" required>
+                                        <input type="text" class="form-control" name="id_pengeluaran" required>
                                         </div>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
@@ -124,7 +124,7 @@
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                            <a class="btn btn-primary" name="reset" type="submit" value="reset">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>

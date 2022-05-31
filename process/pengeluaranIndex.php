@@ -111,29 +111,33 @@ require_once '../connect.php';
                                             <tbody>
                                             <?php 
                                             $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran");
-
+                                            $total=0;
                                             while($row=pg_fetch_array($result)){
+                                                $jumlah=$row['harga'];
+                                                $total+=$jumlah;
                                             ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
                                                 <td ><?=$row['tanggal_pengeluaran']?></td>
                                                 <td><?=$row['id_pengeluaran']?></td>
                                                 <td><?=$row['id_katpengeluaran']?></td>
-                                                <td><?=$row['harga']?></td>
+                                                <td>Rp<?=number_format($row['harga'],0,".",".")?></td>
                                                 <td><?=$row['id_pegawai']?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                    <button type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data pengeluaran ini ?')" href="pengeluaranDelete.php?id=<? $row['id_pengeluaran'] ?>"><i class="fa-solid fa-trash"></i></button>
                                                 </td>
+                                                
                                             </tr>
                                             <?php
                                             }
+                                            
                                             ?>  
                                             <tfoot>
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th></th>
                                                     <th></th>
                                                     <th>Total Penjualan</th>
-                                                    <th>96000</th>
+                                                    <th>Rp<?=number_format($total,0,".",".")?></th>
                                                     <th></th>
                                                     <th></th>
                                                 </tr>

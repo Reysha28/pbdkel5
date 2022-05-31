@@ -118,10 +118,9 @@ require_once '../connect.php';
                                                 <td><?=$row['nama_barang']?></td>
                                                 <td><?=$row['id_katbarang']?></td>
                                                 <td><?=$row['warna_barang']?></td>
-                                                <td><?=$row['harga_barang']?></td>
+                                                <td>Rp<?=number_format($row['harga_barang'],0,".",".")?></td>
                                                 <td><?=$row['stok_tersedia']?></td>
-                                                <td>Tersedia
-                                                </td>
+                                                <td>Tersedia</td>
                                                 <td>
                                                 <button type="button" class="btn btn-warning" style="background-color: #FFA63E;"><i class="fa fa-add" style="color: white;"></i></button>
                                                     <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
