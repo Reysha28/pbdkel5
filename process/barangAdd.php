@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head>
 
+
 <body id="body-pd" style="background-color: #F3F6F9;">
     <header class="header" id="header" style="background-color: white">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> 
@@ -93,7 +94,7 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
-                                        <input type="text" class="form-control" readonly name="id_barang" required>
+                                        <input type="text" class="form-control" name="id_barang" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
@@ -104,15 +105,17 @@
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_katbarang" style="margin-bottom:10px">Kategori</label>
                                         <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" required>
-                                        <option value=""></option>;
-                                        <option value="B001"><?php echo "Ikat Rambut";?> </option>;
-                                        <option value="B002"><?php echo "Kalung";?> </option>;
-                                        <option value="B003"><?php echo "Jepit Rambut";?> </option>;
-                                        <option value="B004"><?php echo "Strap Masker";?> </option>;
-                                        <option value="B005"><?php echo "Gelang";?> </option>;
-                                        <option value="B006"><?php echo "Anting";?> </option>;
-                                        <option value="B007"><?php echo "Cermin";?> </option>;
-                                        <option value="B008"><?php echo "Make Up";?> </option>;
+                                        <?php 
+                                        include '../connect.php';
+                                        $barang = pg_query($conn, "select * from tabel_kategori_barang order by id_katbarang ASC");
+                                        while ($row = pg_fetch_assoc($barang)) {
+                                            echo "
+                                            <option value=''></option>
+                                            <option value='$row[id_katbarang]'>$row[kategori_barang]</option>
+                                            
+                                            ";
+                                        }
+                                        ?>
                                         </select>
                                         </div>
 
@@ -145,7 +148,27 @@
             </div>
         </div>
     </div>
+    
+    <?php 
+    include '../connect.php';
 
+    if (isset($_POST['simpan'])) {
+    $id_barang = $_POST['id_barang'];
+    $id_katbarang = $_POST['id_katbarang'];
+    $nama_barang = $_POST['nama_barang'];
+    $warna_barang = $_POST['warna_barang'];
+    $harga_barang = $_POST['harga_barang'];
+    $stok_tersedia = $_POST['stok_tersedia'];
+
+    $sql = pg_query($conn, "insert into tabel_barang (id_barang,id_katbarang,nama_barang,warna_barang,harga_barang, stok_tersedia) values ('$id_barang','$id_katbarang','$nama_barang','$warna_barang','$harga_barang', '$stok_tersedia')");
+
+    if ($sql) {
+    ?>
+        echo "<script>alert('Data berhasil ditambah');window.location='barangIndex.php';</script>";
+    <?php
+    }
+    }
+    ?>
 
     <div class="footer" style="bottom:-90px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>

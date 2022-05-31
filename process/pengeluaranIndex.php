@@ -123,8 +123,8 @@ require_once '../connect.php';
                                                 <td>Rp<?=number_format($row['harga'],0,".",".")?></td>
                                                 <td><?=$row['id_pegawai']?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data pengeluaran ini ?')" href="pengeluaranDelete.php?id=<? $row['id_pengeluaran'] ?>"><i class="fa-solid fa-trash"></i></button>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="pengeluaranEdit.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
+                                                    <a type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data pengeluaran ini ?')" href="pengeluaranDelete.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>"><i class="fa-solid fa-trash"></i></a>
                                                 </td>
                                                 
                                             </tr>

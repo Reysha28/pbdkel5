@@ -1,3 +1,12 @@
+<?php
+include '../connect.php'; 
+
+$kode = $_GET['id_barang'];
+$sql = pg_query($conn, "SELECT * from tabel_barang where id_barang='$kode'");
+$row = pg_fetch_array($sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,48 +103,38 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
-                                        <input type="text" class="form-control" readonly name="id_barang" required>
+                                        <input type="text" class="form-control" readonly name="id_barang" value="<?php echo $row['id_barang']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="nama_barang" style="margin-bottom:10px">Nama Barang</label>
-                                            <input type="text" class="form-control" name="nama_barang" required>
+                                            <input type="text" class="form-control" name="nama_barang" value="<?php echo $row['nama_barang']?>" required>
                                             </div>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_katbarang" style="margin-bottom:10px">Kategori</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" required>
-                                        <option value=""></option>;
-                                        <option value="B001"><?php echo "Ikat Rambut";?> </option>;
-                                        <option value="B002"><?php echo "Kalung";?> </option>;
-                                        <option value="B003"><?php echo "Jepit Rambut";?> </option>;
-                                        <option value="B004"><?php echo "Strap Masker";?> </option>;
-                                        <option value="B005"><?php echo "Gelang";?> </option>;
-                                        <option value="B006"><?php echo "Anting";?> </option>;
-                                        <option value="B007"><?php echo "Cermin";?> </option>;
-                                        <option value="B008"><?php echo "Make Up";?> </option>;
-                                        </select>
+                                        <input style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" value="<?php echo $row['id_katbarang'] ?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="warna_barang" style="margin-bottom:10px">Warna</label>
-                                            <input type="text" class="form-control" name="warna_Barang" required>
+                                            <input type="text" class="form-control" name="warna_barang" value="<?php echo $row['warna_barang']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="harga_barang" style="margin-bottom:10px">Harga</label>
-                                            <input type="text" class="form-control" name="harga_barang" required>
+                                            <input type="text" class="form-control" name="harga_barang" value="<?php echo $row['harga_barang']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="stok_tersedia" style="margin-bottom:10px">Stok</label>
-                                            <input type="number" class="form-control" name="stok_tersedia" required>
+                                            <input type="number" class="form-control" name="stok_tersedia" value="<?php echo $row['stok_tersedia']?>" required>
                                         </div>
 
                                         <div align="right" class="col-9">
                                             <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
+                                            <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
                                         </div>
                                     </div>
                                 </div>
@@ -147,6 +146,28 @@
         </div>
     </div>
 
+    <?php 
+    include '../connect.php';
+
+    if (isset($_POST['submit'])) {
+        $id_barang = $_POST['id_barang'];
+        $id_katbarang = $_POST['id_katbarang'];
+        $nama_barang = $_POST['nama_barang'];
+        $warna_barang = $_POST['warna_barang'];
+        $harga_barang = $_POST['harga_barang'];
+        $stok_tersedia = $_POST['stok_tersedia'];
+
+    $sql =  pg_query($conn,"UPDATE tabel_barang SET id_katbarang='$id_katbarang', nama_barang='$nama_barang', warna_barang='$warna_barang' 
+    , harga_barang='$harga_barang' , stok_tersedia='$stok_tersedia' 
+    WHERE id_barang='$id_barang'");
+
+    if($sql){
+    echo "<script>alert('Data berhasil diedit');window.location='barangIndex.php';</script>";
+    } else {
+    echo pg_last_error($conn);
+    }
+    }
+    ?>
 
     <div class="footer" style="bottom:-90px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>

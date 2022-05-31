@@ -1,3 +1,11 @@
+<?php
+include '../connect.php'; 
+
+$kode = $_GET['id_pengeluaran'];
+$sql = pg_query($conn, "SELECT * from tabel_pengeluaran where id_pengeluaran='$kode'");
+$row = pg_fetch_array($sql);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,41 +100,35 @@
                                         <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Update Pengeluaran</h5>
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="tanggal_pengeluaran" style="margin-bottom:10px">Tanggal</label>
-                                        <input type="date" class="form-control" value=""  name="tanggal_pengeluaran" required>
+                                        <input type="date" class="form-control" value="<?php echo $row['tanggal_pengeluaran']?>"  name="tanggal_pengeluaran" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_pengeluaran" style="margin-bottom:10px">ID Pengeluaran</label>
-                                        <input type="text" class="form-control" readonly name="id_pengeluaran" required>
-                                        </div>
-                                        
-                                        <div class="form-group" style="margin-bottom:20px">
-                                        <label for="id_katpengeluaran" style="margin-bottom:10px">Kategori Pengeluaran</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Pengeluaran" name="id_katpengeluaran" required>
-                                        <option value=""></option>;
-                                        <option value="C001"><?php echo "Bahan Mentah";?> </option>;
-                                        <option value="C002"><?php echo "Beban ATK";?> </option>;
-                                        <option value="C003"><?php echo "Bensin";?> </option>;
-                                        <option value="C004"><?php echo "Listrik";?> </option>;
-                                        <option value="C005"><?php echo "Gaji";?> </option>;
-                                        <option value="C006"><?php echo "Biaya Kebersihan";?> </option>;
-                                        </select>
+                                        <input type="text" class="form-control" readonly value="<?php echo $row['id_pengeluaran']?>" name="id_pengeluaran" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="harga" style="margin-bottom:10px">Harga</label>
-                                            <input type="text" class="form-control" name="harga" required>
+                                            <input type="double" class="form-control" value="<?php echo $row['harga']?>"  name="harga" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
-                                            <input type="text" class="form-control" name="id_pegawai" required>
+                                            <input type="text" class="form-control" name="id_pegawai" value="<?php echo $row ['id_pegawai'] ?>" required>
+                                        </div>
+                                        
+                                        <div class="form-group" style="margin-bottom:20px">
+                                            <label for="id_katpengeluaran" style="margin-bottom:10px">Kategori Pengeluaran</label>
+                                            <input style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Pengeluaran" name="id_katpengeluaran" required value="<?php echo $row['id_katpengeluaran'] ?>">
+                                           
+                                
                                         </div>
 
                                         <div align="right" class="col-9">
                                             <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px" href="">Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
+                                            <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
                                         </div>
                                     </div>
                                 </div>
@@ -142,6 +144,27 @@
     <div class="footer" style="bottom:-90px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
+
+    <?php 
+    include '../connect.php';
+
+    if (isset($_POST['submit'])) {
+        $id_pengeluaran = $_POST['id_pengeluaran'];
+        $id_katpengeluaran = $_POST['id_katpengeluaran'];
+        $harga = $_POST['harga'];
+        $id_pegawai = $_POST['id_pegawai'];
+        $tanggal_pengeluaran = $_POST['tanggal_pengeluaran'];
+
+
+    $sql =  pg_query($conn,"UPDATE tabel_pengeluaran SET tanggal_pengeluaran='$tanggal_pengeluaran', id_katpengeluaran='$id_katpengeluaran', harga='$harga', id_pegawai='$id_pegawai' WHERE id_pengeluaran='$id_pengeluaran'");
+
+    if($sql){
+    echo "<script>alert('Data berhasil diedit');window.location='pengeluaranIndex.php';</script>";
+    } else {
+    echo pg_last_error($conn);
+    }
+    }
+    ?>
 </body>
 </html>
 

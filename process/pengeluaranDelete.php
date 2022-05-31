@@ -1,16 +1,13 @@
 <?php
-include 'connect.php';
-    
-if (isset($_GET['id'])) {
-    $query = "DELETE FROM tabel_pengeluaran WHERE id_pengeluaran='$id_pengeluaran' ";
-    $hasil_query = pg_query($koneksi, $query);
+include '../connect.php'; 
 
-    if(!$hasil_query) 
-    {
-        echo "<script>alert('Data gagal dihapus');window.location='pengeluaranIndex.php';</script>";
-    } 
-    else 
-    {
-        echo "<script>alert('Data berhasil dihapus');window.location='pengeluaranIndex.php';</script>";
-    }
+$kode = $_GET['id_pengeluaran'];
+$sql = "DELETE FROM tabel_pengeluaran WHERE id_pengeluaran='$kode'";
+
+$result = pg_query($conn, $sql);
+if($result){
+  echo "<script>alert('Data berhasil dihapus');window.location='pengeluaranIndex.php';</script>";
+} else {
+  echo pg_last_error($conn);
 }
+?>

@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head>
-
 <body id="body-pd" style="background-color: #F3F6F9;">
     <header class="header" id="header" style="background-color: white">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> 
@@ -103,13 +102,17 @@
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_katpengeluaran" style="margin-bottom:10px">Kategori Pengeluaran</label>
                                         <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Pengeluaran" name="id_katpengeluaran" required>
-                                        <option value=""></option>;
-                                        <option value="C001"><?php echo "Bahan Mentah";?> </option>;
-                                        <option value="C002"><?php echo "Beban ATK";?> </option>;
-                                        <option value="C003"><?php echo "Bensin";?> </option>;
-                                        <option value="C004"><?php echo "Listrik";?> </option>;
-                                        <option value="C005"><?php echo "Gaji";?> </option>;
-                                        <option value="C006"><?php echo "Biaya Kebersihan";?> </option>;
+                                        <?php 
+                                        include '../connect.php';
+                                        $pengeluaran = pg_query($conn, "select * from tabel_kategori_pengeluaran order by id_katpengeluaran ASC");
+                                        while ($row = pg_fetch_assoc($pengeluaran)) {
+                                            echo "
+                                            <option value=''></option>
+                                            <option value='$row[id_katpengeluaran]'>$row[jenis_pengeluaran]</option>
+                                            
+                                            ";
+                                        }
+                                        ?>
                                         </select>
                                         </div>
 
@@ -142,6 +145,27 @@
     <div class="footer" style="bottom:-90px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
+
+    <?php 
+    include '../connect.php';
+
+    if (isset($_POST['simpan'])) {
+    $id_pengeluaran = $_POST['id_pengeluaran'];
+    $id_katpengeluaran = $_POST['id_katpengeluaran'];
+    $harga = $_POST['harga'];
+    $id_pegawai = $_POST['id_pegawai'];
+    $tanggal_pengeluaran = $_POST['tanggal_pengeluaran'];
+
+
+    $sql = pg_query($conn, "insert into tabel_pengeluaran (id_pengeluaran,id_katpengeluaran,harga,id_pegawai,tanggal_pengeluaran) values('$id_pengeluaran','$id_katpengeluaran','$harga','$id_pegawai','$tanggal_pengeluaran')");
+
+    if ($sql) {
+    ?>
+        echo "<script>alert('Data berhasil ditambah');window.location='pengeluaranIndex.php';</script>";
+    <?php
+    }
+    }
+    ?>
 </body>
 </html>
 

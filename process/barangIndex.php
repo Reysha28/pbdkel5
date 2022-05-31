@@ -122,9 +122,10 @@ require_once '../connect.php';
                                                 <td><?=$row['stok_tersedia']?></td>
                                                 <td>Tersedia</td>
                                                 <td>
-                                                <button type="button" class="btn btn-warning" style="background-color: #FFA63E;"><i class="fa fa-add" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #FFA63E;" href="barangAdd.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-add" style="color: white;"></i></a>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="barangEdit.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
+                                                    <a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="barangDelete.php?id_barang=<?= $row['id_barang'] ?>"
+                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                             <?php

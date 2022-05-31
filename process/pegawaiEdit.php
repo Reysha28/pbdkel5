@@ -1,3 +1,11 @@
+<?php
+include '../connect.php'; 
+
+$kode = $_GET['id_pegawai'];
+$sql = pg_query($conn, "SELECT * from tabel_pegawai where id_pegawai='$kode'");
+$row = pg_fetch_array($sql);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,18 +101,26 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
-                                        <input type="text" class="form-control" readonly name="id_pegawai" required>
+                                        <input type="text" class="form-control" readonly name="id_pegawai" value="<?php echo $row['id_pegawai']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="nama_pegawai" style="margin-bottom:10px">Nama Pegawai</label>
-                                            <input type="text" class="form-control" name="nama_pegawai" required>
+                                            <input type="text" class="form-control" name="nama_pegawai" value="<?php echo $row['nama_pegawai']?>" required>
                                             </div>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="status_pegawai" style="margin-bottom:10px">Status</label>
                                         <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Status Pegawai" name="status_pegawai" required>
-                                        <option value=""></option>;
+                                        <?php
+                                            if ($id_pegawai['status_pegawai']=="Pemilik"){
+                                                $status_pegawai = "Pemilik";
+                                            }
+                                            else{
+                                                $status_pegawai = "Karyawan";
+                                            }
+                                            ?>
+                                        <option readonly selected value="<?php echo $id_pegawai["status_pegawai"]?>"><?=$status_pegawai?></option>;
                                         <option value="Pemilik"><?php echo "Pemilik";?> </option>;
                                         <option value="Karyawan"><?php echo "Karyawan";?> </option>;
                                         </select>
@@ -112,28 +128,43 @@
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="telepon" style="margin-bottom:10px">No Telp</label>
-                                            <input type="text" class="form-control" name="telepon" required>
+                                            <input type="text" class="form-control" name="telepon" value="<?php echo $row['telepon']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="alamat" style="margin-bottom:10px">Alamat</label>
-                                            <input type="text" class="form-control" name="alamat" required>
+                                            <input type="text" class="form-control" name="alamat" value="<?php echo $row['alamat']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="username" style="margin-bottom:10px">Username</label>
-                                            <input type="text" class="form-control" name="username" required>
-                                        </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
-                                            <label for="password" style="margin-bottom:10px">Password</label>
-                                            <input type="password" class="form-control" name="password" required>
+                                            <input type="text" class="form-control" name="username" value="<?php echo $row['username']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="id_role" style="margin-bottom:10px">Role</label>
                                             <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Role" name="id_role" required>
-                                            <option value=""></option>;
+                                            <?php
+                                            if ($id_pegawai['id_role']=="1"){
+                                                $id_role = "1";
+                                            }
+                                            else if ($id_pegawai['id_role']=="2"){
+                                                $id_role = "2";
+                                            }
+                                            else if ($id_pegawai['id_role']=="3"){
+                                                $id_role = "3";
+                                            }
+                                            else if ($id_pegawai['id_role']=="4"){
+                                                $id_role = "4";
+                                            }
+                                            else if ($id_pegawai['id_role']=="5"){
+                                                $id_role = "5";
+                                            }
+                                            else{
+                                                $id_role = "6";
+                                            }
+                                            ?>
+                                            <option readonly selected value="<?php echo $id_pegawai["id_role"]?>"><?=$id_role?></option>;
                                             <option value="1"><?php echo "Admin";?> </option>;
                                             <option value="2"><?php echo "Pemilik";?> </option>;
                                             <option value="3"><?php echo "Kasir";?> </option>;
@@ -146,7 +177,7 @@
                                         <div align="right" class="col-9">
                                             <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
+                                            <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
                                         </div>
                                     </div>
                                 </div>
@@ -158,6 +189,30 @@
         </div>
     </div>
 
+    <?php 
+    include '../connect.php';
+
+    if (isset($_POST['submit'])) {
+        $id_pegawai = $_POST['id_pegawai'];
+        $nama_pegawai = $_POST['nama_pegawai'];
+        $status_pegawai= $_POST['status_pegawai'];
+        $telepon= $_POST['telepon'];
+        $alamat = $_POST['alamat'];
+        $username= $_POST['username'];
+        $id_role = $_POST['id_role'];
+
+    $sql =  pg_query($conn,"UPDATE tabel_pegawai SET 
+    nama_pegawai='$nama_pegawai', status_pegawai='$status_pegawai' 
+    , telepon='$telepon' , alamat='$alamat' , username='$username' , id_role='$id_role' 
+    WHERE id_pegawai='$id_pegawai'");
+
+    if($sql){
+    echo "<script>alert('Data berhasil diedit');window.location='pegawaiIndex.php';</script>";
+    } else {
+    echo pg_last_error($conn);
+    }
+    }
+    ?>
 
     <div class="footer" style="bottom:-90px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>

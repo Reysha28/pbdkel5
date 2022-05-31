@@ -93,7 +93,7 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
-                                        <input type="text" class="form-control" readonly name="id_pegawai" required>
+                                        <input type="text" class="form-control" name="id_pegawai" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
@@ -158,6 +158,30 @@
         </div>
     </div>
 
+    <?php 
+    include '../connect.php';
+
+    if (isset($_POST['simpan'])) {
+    $id_pegawai = $_POST['id_pegawai'];
+    $nama_pegawai = $_POST['nama_pegawai'];
+    $status_pegawai= $_POST['status_pegawai'];
+    $telepon= $_POST['telepon'];
+    $alamat = $_POST['alamat'];
+    $username= $_POST['username'];
+    $password= $_POST['password'];
+    $id_role = $_POST['id_role'];
+
+    $sql = pg_query($conn, "insert into tabel_pegawai 
+    (id_pegawai,nama_pegawai,status_pegawai,telepon,alamat,username, password, id_role) 
+    values('$id_pegawai','$nama_pegawai','$status_pegawai','$telepon','$alamat','$username','$password','$id_role')");
+
+    if ($sql) {
+    ?>
+        echo "<script>alert('Data berhasil ditambah');window.location='pegawaiIndex.php';</script>";
+    <?php
+    }
+    }
+    ?>
 
     <div class="footer" style="bottom:-90px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>

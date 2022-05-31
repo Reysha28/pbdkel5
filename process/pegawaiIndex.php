@@ -127,9 +127,9 @@ require_once '../connect.php';
                                                 <td>********</td>
                                                 <td><?=$row['id_role']?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #FFA63E;"><i class="fa fa-key" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #FFA63E;"  href="pegawaiChangePw.php?id_pegawai=<?= $row['id_pegawai'] ?>"><i class="fa fa-key" style="color: white;"></i></a>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;"  href="pegawaiEdit.php?id_pegawai=<?= $row['id_pegawai'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
+                                                    <a type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data pegawai ini ?')" href="pegawaiDelete.php?id_pegawai=<?= $row['id_pegawai'] ?>"><i class="fa-solid fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                             <?php
