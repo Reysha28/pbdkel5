@@ -1,3 +1,6 @@
+<?php
+require_once '../connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,28 +106,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php 
+                                            $result = pg_query($conn,"SELECT * FROM tabel_detail_restok, tabel_restok");
+
+                                            while($row=pg_fetch_array($result)){
+                                            ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>A001</th>
-                                                <th>M1</th>
-                                                <th>10-10-2020</th>
-                                                <th>B001</th>
-                                                <th>10</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
+                                                <td ><?=$row['id_restok']?></td>
+                                                <td><?=$row['id_pegawai']?></td>
+                                                <td><?=$row['tanggal_masuk']?></td>
+                                                <td><?=$row['id_barang']?></td>
+                                                <td><?=$row['tambah_stok']?></td>
+                                                <td>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="restokEdit.php?id_restok=<?= $row['id_restok'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
+                                                    <a type="button" onclick="return confirm('Anda yakin menghapus data restok ini ?')" href="restokDelete.php?id_restok=<?= $row['id_restok'] ?>"
+                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                                </td>
                                             </tr>
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                            <th>A001</th>
-                                                <th>M1</th>
-                                                <th>10-10-2020</th>
-                                                <th>B001</th>
-                                                <th>10</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
-                                            </tr>
+                                            <?php
+                                            }
+                                            ?> 
                                             </tbody>
                                         </table>
                                     </div>

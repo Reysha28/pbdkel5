@@ -111,13 +111,13 @@ $row = pg_fetch_array($sql);
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="password" style="margin-bottom:10px">Password Baru</label>
-                                            <input type="password" class="form-control"  name="password" required>
+                                            <input type="password" class="form-control"  value="<?php echo $row['password']?>" name="password" required>
                                         </div>
 
                                         <div align="right" class="col-9">
                                             <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
+                                            <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
                                         </div>
                                     </div>
                                 </div>
@@ -136,9 +136,7 @@ $row = pg_fetch_array($sql);
         $password= $_POST['password'];
         $password = password_hash($password, PASSWORD_DEFAULT); 
 
-    $sql =  pg_query($conn,"UPDATE tabel_pegawai SET 
-    username='$username' ,password='$password'   
-    WHERE id_pegawai='$id_pegawai'");
+    $sql =  pg_query($conn,"UPDATE tabel_pegawai SET username='$username' , password='$password' WHERE id_pegawai='$id_pegawai'");
 
     if($sql){
     echo "<script>alert('Password berhasil diubah');window.location='pegawaiIndex.php';</script>";

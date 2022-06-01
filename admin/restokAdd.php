@@ -1,3 +1,9 @@
+<?php 
+    include '../connect.php';
+    $kode = $_GET['id_barang'];
+    $sql = pg_query($conn, "SELECT * from tabel_barang where id_barang='$kode'");
+    $row = pg_fetch_array($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,18 +114,17 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Barang" name="id_barang" required>
-                                        <option value=""></option>;
-                                        <option value="1"><?php echo "Baju";?> </option>;
-                                        <option value="2"><?php echo "Gelang";?> </option>;
-                                        <option value="2"><?php echo "Strep Mask";?> </option>;
-                                        <option value="2"><?php echo "Cincin";?> </option>;
-                                        </select>
+                                        <input type="text" class="form-control" name="id_barang" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="tambah_stok" style="margin-bottom:10px">Stok Tambahan</label>
                                             <input type="number" class="form-control" name="tambah_stok" required>
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:20px">
+                                            <label for="tambah_stok" style="margin-bottom:10px">Stok Sekarang</label>
+                                            <input type="number" class="form-control" name="stok_tersedia" value="<?php echo $row["stok_tersedia"]?>" required>
                                         </div>
 
                                         <div align="right" class="col-9">
@@ -137,7 +142,30 @@
         </div>
     </div>
 
+    <?php 
+    if (isset($_POST['simpan'])) {
+    $id_restok = $_POST['id_restok'];
+    $id_pegawai = $_POST['id_pegawai'];
+    $tanggal_masuk = $_POST['tanggal_masuk'];
+    $id_barang = $_POST['id_barang'];
+    $tambah_stok = $_POST['tambah_stok'];
+    $stok_tersedia = $_POST['tambah_stok']+$_POST['stok_tersedia'];
 
+    $sql = pg_query($conn, "insert into tabel_restok (id_restok,id_pegawai,tanggal_masuk) values('$id_restok','$id_pegawai','$tanggal_masuk')");
+    $sql2 = pg_query($conn, "insert into tabel_detail_restok (id_restok,id_barang,tambah_stok)  values('$id_restok','$id_barang','$tambah_stok')");
+    $sql3 =  pg_query($conn,"UPDATE tabel_barang SET stok_tersedia='$stok_tersedia' WHERE id_barang='$id_barang'");
+
+    if ($sql) {
+        if($sql2){
+            if($sql3){
+            ?>
+                echo "<script>alert('Data berhasil ditambah');window.location='restokIndex.php';</script>";
+            <?php
+            }
+        }
+    }
+    }
+    ?>
     <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>

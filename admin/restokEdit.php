@@ -1,3 +1,15 @@
+<?php
+include '../connect.php'; 
+
+$kode = $_GET['id_restok'];
+$sql = pg_query($conn, "SELECT * from tabel_restok where id_restok='$kode'");
+$sql2 = pg_query($conn, "SELECT * from tabel_detail_restok where id_restok='$kode'");
+$row = pg_fetch_array($sql);
+$row2 = pg_fetch_array($sql2);
+
+$sql2 = pg_query($conn, "SELECT * from tabel_barang where id_barang='$id_barang'");
+$stok_tersedia = $_POST['tambah_stok']-$_POST['stok_tersedia'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,33 +105,28 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_restok" style="margin-bottom:10px">ID Restok</label>
-                                        <input type="text" class="form-control" name="id_restok" required>
+                                        <input type="text" class="form-control" name="id_restok" value="<?php echo $row["id_restok"]?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
-                                            <input type="text" class="form-control" name="id_pegawai" required>
+                                            <input type="text" class="form-control" name="id_pegawai" value="<?php echo $row["id_pegawai"]?>"  required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="tanggal_masuk" style="margin-bottom:10px">Tanggal Restok</label>
-                                            <input type="date" class="form-control" name="tanggal_masuk" required>
+                                            <input type="date" class="form-control" name="tanggal_masuk" value="<?php echo $row["tanggal_masuk"]?>"  required >
                                         </div>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Barang" name="id_barang" required>
-                                        <option value=""></option>;
-                                        <option value="1"><?php echo "Baju";?> </option>;
-                                        <option value="2"><?php echo "Gelang";?> </option>;
-                                        <option value="2"><?php echo "Strep Mask";?> </option>;
-                                        <option value="2"><?php echo "Cincin";?> </option>;
-                                        </select>
+                                        <input type="text" class="form-control" name="id_barang" value="<?php echo $row2["id_barang"]?>" required>
+                                        
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="tambah_stok" style="margin-bottom:10px">Stok Tambahan</label>
-                                            <input type="number" class="form-control" name="tambah_stok" required>
+                                            <input type="number" class="form-control" name="tambah_stok" value="<?php echo $row2["tambah_stok"]?>" required>
                                         </div>
 
                                         <div align="right" class="col-9">
@@ -137,7 +144,32 @@
         </div>
     </div>
 
+    <?php
 
+    if (isset($_POST['simpan'])) {
+    $id_restok = $_POST['id_restok'];
+    $id_pegawai = $_POST['id_pegawai'];
+    $tanggal_masuk = $_POST['tanggal_masuk'];
+    $id_barang = $_POST['id_barang'];
+    $tambah_stok = $_POST['tambah_stok'];
+    $stok_tersedia = $_POST['tambah_stok']+$_POST['stok_tersedia'];
+    
+
+    $sql = pg_query($conn, "UPDATE tabel_restok SET id_pegawai='$id_pegawai', tanggal_masuk='$tanggal_masuk' WHERE id_restok='$id_restok'");
+    $sql2 = pg_query($conn, "UPDATE tabel_detail_restok SET id_barang='$id_barang', tambah_stok='$tambah_stok' WHERE id_restok='$id_restok' ");
+    $sql3 =  pg_query($conn,"UPDATE tabel_barang SET stok_tersedia='$stok_tersedia' WHERE id_barang='$id_barang'");
+
+    if ($sql) {
+        if($sql2){
+            if($sql3){
+            ?>
+                echo "<script>alert('Data berhasil diedit');window.location='restokIndex.php';</script>";
+            <?php
+            }
+        }
+    }
+    }
+    ?>
     <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
