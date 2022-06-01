@@ -1,3 +1,7 @@
+<?php
+require_once '../connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,32 +39,32 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link"> 
+                        <a href="../berandaAdmin.php" class="nav_link"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a href="pegawaiIndex.php"  class="nav_link"> 
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="barangIndex.php" class="nav_link"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a  class="nav_link active"> 
+                        <a href="penjualanIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="pengeluaranIndex.php" class="nav_link active"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="laporan.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a href="" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -71,10 +75,10 @@
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:55px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
-                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Penjualan</a>
+                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pengeluaran</a>
                 </li>
                 </ol>
             </nav>
@@ -89,66 +93,51 @@
                                 <div class="row">
                                     <div class="row g-3">
                                         <div align="right">
-                                        <input class="btn btn-success" type="submit" name="add" value="New Report" style="width:10%;margin-left:40px;background-color:#3699FF">
-                                        <input class="btn btn-success" type="submit" name="add" value="Create" style="width:10%;margin-left:20px;background-color:#F64E60">
+                                        <a type="button" class="btn btn-success" type="submit" name="add" value="New Report" style="width:10%;margin-left:40px;background-color:#3699FF">Report</a>
+                                        <a type="button" class="btn btn-success" href="pengeluaranAdd.php"  value="Create" style="width:10%;height:40px;margin-left:20px;background-color:#F64E60">Create</a>
                                         </div>
                                         <table id="myTable" class="table table-hover" >
+                                        
                                             <thead >
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th>Tanggal</th>
-                                                    <th>ID Penjualan</th>
-                                                    <th>Pembeli</th>
-                                                    <th>ID Barang</th>
-                                                    <th>Qty</th>
+                                                    <th>ID Pengeluaran</th>
+                                                    <th>Kategori</th>
                                                     <th>Harga</th>
+                                                    <th>ID Pegawai</th>
                                                     <th>Action</th>
-                                                    <th>Struk</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php 
+                                            $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran");
+                                            $total=0;
+                                            while($row=pg_fetch_array($result)){
+                                                $jumlah=$row['harga'];
+                                                $total+=$jumlah;
+                                            ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>01/02/2022</th>
-                                                <th>P001</th>
-                                                <th>Customer 1</th>
-                                                <th>B001</th>
-                                                <th>2</th>
-                                                <th>Rp.20.000</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary" style="background-color: #3734A9;"><i class="fas fa-search"></i></button>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary" style="background-color: #C9F7F5; color:#1BC5BD">Print</button>
-                                                    
-                                                </th>
+                                                <td ><?=$row['tanggal_pengeluaran']?></td>
+                                                <td><?=$row['id_pengeluaran']?></td>
+                                                <td><?=$row['id_katpengeluaran']?></td>
+                                                <td>Rp<?=number_format($row['harga'],0,".",".")?></td>
+                                                <td><?=$row['id_pegawai']?></td>
+                                                <td>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="pengeluaranEdit.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
+                                                    <a type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data pengeluaran ini ?')" href="pengeluaranDelete.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>"><i class="fa-solid fa-trash"></i></a>
+                                                </td>
+                                                
                                             </tr>
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>02/02/2022</th>
-                                                <th>P002</th>
-                                                <th>Customer 2</th>
-                                                <th>B002</th>
-                                                <th>1</th>
-                                                <th>Rp.30.000</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary" style="background-color: #3734A9;"><i class="fas fa-search"></i></button>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary" style="background-color: #C9F7F5; color:#1BC5BD;">Print</button>
-                                                    
-                                                </th>
-                                            </tr>
-                                            </tbody>
+                                            <?php
+                                            }
+                                            
+                                            ?>  
                                             <tfoot>
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th></th>
                                                     <th></th>
-                                                    <th></th>
-                                                    <th></th>
                                                     <th>Total Penjualan</th>
-                                                    <th>Rp.50.000</th>
+                                                    <th>Rp<?=number_format($total,0,".",".")?></th>
                                                     <th></th>
                                                     <th></th>
                                                 </tr>

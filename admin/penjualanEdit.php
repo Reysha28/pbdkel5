@@ -1,7 +1,3 @@
-<?php
-require_once '../connect.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +5,6 @@ require_once '../connect.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tatitatu</title>
-    
     <link href="../css/main.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
@@ -40,32 +35,32 @@ require_once '../connect.php';
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link"> 
+                <a href="../berandaAdmin.php" class="nav_link"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link active"> 
+                        <a href="pegawaiIndex.php"  class="nav_link"> 
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="barangIndex.php" class="nav_link"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="penjualanIndex.php" class="nav_link  active"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="pengeluaranIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="laporan.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a href="" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -76,10 +71,13 @@ require_once '../connect.php';
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:55px;">
+            <nav aria-label="breadcrumb" style="margin-top:75px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
-                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pegawai</a>
+                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Penjualan</a>
+                </li>
+                <li aria-current="page">
+                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Update</a>
                 </li>
                 </ol>
             </nav>
@@ -93,50 +91,79 @@ require_once '../connect.php';
                             <form action="" method="POST">
                                 <div class="row">
                                     <div class="row g-3">
-                                        <div align="right">
-                                        <input class="btn btn-success" type="submit" name="add" value="Create" style="width:10%;margin-left:20px;background-color:#F64E60">
+                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Update Penjualan</h5> 
+                                        <div class="col-md-3">
+                                        <label for="tanggal_penjualan">Tanggal</label>
+                                        <input type="date" class="form-control" name="tanggal_penjualan" required>
                                         </div>
+
+                                        <div class="col-md-3">
+                                        <label for="id_penjualan">ID Penjualan</label>
+                                        <input type="text"  class="form-control" name="id_penjualan" required>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                        <label for="pembeli">Pembeli</label>
+                                        <input type="text" class="form-control" name="pembeli" required>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label for="id_pegawai">ID Pegawai</label>
+                                            <input type="text"  class="form-control" name="id_pegawai" required>
+                                        </div>
+
+                                        <h5 align="left" style="margin-top:20px;margin-bottom:5px;">Add Items</h5>
+
+                                        <div class="col-md-4">
+                                        <label for="id_barang">ID Barang</label>
+                                        <input type="text" class="form-control" name="id_barang" required>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                        <label for="qty">Qty</label>
+                                        <input type="number" class="form-control" name="qty" required>
+                                        </div>
+
+                                        <input class="btn btn-success" type="submit" name="add" value="Add" style="width:10%; margin-top:40px;margin-left:30px;background-color:#ff7f5c">
+
                                         <table id="myTable" class="table table-hover" >
                                             <thead >
                                                 <tr align="center" bgcolor='#F3F6F9'>
-                                                    <th>ID Pegawai</th>
-                                                    <th>Nama Pegawai</th>
-                                                    <th>Status</th>
-                                                    <th>No Telp</th>
-                                                    <th>Alamat</th>
-                                                    <th>Username</th>
-                                                    <th>Password</th>
-                                                    <th>Role</th>
+                                                    <th>ID Barang</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>Qty</th>
+                                                    <th>Harga</th>
                                                     <th>Action</th>
-                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <?php 
-                                            $result = pg_query($conn,"SELECT * from tabel_pegawai");
-
-                                            while($row=pg_fetch_array($result)){
-                                            ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <td ><?=$row['id_pegawai']?></td>
-                                                <td><?=$row['nama_pegawai']?></td>
-                                                <td><?=$row['status_pegawai']?></td>
-                                                <td><?=$row['telepon']?></td>
-                                                <td><?=$row['alamat']?></td>
-                                                <td><?=$row['username']?></td>
-                                                <td>********</td>
-                                                <td><?=$row['id_role']?></td>
-                                                <td>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #FFA63E;"  href="pegawaiChangePw.php?id_pegawai=<?= $row['id_pegawai'] ?>"><i class="fa fa-key" style="color: white;"></i></a>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;"  href="pegawaiEdit.php?id_pegawai=<?= $row['id_pegawai'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
-                                                    <a type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data pegawai ini ?')" href="pegawaiDelete.php?id_pegawai=<?= $row['id_pegawai'] ?>"><i class="fa-solid fa-trash"></i></a>
-                                                </td>
+                                                <th>B001</th>
+                                                <th>Strep Mask</th>
+                                                <th>2</th>
+                                                <th>Rp.20.000</th>
+                                                <th>
+                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
+                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                </th>
                                             </tr>
-                                            <?php
-                                            }
-                                            ?> 
                                             </tbody>
+                                            <tfoot>
+                                                <tr align="center" bgcolor='#F3F6F9'>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th>Total Harga</th>
+                                                    <th>Rp.20.000</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
+
+                                        <div align="right" class="col-8" style="margin-bottom:30px">
+                                            <a class="btn btn-primary">Reset</a>
+                                            <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
+                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -148,7 +175,7 @@ require_once '../connect.php';
     </div>
 
 
-    <div class="footer" style="bottom:-130px">
+    <div class="footer" style="bottom:-70px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>

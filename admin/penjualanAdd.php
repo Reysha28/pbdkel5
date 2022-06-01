@@ -33,32 +33,32 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link"> 
+                <a href="../berandaAdmin.php" class="nav_link"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a href="pegawaiIndex.php"  class="nav_link"> 
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="barangIndex.php" class="nav_link"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a  class="nav_link active"> 
+                        <a href="penjualanIndex.php" class="nav_link  active"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="pengeluaranIndex.php" class="nav_link "> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="laporan.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a href="" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>

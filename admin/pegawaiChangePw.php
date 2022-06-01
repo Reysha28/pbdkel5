@@ -1,3 +1,11 @@
+<?php
+include '../connect.php'; 
+
+$kode = $_GET['id_pegawai'];
+$sql = pg_query($conn, "SELECT * from tabel_pegawai where id_pegawai='$kode'");
+$row = pg_fetch_array($sql);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head>
+
 <body id="body-pd" style="background-color: #F3F6F9;">
     <header class="header" id="header" style="background-color: white">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> 
@@ -26,32 +35,32 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link"> 
+                <a href="../berandaAdmin.php" class="nav_link"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a href="pegawaiIndex.php"  class="nav_link active"> 
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="barangIndex.php" class="nav_link"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="penjualanIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a class="nav_link active"> 
+                        <a href="pengeluaranIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="laporan.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a href="" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -65,10 +74,10 @@
             <nav aria-label="breadcrumb" style="margin-top:75px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
-                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pengeluaran</a>
+                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pegawai</a>
                 </li>
                 <li aria-current="page">
-                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Create</a>
+                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Change Password</a>
                 </li>
                 </ol>
             </nav>
@@ -80,7 +89,7 @@
                     <div class="row align-items-start">
 
                     <div class="col">
-                        <img class="img" src="../images/pengeluaran.png" style="width:50%; margin-left:140px; margin-top:140px;"/>
+                        <img class="img" src="../images/pegawai.png" style="width:50%; margin-left:140px; margin-top:80px;"/>
                     </div>
                     
                     <div class="col" style="padding:0 10px">
@@ -88,46 +97,25 @@
                             <form action="" method="POST">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Pengeluaran</h5>
-                                        <div class="form-group" style="margin-bottom:20px">
-                                        <label for="tanggal_pengeluaran" style="margin-bottom:10px">Tanggal</label>
-                                        <input type="date" class="form-control" value=""  name="tanggal_pengeluaran" required>
-                                        </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
-                                        <label for="id_pengeluaran" style="margin-bottom:10px">ID Pengeluaran</label>
-                                        <input type="text" class="form-control" name="id_pengeluaran" required>
-                                        </div>
+                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Change Password Pegawai</h5>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
-                                        <label for="id_katpengeluaran" style="margin-bottom:10px">Kategori Pengeluaran</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Pengeluaran" name="id_katpengeluaran" required>
-                                        <?php 
-                                        include '../connect.php';
-                                        $pengeluaran = pg_query($conn, "select * from tabel_kategori_pengeluaran order by id_katpengeluaran ASC");
-                                        while ($row = pg_fetch_assoc($pengeluaran)) {
-                                            echo "
-                                            <option value=''></option>
-                                            <option value='$row[id_katpengeluaran]'>$row[jenis_pengeluaran]</option>
-                                            
-                                            ";
-                                        }
-                                        ?>
-                                        </select>
+                                        <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
+                                        <input type="text" class="form-control" value="<?php echo $row['id_pegawai']?>" readonly name="id_pegawai" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
-                                            <label for="harga" style="margin-bottom:10px">Harga</label>
-                                            <input type="text" class="form-control" name="harga" required>
+                                            <label for="username" style="margin-bottom:10px">Username</label>
+                                            <input type="text" class="form-control" value="<?php echo $row['username']?>" name="username" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
-                                            <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
-                                            <input type="text" class="form-control" name="id_pegawai" required>
+                                            <label for="password" style="margin-bottom:10px">Password Baru</label>
+                                            <input type="password" class="form-control"  name="password" required>
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary" name="reset" type="submit" value="reset">Reset</a>
+                                            <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
@@ -141,31 +129,28 @@
         </div>
     </div>
 
+    <?php 
+    if (isset($_POST['submit'])) {
+        $id_pegawai = $_POST['id_pegawai'];
+        $username= $_POST['username'];
+        $password= $_POST['password'];
+        $password = password_hash($password, PASSWORD_DEFAULT); 
 
-    <div class="footer" style="bottom:-90px">
+    $sql =  pg_query($conn,"UPDATE tabel_pegawai SET 
+    username='$username' ,password='$password'   
+    WHERE id_pegawai='$id_pegawai'");
+
+    if($sql){
+    echo "<script>alert('Password berhasil diubah');window.location='pegawaiIndex.php';</script>";
+    } else {
+    echo pg_last_error($conn);
+    }
+    }
+    ?>
+
+    <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
-
-    <?php 
-    include '../connect.php';
-
-    if (isset($_POST['simpan'])) {
-    $id_pengeluaran = $_POST['id_pengeluaran'];
-    $id_katpengeluaran = $_POST['id_katpengeluaran'];
-    $harga = $_POST['harga'];
-    $id_pegawai = $_POST['id_pegawai'];
-    $tanggal_pengeluaran = $_POST['tanggal_pengeluaran'];
-
-
-    $sql = pg_query($conn, "insert into tabel_pengeluaran (id_pengeluaran,id_katpengeluaran,harga,id_pegawai,tanggal_pengeluaran) values('$id_pengeluaran','$id_katpengeluaran','$harga','$id_pegawai','$tanggal_pengeluaran')");
-
-    if ($sql) {
-    ?>
-        echo "<script>alert('Data berhasil ditambah');window.location='pengeluaranIndex.php';</script>";
-    <?php
-    }
-    }
-    ?>
 </body>
 </html>
 

@@ -1,3 +1,6 @@
+<?php
+require_once '../connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,32 +38,16 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link"> 
+                        <a  href="../berandaProduksi.php" class="nav_link active"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
-                            <i class='bx bx-user nav_icon'></i> 
-                            <span class="nav_name">Pegawai</span> 
-                        </a> 
-                        <a class="nav_link  active"> 
+                        <a href="barangIndex.php" class="nav_link"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a  class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
-                            <span class="nav_name">Penjualan</span> 
-                        </a> 
-                        <a class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
-                            <span class="nav_name">Pengeluaran</span> 
-                        </a> 
-                        <a  class="nav_link"> 
-                            <i class='bx bx-book nav_icon'></i> 
-                            <span class="nav_name">Laporan</span> 
-                        </a>
                         <br><br><br>
-                        <a href="" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" style="margin-top:270px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -71,10 +58,10 @@
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:55px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
-                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Stok</a>
+                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Barang</a>
                 </li>
                 </ol>
             </nav>
@@ -89,42 +76,38 @@
                                 <div class="row">
                                     <div class="row g-3">
                                         <div align="right">
-                                        <input class="btn btn-success" type="submit" name="add" value="Create" style="width:10%;margin-left:20px;background-color:#F64E60">
+                                        <a type="button" class="btn btn-success" href="barangAdd.php"  value="Create" style="width:10%;height:40px;margin-left:20px;background-color:#F64E60">Create</a>
                                         </div>
                                         <table id="myTable" class="table table-hover" >
                                             <thead >
                                                 <tr align="center" bgcolor='#F3F6F9'>
-                                                    <th>ID Restok</th>
-                                                    <th>ID Pegawai</th>
-                                                    <th>Tanggal</th>
                                                     <th>ID Barang</th>
-                                                    <th>Qty</th>
-                                                    <th>Action</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>ID Kategori</th>
+                                                    <th>Warna</th>
+                                                    <th>Harga</th>
+                                                    <th>Stok</th>
+                                                    <th>Keterangan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php 
+                                            $result = pg_query($conn,"SELECT * FROM tabel_barang");
+
+                                            while($row=pg_fetch_array($result)){
+                                            ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>A001</th>
-                                                <th>M1</th>
-                                                <th>10-10-2020</th>
-                                                <th>B001</th>
-                                                <th>10</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
+                                                <td ><?=$row['id_barang']?></td>
+                                                <td><?=$row['nama_barang']?></td>
+                                                <td><?=$row['id_katbarang']?></td>
+                                                <td><?=$row['warna_barang']?></td>
+                                                <td>Rp<?=number_format($row['harga_barang'],0,".",".")?></td>
+                                                <td><?=$row['stok_tersedia']?></td>
+                                                <td>Tersedia</td>
                                             </tr>
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                            <th>A001</th>
-                                                <th>M1</th>
-                                                <th>10-10-2020</th>
-                                                <th>B001</th>
-                                                <th>10</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
-                                            </tr>
+                                            <?php
+                                            }
+                                            ?> 
                                             </tbody>
                                         </table>
                                     </div>

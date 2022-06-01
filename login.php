@@ -32,7 +32,7 @@
                         <input type="password" class="form-control" id="exampleFormControlInput1">
                     </div>
                     <br>
-                    <center><button type="submit" name="login" class="btn-login">Login</button></center>   
+                    <center><a type="submit" name="login" class="btn-login" style="width:100%;height:45px;padding:10px 20px; color:white;background-color:#1BC5BD;text-decoration:none;border-radius:10px">Login</a></center>   
                 </form>
             </div>
         </div>

@@ -5,12 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tatitatu</title>
-    <link href="../css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+    	<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <!-- data tabel CSS -->
+        <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
+        <!-- data tabel CSS -->
+        <link rel="stylesheet" href="assets/css/bootstrap-chosen.css">
 </head>
 
 <body id="body-pd" style="background-color: #F3F6F9;">
@@ -27,32 +35,32 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link"> 
+                <a href="../berandaAdmin.php" class="nav_link"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a href="pegawaiIndex.php"  class="nav_link"> 
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a class="nav_link active"> 
+                        <a href="barangIndex.php" class="nav_link active"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="penjualanIndex.php" class="nav_link "> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="pengeluaranIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="laporan.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a href="" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -68,68 +76,60 @@
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Stok</a>
                 </li>
-                <li aria-current="page">
-                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Edit</a>
-                </li>
                 </ol>
             </nav>
         </div>
 
         <div class="row">
-                <div  class="" style="border-radius:10px">
-                    <div class="card-body" style="background-color:white; box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.25);border-radius: 10px;">
-                    <div class="row align-items-start">
-
-                    <div class="col">
-                        <img class="img" src="../images/barang.png" style="width:50%; margin-left:140px; margin-top:140px;"/>
-                    </div>
-                    
-                    <div class="col" style="padding:0 10px">
-                    <div class="container-fluid">
+            <div class="col-12">
+                <div class="card mb-4" style="border-radius: 10px;">
+                    <div class="card-body" style="box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.25);border-radius: 10px;">
+                        <div class="container-fluid">
                             <form action="" method="POST">
                                 <div class="row">
-                                    <div class="col">
-                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Edit Stok</h5>
-                                        
-                                        <div class="form-group" style="margin-bottom:20px">
-                                        <label for="id_restok" style="margin-bottom:10px">ID Restok</label>
-                                        <input type="text" class="form-control" name="id_restok" required>
+                                    <div class="row g-3">
+                                        <div align="right">
+                                        <input class="btn btn-success" type="submit" name="add" value="Create" style="width:10%;margin-left:20px;background-color:#F64E60">
                                         </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
-                                            <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
-                                            <input type="text" class="form-control" name="id_pegawai" required>
-                                        </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
-                                            <label for="tanggal_masuk" style="margin-bottom:10px">Tanggal Restok</label>
-                                            <input type="date" class="form-control" name="tanggal_masuk" required>
-                                        </div>
-                                        
-                                        <div class="form-group" style="margin-bottom:20px">
-                                        <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Barang" name="id_barang" required>
-                                        <option value=""></option>;
-                                        <option value="1"><?php echo "Baju";?> </option>;
-                                        <option value="2"><?php echo "Gelang";?> </option>;
-                                        <option value="2"><?php echo "Strep Mask";?> </option>;
-                                        <option value="2"><?php echo "Cincin";?> </option>;
-                                        </select>
-                                        </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
-                                            <label for="tambah_stok" style="margin-bottom:10px">Stok Tambahan</label>
-                                            <input type="number" class="form-control" name="tambah_stok" required>
-                                        </div>
-
-                                        <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
-                                            <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
-                                        </div>
+                                        <table id="myTable" class="table table-hover" >
+                                            <thead >
+                                                <tr align="center" bgcolor='#F3F6F9'>
+                                                    <th>ID Restok</th>
+                                                    <th>ID Pegawai</th>
+                                                    <th>Tanggal</th>
+                                                    <th>ID Barang</th>
+                                                    <th>Qty</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
+                                                <th>A001</th>
+                                                <th>M1</th>
+                                                <th>10-10-2020</th>
+                                                <th>B001</th>
+                                                <th>10</th>
+                                                <th>
+                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
+                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                </th>
+                                            </tr>
+                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
+                                            <th>A001</th>
+                                                <th>M1</th>
+                                                <th>10-10-2020</th>
+                                                <th>B001</th>
+                                                <th>10</th>
+                                                <th>
+                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
+                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                </th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                            </form>       
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
     </div>
 
 
-    <div class="footer" style="bottom:-90px">
+    <div class="footer" style="bottom:-130px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>

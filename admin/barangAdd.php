@@ -1,10 +1,5 @@
-<?php
-include '../connect.php'; 
-
-$kode = $_GET['id_pengeluaran'];
-$sql = pg_query($conn, "SELECT * from tabel_pengeluaran where id_pengeluaran='$kode'");
-$row = pg_fetch_array($sql);
-
+<?php 
+    include '../connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +16,7 @@ $row = pg_fetch_array($sql);
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head>
 
+
 <body id="body-pd" style="background-color: #F3F6F9;">
     <header class="header" id="header" style="background-color: white">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> 
@@ -35,32 +31,32 @@ $row = pg_fetch_array($sql);
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link"> 
+                        <a href="../berandaAdmin.php" class="nav_link"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a href="pegawaiIndex.php"  class="nav_link"> 
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="barangIndex.php" class="nav_link active"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="penjualanIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a class="nav_link active"> 
+                        <a href="pengeluaranIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="laporan.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a href="" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -74,14 +70,38 @@ $row = pg_fetch_array($sql);
             <nav aria-label="breadcrumb" style="margin-top:75px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
-                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pengeluaran</a>
+                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Barang</a>
                 </li>
                 <li aria-current="page">
-                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Update</a>
+                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Create</a>
                 </li>
                 </ol>
             </nav>
         </div>
+
+        <div class="row">
+            <?php
+            if(isset($_GET['pesan']))
+            {
+                if($_GET['pesan']=="gagal"){?>
+                    <div class="info" align="center">
+                        <div class="alert alert-warning alert-dismissible fade show" style="width:40%">
+                            <div class="row vertical-align">
+                                <div class="col-12 text-center">
+                                    <i class="fa fa-exclamation-triangle fa-2x"></i> 
+                                </div>
+                                <div class="col-sm-11">
+                                <strong>Warning!</strong> Data sudah ada
+                                </div>
+                            </div>
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+            </div>
 
         <div class="row">
                 <div  class="" style="border-radius:10px">
@@ -89,7 +109,7 @@ $row = pg_fetch_array($sql);
                     <div class="row align-items-start">
 
                     <div class="col">
-                        <img class="img" src="../images/pengeluaran.png" style="width:50%; margin-left:140px; margin-top:140px;"/>
+                        <img class="img" src="../images/barang.png" style="width:50%; margin-left:140px; margin-top:140px;"/>
                     </div>
                     
                     <div class="col" style="padding:0 10px">
@@ -97,38 +117,54 @@ $row = pg_fetch_array($sql);
                             <form action="" method="POST">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Update Pengeluaran</h5>
-                                        <div class="form-group" style="margin-bottom:20px">
-                                        <label for="tanggal_pengeluaran" style="margin-bottom:10px">Tanggal</label>
-                                        <input type="date" class="form-control" value="<?php echo $row['tanggal_pengeluaran']?>"  name="tanggal_pengeluaran" required>
-                                        </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
-                                        <label for="id_pengeluaran" style="margin-bottom:10px">ID Pengeluaran</label>
-                                        <input type="text" class="form-control" readonly value="<?php echo $row['id_pengeluaran']?>" name="id_pengeluaran" required>
-                                        </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
-                                            <label for="harga" style="margin-bottom:10px">Harga</label>
-                                            <input type="double" class="form-control" value="<?php echo $row['harga']?>"  name="harga" required>
-                                        </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
-                                            <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
-                                            <input type="text" class="form-control" name="id_pegawai" value="<?php echo $row ['id_pegawai'] ?>" required>
-                                        </div>
+                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Barang</h5>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
-                                            <label for="id_katpengeluaran" style="margin-bottom:10px">Kategori Pengeluaran</label>
-                                            <input style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Pengeluaran" name="id_katpengeluaran" required value="<?php echo $row['id_katpengeluaran'] ?>">
-                                           
-                                
+                                        <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
+                                        <input type="text" class="form-control" name="id_barang" required>
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:20px">
+                                            <label for="nama_barang" style="margin-bottom:10px">Nama Barang</label>
+                                            <input type="text" class="form-control" name="nama_barang" required>
+                                            </div>
+                                        
+                                        <div class="form-group" style="margin-bottom:20px">
+                                        <label for="id_katbarang" style="margin-bottom:10px">Kategori</label>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" required>
+                                        <?php 
+                                        include '../connect.php';
+                                        $barang = pg_query($conn, "select * from tabel_kategori_barang order by id_katbarang ASC");
+                                        while ($row = pg_fetch_assoc($barang)) {
+                                            echo "
+                                            <option value=''></option>
+                                            <option value='$row[id_katbarang]'>$row[kategori_barang]</option>
+                                            
+                                            ";
+                                        }
+                                        ?>
+                                        </select>
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:20px">
+                                            <label for="warna_barang" style="margin-bottom:10px">Warna</label>
+                                            <input type="text" class="form-control" name="warna_barang" required>
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:20px">
+                                            <label for="harga_barang" style="margin-bottom:10px">Harga</label>
+                                            <input type="text" class="form-control" name="harga_barang" required>
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:20px">
+                                            <label for="stok_tersedia" style="margin-bottom:10px">Stok</label>
+                                            <input type="number" class="form-control" name="stok_tersedia" required>
                                         </div>
 
                                         <div align="right" class="col-9">
                                             <a class="btn btn-primary">Reset</a>
-                                            <a class="btn btn-warning" style="margin-left:30px" href="">Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
+                                            <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
+                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
                                     </div>
                                 </div>
@@ -139,32 +175,31 @@ $row = pg_fetch_array($sql);
             </div>
         </div>
     </div>
+    
+    <?php 
+   
+    if (isset($_POST['simpan'])) {
+    $id_barang = $_POST['id_barang'];
+    $id_katbarang = $_POST['id_katbarang'];
+    $nama_barang = $_POST['nama_barang'];
+    $warna_barang = $_POST['warna_barang'];
+    $harga_barang = $_POST['harga_barang'];
+    $stok_tersedia = $_POST['stok_tersedia'];
 
+    $sql = pg_query($conn, "insert into tabel_barang (id_barang,id_katbarang,nama_barang,warna_barang,harga_barang, stok_tersedia) values ('$id_barang','$id_katbarang','$nama_barang','$warna_barang','$harga_barang', '$stok_tersedia')");
 
-    <div class="footer" style="bottom:-90px">
+    if ($sql) {
+    ?>
+        echo "<script>alert('Data berhasil ditambah');window.location='barangIndex.php';</script>";
+    <?php
+    }
+    }
+    
+    ?>
+
+    <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
-
-    <?php 
-    include '../connect.php';
-
-    if (isset($_POST['submit'])) {
-        $id_pengeluaran = $_POST['id_pengeluaran'];
-        $id_katpengeluaran = $_POST['id_katpengeluaran'];
-        $harga = $_POST['harga'];
-        $id_pegawai = $_POST['id_pegawai'];
-        $tanggal_pengeluaran = $_POST['tanggal_pengeluaran'];
-
-
-    $sql =  pg_query($conn,"UPDATE tabel_pengeluaran SET tanggal_pengeluaran='$tanggal_pengeluaran', id_katpengeluaran='$id_katpengeluaran', harga='$harga', id_pegawai='$id_pegawai' WHERE id_pengeluaran='$id_pengeluaran'");
-
-    if($sql){
-    echo "<script>alert('Data berhasil diedit');window.location='pengeluaranIndex.php';</script>";
-    } else {
-    echo pg_last_error($conn);
-    }
-    }
-    ?>
 </body>
 </html>
 

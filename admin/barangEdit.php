@@ -1,11 +1,12 @@
 <?php
 include '../connect.php'; 
 
-$kode = $_GET['id_pegawai'];
-$sql = pg_query($conn, "SELECT * from tabel_pegawai where id_pegawai='$kode'");
+$kode = $_GET['id_barang'];
+$sql = pg_query($conn, "SELECT * from tabel_barang where id_barang='$kode'");
 $row = pg_fetch_array($sql);
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,7 @@ $row = pg_fetch_array($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tatitatu</title>
     <link href="../css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="webtatitatu/css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
@@ -35,32 +37,32 @@ $row = pg_fetch_array($sql);
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link"> 
+                <a href="../berandaAdmin.php" class="nav_link"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link active"> 
+                        <a href="pegawaiIndex.php"  class="nav_link"> 
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="barangIndex.php" class="nav_link active"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="penjualanIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="pengeluaranIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="laporan.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a href="" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -74,7 +76,7 @@ $row = pg_fetch_array($sql);
             <nav aria-label="breadcrumb" style="margin-top:75px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
-                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pegawai</a>
+                    <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Barang</a>
                 </li>
                 <li aria-current="page">
                     <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Update</a>
@@ -89,7 +91,7 @@ $row = pg_fetch_array($sql);
                     <div class="row align-items-start">
 
                     <div class="col">
-                        <img class="img" src="../images/pegawai.png" style="width:50%; margin-left:140px; margin-top:240px;"/>
+                        <img class="img" src="../images/barang.png" style="width:50%; margin-left:140px; margin-top:140px;"/>
                     </div>
                     
                     <div class="col" style="padding:0 10px">
@@ -97,82 +99,37 @@ $row = pg_fetch_array($sql);
                             <form action="" method="POST">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Update Pegawai</h5>
+                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Update Barang</h5>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
-                                        <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
-                                        <input type="text" class="form-control" readonly name="id_pegawai" value="<?php echo $row['id_pegawai']?>" required>
+                                        <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
+                                        <input type="text" class="form-control" readonly name="id_barang" value="<?php echo $row['id_barang']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
-                                            <label for="nama_pegawai" style="margin-bottom:10px">Nama Pegawai</label>
-                                            <input type="text" class="form-control" name="nama_pegawai" value="<?php echo $row['nama_pegawai']?>" required>
+                                            <label for="nama_barang" style="margin-bottom:10px">Nama Barang</label>
+                                            <input type="text" class="form-control" name="nama_barang" value="<?php echo $row['nama_barang']?>" required>
                                             </div>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
-                                        <label for="status_pegawai" style="margin-bottom:10px">Status</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Status Pegawai" name="status_pegawai" required>
-                                        <?php
-                                            if ($id_pegawai['status_pegawai']=="Pemilik"){
-                                                $status_pegawai = "Pemilik";
-                                            }
-                                            else{
-                                                $status_pegawai = "Karyawan";
-                                            }
-                                            ?>
-                                        <option readonly selected value="<?php echo $id_pegawai["status_pegawai"]?>"><?=$status_pegawai?></option>;
-                                        <option value="Pemilik"><?php echo "Pemilik";?> </option>;
-                                        <option value="Karyawan"><?php echo "Karyawan";?> </option>;
-                                        </select>
+                                        <label for="id_katbarang" style="margin-bottom:10px">Kategori</label>
+                                        <input style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" value="<?php echo $row['id_katbarang'] ?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
-                                            <label for="telepon" style="margin-bottom:10px">No Telp</label>
-                                            <input type="text" class="form-control" name="telepon" value="<?php echo $row['telepon']?>" required>
+                                            <label for="warna_barang" style="margin-bottom:10px">Warna</label>
+                                            <input type="text" class="form-control" name="warna_barang" value="<?php echo $row['warna_barang']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
-                                            <label for="alamat" style="margin-bottom:10px">Alamat</label>
-                                            <input type="text" class="form-control" name="alamat" value="<?php echo $row['alamat']?>" required>
+                                            <label for="harga_barang" style="margin-bottom:10px">Harga</label>
+                                            <input type="text" class="form-control" name="harga_barang" value="<?php echo $row['harga_barang']?>" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
-                                            <label for="username" style="margin-bottom:10px">Username</label>
-                                            <input type="text" class="form-control" name="username" value="<?php echo $row['username']?>" required>
+                                            <label for="stok_tersedia" style="margin-bottom:10px">Stok</label>
+                                            <input type="number" class="form-control" name="stok_tersedia" value="<?php echo $row['stok_tersedia']?>" required>
                                         </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
-                                            <label for="id_role" style="margin-bottom:10px">Role</label>
-                                            <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Role" name="id_role" required>
-                                            <?php
-                                            if ($id_pegawai['id_role']=="1"){
-                                                $id_role = "1";
-                                            }
-                                            else if ($id_pegawai['id_role']=="2"){
-                                                $id_role = "2";
-                                            }
-                                            else if ($id_pegawai['id_role']=="3"){
-                                                $id_role = "3";
-                                            }
-                                            else if ($id_pegawai['id_role']=="4"){
-                                                $id_role = "4";
-                                            }
-                                            else if ($id_pegawai['id_role']=="5"){
-                                                $id_role = "5";
-                                            }
-                                            else{
-                                                $id_role = "6";
-                                            }
-                                            ?>
-                                            <option readonly selected value="<?php echo $id_pegawai["id_role"]?>"><?=$id_role?></option>;
-                                            <option value="1"><?php echo "Admin";?> </option>;
-                                            <option value="2"><?php echo "Pemilik";?> </option>;
-                                            <option value="3"><?php echo "Kasir";?> </option>;
-                                            <option value="4"><?php echo "Staff Produksi";?> </option>;
-                                            <option value="5"><?php echo "Staff Lapangan";?> </option>;
-                                            <option value="6"><?php echo "Staff Marketing";?> </option>;
-                                            </select>
-                                            </div>
 
                                         <div align="right" class="col-9">
                                             <a class="btn btn-primary">Reset</a>
@@ -190,31 +147,27 @@ $row = pg_fetch_array($sql);
     </div>
 
     <?php 
-    include '../connect.php';
-
     if (isset($_POST['submit'])) {
-        $id_pegawai = $_POST['id_pegawai'];
-        $nama_pegawai = $_POST['nama_pegawai'];
-        $status_pegawai= $_POST['status_pegawai'];
-        $telepon= $_POST['telepon'];
-        $alamat = $_POST['alamat'];
-        $username= $_POST['username'];
-        $id_role = $_POST['id_role'];
+        $id_barang = $_POST['id_barang'];
+        $id_katbarang = $_POST['id_katbarang'];
+        $nama_barang = $_POST['nama_barang'];
+        $warna_barang = $_POST['warna_barang'];
+        $harga_barang = $_POST['harga_barang'];
+        $stok_tersedia = $_POST['stok_tersedia'];
 
-    $sql =  pg_query($conn,"UPDATE tabel_pegawai SET 
-    nama_pegawai='$nama_pegawai', status_pegawai='$status_pegawai' 
-    , telepon='$telepon' , alamat='$alamat' , username='$username' , id_role='$id_role' 
-    WHERE id_pegawai='$id_pegawai'");
+    $sql =  pg_query($conn,"UPDATE tabel_barang SET id_katbarang='$id_katbarang', nama_barang='$nama_barang', warna_barang='$warna_barang' 
+    , harga_barang='$harga_barang' , stok_tersedia='$stok_tersedia' 
+    WHERE id_barang='$id_barang'");
 
     if($sql){
-    echo "<script>alert('Data berhasil diedit');window.location='pegawaiIndex.php';</script>";
+    echo "<script>alert('Data berhasil diedit');window.location='barangIndex.php';</script>";
     } else {
     echo pg_last_error($conn);
     }
     }
     ?>
 
-    <div class="footer" style="bottom:-90px">
+    <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>

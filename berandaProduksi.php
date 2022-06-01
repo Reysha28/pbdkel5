@@ -27,16 +27,16 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link active"> 
+                        <a  href="berandaProduksi.php" class="nav_link active"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a  href="produksi/barangIndex.php" class="nav_link"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
                         <br><br><br>
-                        <a class="nav_link" style="margin-top:270px;" href="{{url('/login')}}"> 
+                        <a href="login.php" class="nav_link" style="margin-top:270px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
