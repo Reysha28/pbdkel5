@@ -1,14 +1,5 @@
 <?php 
     include '../connect.php';
-
-    $query = pg_query($conn, "SELECT max(id_penjualan) as id_penjualan FROM tabel_transaksi");
-    $row = pg_fetch_array($query);
-    $kode = $row['id_penjualan'];
-    $urutan = (int) substr($kode, 3, 3);
-    $urutan=$urutan+1;
-    $huruf = "E";
-    $id = $huruf . sprintf("%03s", $urutan); 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +69,6 @@
             </div> 
         </nav>
     </div>
-
     <div>
         <div class="row" >
             <nav aria-label="breadcrumb" style="margin-top:75px;">
@@ -92,6 +82,11 @@
                 </ol>
             </nav>
         </div>
+        <?php 
+        $sql = pg_query($conn, "SELECT * from tabel_transaksi where id_penjualan=(SELECT max(id_penjualan) from tabel_transaksi)");
+        $row = pg_fetch_array($sql);
+
+        ?>
 
         <div class="row">
             <div class="col-12">
@@ -102,28 +97,93 @@
                                 <div class="row">
                                     <div class="row g-3">
                                         <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Penjualan</h5> 
-                                        <div class="col-md-6">
-                                        <label for="id_penjualan">ID Penjualan</label>
-                                        <input type="text"  class="form-control" name="id_penjualan" value="<?php echo $id?>" readonly required>
-                                        </div>
-                                        
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                         <label for="tanggal_penjualan">Tanggal</label>
-                                        <input type="date" class="form-control" name="tanggal_penjualan"  required>
+                                        <input type="date" class="form-control" name="tanggal_penjualan"  value="<?php echo $row['tanggal_penjualan']?>" required>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
+                                        <label for="id_penjualan">ID Penjualan</label>
+                                        <input type="text"  class="form-control" name="id_penjualan" value="<?php echo $row['id_penjualan']?>">
+                                        </div>
+
+                                        <div class="col-md-3">
                                         <label for="pembeli">Pembeli</label>
-                                        <input type="text" class="form-control" name="pembeli" required>
+                                        <input type="text" class="form-control" name="pembeli" value="<?php echo $row['pembeli']?>">
                                         </div>
+
+                                        <div class="col-md-3">
+                                            <label for="id_pegawai">ID Pegawai</label>
+                                            <input type="text"  class="form-control" name="id_pegawai" value="<?php echo $row['id_pegawai']?>">
+                                        </div>
+
+                                        <h5 align="left" style="margin-top:20px;margin-bottom:5px;">Add Items</h5>
+
+                                        <div class="col-md-4">
+                                        <label for="id_barang">Barang</label>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" required>
+                                        <option value="" disabled selected>Pilih Barang</option>
+                                        <?php 
+                                        $barang = pg_query($conn, "select * from tabel_barang order by id_barang ASC");
+                                        while ($row = pg_fetch_assoc($barang)) {
+                                            echo "
+                                            <option value='$row[id_barang]'>$row[nama_barang]</option>
+                                            
+                                            ";
+                                        }
+                                        ?>
+                                        </select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                        <label for="qty">Qty</label>
+                                        <input type="number" class="form-control" name="qty" required>
+                                        </div>
+
+                                        <input class="btn btn-success" type="submit" name="simpan" value="Add" style="width:10%; margin-top:40px;margin-left:30px;background-color:#ff7f5c">
+
+                                        <table id="myTable" class="table table-hover" >
+                                            <thead >
+                                                <tr align="center" bgcolor='#F3F6F9'>
+                                                    <th>ID Barang</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>Qty</th>
+                                                    <th>Harga</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
+                                                <th></th>
+                                                <th></th>
+                                                <th span="5">No record found</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr align="center" bgcolor='#F3F6F9'>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th>Total Harga</th>
+                                                    <th>Rp.0</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
 
                                         <div class="col-md-6">
-                                            <label for="id_pegawai">ID Pegawai</label>
-                                            <input type="text"  class="form-control" name="id_pegawai" required>
+                                            <label for="bayar">Bayar</label>
+                                            <input type="text" class="form-control" name="bayar">
+                                        </div>
+    
+                                        <div class="col-md-6">
+                                            <label for="kembalian">Kembalian</label>
+                                            <input type="text" class="form-control" name="kembalian">
                                         </div>
 
-                                        <div align="right" class="col-8" style="margin-bottom:10px;margin-top:40px">
-                                            <button class="btn btn-primary" type="reset">Reset</button>
+                                        <div align="right" class="col-8" style="margin-bottom:30px">
+                                        <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
@@ -136,17 +196,18 @@
             </div>
         </div>
     </div>
-
     <?php 
     if (isset($_POST['simpan'])) {
-    $id_pegawai = $_POST['id_pegawai'];
-    $pembeli = $_POST['pembeli'];
-    $tanggal_penjualan= $_POST['tanggal_penjualan'];
+        
+    $id_barang = $_POST['id_barang'];
+    $harga_barang = $_POST['harga_barang'];
+    $qty= $_POST['qty'];
+    $total_harga= $qty*$harga_barang;
     $id_penjualan= $_POST['id_penjualan'];
 
-    $sql = pg_query($conn, "insert into tabel_transaksi 
-    (id_pegawai,pembeli,tanggal_penjualan,id_penjualan) 
-    values('$id_pegawai','$pembeli','$tanggal_penjualan','$id_penjualan')");
+    $sql = pg_query($conn, "insert into tabel_detail_transaksi 
+    (id_barang,qty,total_harga,id_penjualan) 
+    values('$id_barang','$qty','$total_harga','$id_penjualan')");
 
     if ($sql) {
     ?>
@@ -155,20 +216,11 @@
     }
     }
     ?>
-
-    <div class="footer" style="bottom:-70px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
-    </div>
 </body>
+
 </html>
 
 <script>
-    function total() {
-    var harga = parseInt(document.getElementById('harga_barang').value);
-    var jumlah_beli = parseInt(document.getElementById('qty').value);
-    var jumlah_harga = harga * jumlah_beli;
-    document.getElementById('subtotal').value = jumlah_harga;
-}
 
 document.addEventListener("DOMContentLoaded", function(event) { 
     const showNavbar = (toggleId, navId, bodyId, headerId) =>{
