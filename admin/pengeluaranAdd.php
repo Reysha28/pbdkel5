@@ -104,13 +104,13 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_katpengeluaran" style="margin-bottom:10px">Kategori Pengeluaran</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Pengeluaran" name="id_katpengeluaran" required>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Kategori Pengeluaran" name="id_katpengeluaran" required>
+                                        <option value="" disabled selected>Pilih Kategori Pengeluaran</option>
                                         <?php 
                                         include '../connect.php';
                                         $pengeluaran = pg_query($conn, "select * from tabel_kategori_pengeluaran order by id_katpengeluaran ASC");
                                         while ($row = pg_fetch_assoc($pengeluaran)) {
                                             echo "
-                                            <option value=''></option>
                                             <option value='$row[id_katpengeluaran]'>$row[jenis_pengeluaran]</option>
                                             
                                             ";
@@ -130,7 +130,7 @@
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary" name="reset" type="submit" value="reset">Reset</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button> 
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
@@ -145,7 +145,7 @@
     </div>
 
 
-    <div class="footer" style="bottom:-90px">
+    <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 

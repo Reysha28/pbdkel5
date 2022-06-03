@@ -73,7 +73,7 @@ $row = pg_fetch_array($sql);
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:55px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Barang</a>
@@ -113,8 +113,24 @@ $row = pg_fetch_array($sql);
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_katbarang" style="margin-bottom:10px">Kategori</label>
-                                        <input style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" value="<?php echo $row['id_katbarang'] ?>" required>
-                                        </div>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" required>
+                                        <option value="" disabled selected>Pilih Kategori Barang</option>
+                                        <?php 
+                                        include '../connect.php';
+                                        $barang = pg_query($conn, "select * from tabel_kategori_barang order by id_katbarang ASC");
+                                        while ($row2 = pg_fetch_assoc($barang)) {
+                                        ?>  
+                                            <option value="<?php echo $row2['id_katbarang']?>" 
+                                            <?php if($row['id_katbarang'] == $row2['id_katbarang']){
+                                                echo 'selected';
+                                            }?>>
+                                                <?php echo $row2['kategori_barang']?>
+                                            </option>
+                                        <?php 
+                                            }
+                                        ?>
+                                        </select>
+                                    </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="warna_barang" style="margin-bottom:10px">Warna</label>
@@ -132,7 +148,7 @@ $row = pg_fetch_array($sql);
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
                                         </div>

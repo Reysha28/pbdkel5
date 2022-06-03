@@ -110,7 +110,8 @@ require_once '../connect.php';
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran");
+                                            $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran");
+
                                             $total=0;
                                             while($row=pg_fetch_array($result)){
                                                 $jumlah=$row['harga'];
@@ -119,7 +120,7 @@ require_once '../connect.php';
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
                                                 <td ><?=$row['tanggal_pengeluaran']?></td>
                                                 <td><?=$row['id_pengeluaran']?></td>
-                                                <td><?=$row['id_katpengeluaran']?></td>
+                                                <td><?=$row['jenis_pengeluaran']?></td>
                                                 <td>Rp<?=number_format($row['harga'],0,".",".")?></td>
                                                 <td><?=$row['id_pegawai']?></td>
                                                 <td>
@@ -151,11 +152,6 @@ require_once '../connect.php';
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="footer" style="bottom:-130px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>
 </html>

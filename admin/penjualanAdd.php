@@ -117,12 +117,29 @@
 
                                         <div class="col-md-4">
                                         <label for="id_barang">ID Barang</label>
-                                        <input type="text" class="form-control" name="id_barang" required>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" required>
+                                        <?php 
+                                        $barang = pg_query($conn, "select * from tabel_barang order by id_barang ASC");
+                                        while ($row = pg_fetch_assoc($barang)) {
+                                            echo "
+                                            <option value=''></option>
+                                            <option value='$row[id_barang]'>$row[nama_barang]</option>
+                                            
+                                            ";
+                                        }
+                                        ?>
+                                        </select>
                                         </div>
 
                                         <div class="col-md-4">
                                         <label for="qty">Qty</label>
                                         <input type="number" class="form-control" name="qty" required>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                        <label for="qty">Harga</label>
+                                        <input type="number" class="form-control" name="subtotal" onchange="total()"
+                                        value="<?php echo $row['subtotal'];?>" required>
                                         </div>
 
                                         <input class="btn btn-success" type="submit" name="add" value="Add" style="width:10%; margin-top:40px;margin-left:30px;background-color:#ff7f5c">
@@ -168,7 +185,7 @@
                                         </div>
 
                                         <div align="right" class="col-8" style="margin-bottom:30px">
-                                            <a class="btn btn-primary">Reset</a>
+                                        <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
@@ -190,6 +207,13 @@
 </html>
 
 <script>
+    function total() {
+    var harga = parseInt(document.getElementById('harga_barang').value);
+    var jumlah_beli = parseInt(document.getElementById('qty').value);
+    var jumlah_harga = harga * jumlah_beli;
+    document.getElementById('subtotal').value = jumlah_harga;
+}
+
 document.addEventListener("DOMContentLoaded", function(event) { 
     const showNavbar = (toggleId, navId, bodyId, headerId) =>{
     const toggle = document.getElementById(toggleId),

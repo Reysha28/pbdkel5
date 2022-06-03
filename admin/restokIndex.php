@@ -92,7 +92,7 @@ require_once '../connect.php';
                                 <div class="row">
                                     <div class="row g-3">
                                         <div align="right">
-                                        <input class="btn btn-success" type="submit" name="add" value="Create" style="width:10%;margin-left:20px;background-color:#F64E60">
+                                        <a type="button" class="btn btn-success" href="restokAdd.php"  value="Create" style="width:10%;height:40px;margin-left:20px;background-color:#F64E60">Create</a>
                                         </div>
                                         <table id="myTable" class="table table-hover" >
                                             <thead >
@@ -102,7 +102,6 @@ require_once '../connect.php';
                                                     <th>Tanggal</th>
                                                     <th>ID Barang</th>
                                                     <th>Qty</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -117,11 +116,6 @@ require_once '../connect.php';
                                                 <td><?=$row['tanggal_masuk']?></td>
                                                 <td><?=$row['id_barang']?></td>
                                                 <td><?=$row['tambah_stok']?></td>
-                                                <td>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="restokEdit.php?id_restok=<?= $row['id_restok'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
-                                                    <a type="button" onclick="return confirm('Anda yakin menghapus data restok ini ?')" href="restokDelete.php?id_restok=<?= $row['id_restok'] ?>"
-                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                                                </td>
                                             </tr>
                                             <?php
                                             }
@@ -136,11 +130,6 @@ require_once '../connect.php';
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="footer" style="bottom:-130px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>
 </html>

@@ -111,11 +111,16 @@ $row = pg_fetch_array($sql);
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="password" style="margin-bottom:10px">Password Baru</label>
-                                            <input type="password" class="form-control"  value="<?php echo $row['password']?>" name="password" required>
+                                            <input type="password" class="form-control"  value="" name="password" required>
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:20px">
+                                            <label for="password" style="margin-bottom:10px">Konfirmasi Password</label>
+                                            <input type="password" class="form-control"  value="" name="password2" required>
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
                                         </div>
@@ -134,6 +139,8 @@ $row = pg_fetch_array($sql);
         $id_pegawai = $_POST['id_pegawai'];
         $username= $_POST['username'];
         $password= $_POST['password'];
+        $password2= $_POST['password2'];
+    
         $password = password_hash($password, PASSWORD_DEFAULT); 
 
     $sql =  pg_query($conn,"UPDATE tabel_pegawai SET username='$username' , password='$password' WHERE id_pegawai='$id_pegawai'");
@@ -144,6 +151,7 @@ $row = pg_fetch_array($sql);
     echo pg_last_error($conn);
     }
     }
+    
     ?>
 
     <div class="footer" style="bottom:-120px">

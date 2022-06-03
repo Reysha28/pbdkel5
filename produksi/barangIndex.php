@@ -119,11 +119,6 @@ require_once '../connect.php';
             </div>
         </div>
     </div>
-
-
-    <div class="footer" style="bottom:-130px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
-    </div>
 </body>
 </html>
 

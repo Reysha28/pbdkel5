@@ -99,7 +99,7 @@ require_once '../connect.php';
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th>ID Barang</th>
                                                     <th>Nama Barang</th>
-                                                    <th>ID Kategori</th>
+                                                    <th>Kategori Barang</th>
                                                     <th>Warna</th>
                                                     <th>Harga</th>
                                                     <th>Stok</th>
@@ -109,14 +109,14 @@ require_once '../connect.php';
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_barang");
+                                            $result = pg_query($conn,"SELECT * FROM tabel_barang join tabel_kategori_barang on tabel_barang.id_katbarang=tabel_kategori_barang.id_katbarang");
 
                                             while($row=pg_fetch_array($result)){
                                             ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
                                                 <td ><?=$row['id_barang']?></td>
                                                 <td><?=$row['nama_barang']?></td>
-                                                <td><?=$row['id_katbarang']?></td>
+                                                <td><?=$row['kategori_barang']?></td>
                                                 <td><?=$row['warna_barang']?></td>
                                                 <td>Rp<?=number_format($row['harga_barang'],0,".",".")?></td>
                                                 <td><?=$row['stok_tersedia']?></td>
@@ -141,11 +141,6 @@ require_once '../connect.php';
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="footer" style="bottom:-130px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>
 </html>

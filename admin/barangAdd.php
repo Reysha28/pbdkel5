@@ -67,7 +67,7 @@
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:55px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Barang</a>
@@ -78,30 +78,6 @@
                 </ol>
             </nav>
         </div>
-
-        <div class="row">
-            <?php
-            if(isset($_GET['pesan']))
-            {
-                if($_GET['pesan']=="gagal"){?>
-                    <div class="info" align="center">
-                        <div class="alert alert-warning alert-dismissible fade show" style="width:40%">
-                            <div class="row vertical-align">
-                                <div class="col-12 text-center">
-                                    <i class="fa fa-exclamation-triangle fa-2x"></i> 
-                                </div>
-                                <div class="col-sm-11">
-                                <strong>Warning!</strong> Data sudah ada
-                                </div>
-                            </div>
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        </div>
-                    </div>
-                    <?php
-                }
-            }
-            ?>
-            </div>
 
         <div class="row">
                 <div  class="" style="border-radius:10px">
@@ -132,12 +108,12 @@
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_katbarang" style="margin-bottom:10px">Kategori</label>
                                         <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" required>
+                                        <option value="" disabled selected>Pilih Kategori Barang</option>
                                         <?php 
                                         include '../connect.php';
                                         $barang = pg_query($conn, "select * from tabel_kategori_barang order by id_katbarang ASC");
                                         while ($row = pg_fetch_assoc($barang)) {
                                             echo "
-                                            <option value=''></option>
                                             <option value='$row[id_katbarang]'>$row[kategori_barang]</option>
                                             
                                             ";
@@ -153,16 +129,16 @@
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="harga_barang" style="margin-bottom:10px">Harga</label>
-                                            <input type="text" class="form-control" name="harga_barang" required>
+                                            <input type="number" min="0" class="form-control" name="harga_barang" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="stok_tersedia" style="margin-bottom:10px">Stok</label>
-                                            <input type="number" class="form-control" name="stok_tersedia" required>
+                                            <input type="number" min="0" class="form-control" name="stok_tersedia" required>
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>

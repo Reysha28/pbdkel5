@@ -105,8 +105,6 @@ require_once '../connect.php';
                                                     <th>No Telp</th>
                                                     <th>Alamat</th>
                                                     <th>Username</th>
-                                                    <th>Password</th>
-                                                    <th>Role</th>
                                                     <th>Action</th>
                                                     
                                                 </tr>
@@ -124,8 +122,6 @@ require_once '../connect.php';
                                                 <td><?=$row['telepon']?></td>
                                                 <td><?=$row['alamat']?></td>
                                                 <td><?=$row['username']?></td>
-                                                <td>********</td>
-                                                <td><?=$row['id_role']?></td>
                                                 <td>
                                                     <a type="button" class="btn btn-warning" style="background-color: #FFA63E;"  href="pegawaiChangePw.php?id_pegawai=<?= $row['id_pegawai'] ?>"><i class="fa fa-key" style="color: white;"></i></a>
                                                     <a type="button" class="btn btn-warning" style="background-color: #E15B29;"  href="pegawaiEdit.php?id_pegawai=<?= $row['id_pegawai'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
@@ -145,11 +141,6 @@ require_once '../connect.php';
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="footer" style="bottom:-130px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>
 </html>
