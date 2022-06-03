@@ -1,3 +1,6 @@
+<?php
+require_once 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,32 +30,32 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link active"> 
+                        <a href="berandaAdmin.php" class="nav_link active"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a href="admin/pegawaiIndex.php"  class="nav_link"> 
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="admin/barangIndex.php" class="nav_link"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="admin/penjualanIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a class="nav_link"> 
+                        <a href="admin/pengeluaranIndex.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a  class="nav_link"> 
+                        <a href="admin/laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a href="" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -85,7 +88,7 @@
 
                             </div>
                             <div class="col" style="width:60%; margin-right:10px;margin-top:15px; line-height:20px;">
-                                <h4 class="mt-1"><p >Rp.100.250.000</p></h4>
+                                <h4 class="mt-1"><p >Rp.</p></h4>
                                 <p>Pendapatan</p>
                             </div>
                         </div>
@@ -102,8 +105,13 @@
 
                             </div>
                             <div class="col" style="width:30%; margin-right:10px;margin-top:15px; line-height:20px;">
-                                <h4 class="mt-1"><p >250</p></h4>
-                                <p>Produk</p>
+                                <?php 
+                                $query = "SELECT * FROM tabel_barang";
+                                $result = pg_query($conn, $query);
+                                $jumlah = pg_num_rows($result); 
+                                ?>
+                                <h4 class="mt-1"><p ><?php echo $jumlah; ?></p></h4>
+                                <p>Produk Kami</p>
                             </div>
                         </div>
                     </div>

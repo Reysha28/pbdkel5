@@ -1,5 +1,12 @@
 <?php 
     include '../connect.php';
+    $query = pg_query($conn, "SELECT max(id_barang) as id_barang FROM tabel_barang");
+    $row = pg_fetch_array($query);
+    $kode = $row['id_barang'];
+    $urutan = (int) substr($kode, 3, 3);
+    $urutan=$urutan+1;
+    $huruf = "H";
+    $id = $huruf . sprintf("%03s", $urutan);    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,10 +55,10 @@
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -97,7 +104,7 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
-                                        <input type="text" class="form-control" name="id_barang" required>
+                                        <input type="text" class="form-control" name="id_barang" value="<?php echo $id?>" readonly required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">

@@ -1,3 +1,6 @@
+<?php
+require_once 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,16 +30,16 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link active"> 
+                        <a href="berandaKasir.php" class="nav_link active"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a  href="kasir/penjualanAdd.php" class="nav_link"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <br><br><br>
-                        <a class="nav_link" href="{{url('/login')}}" style="margin-top:270px;"> 
+                        <a class="nav_link" href="login.php" style="margin-top:270px;"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -68,7 +71,7 @@
                                 <img class="img" style="width:30%; margin-left:50px;margin-top:20px;" src="images/empty-wallet.png"/>
                             </div>
                             <div class="col" style="width:85%; margin-right:10px;margin-top:15px; line-height:20px;">
-                                <h4 class="mt-1"><p>Rp.100.500.000</p></h4>
+                                <h4 class="mt-1"><p>Rp.</p></h4>
                                 <p>Penjualan Hari ini</p>
                             </div>
                         </div>
@@ -85,7 +88,7 @@
 
                             </div>
                             <div class="col" style="width:85%; margin-right:10px;margin-top:15px; line-height:20px;">
-                                <h4 class="mt-1"><p >25 pcs       </p></h4>
+                                <h4 class="mt-1"><p >pcs</p></h4>
                                 <p>Produk Terjual</p>
                             </div>
                         </div>

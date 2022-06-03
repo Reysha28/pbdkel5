@@ -1,3 +1,6 @@
+<?php
+require_once 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +39,7 @@
                             <span class="nav_name">Produk</span> 
                         </a> 
                         <br><br><br>
-                        <a href="login.php" class="nav_link" style="margin-top:270px;" href="{{url('/login')}}"> 
+                        <a href="login.php" class="nav_link" style="margin-top:270px;"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -69,7 +72,12 @@
 
                             </div>
                             <div class="col" style="width:60%; margin-right:10px;margin-top:15px; line-height:20px;">
-                                <h4 class="mt-1"><p>5</p></h4>
+                                <?php 
+                                $query = "SELECT * FROM tabel_barang WHERE stok_tersedia <6";
+                                $result = pg_query($conn, $query);
+                                $jumlah = pg_num_rows($result); 
+                                ?>
+                                <h4 class="mt-1"><p ><?php echo $jumlah; ?></p></h4>
                                 <p>Produk Restok</p>
                             </div>
                         </div>
@@ -86,7 +94,12 @@
 
                             </div>
                             <div class="col" style="width:60%; margin-right:10px;margin-top:15px; line-height:20px;">
-                                <h4 class="mt-1"><p >250</p></h4>
+                                <?php 
+                                $query = "SELECT * FROM tabel_barang";
+                                $result = pg_query($conn, $query);
+                                $jumlah = pg_num_rows($result); 
+                                ?>
+                                <h4 class="mt-1"><p ><?php echo $jumlah; ?></p></h4>
                                 <p>Produk Kami</p>
                             </div>
                         </div>

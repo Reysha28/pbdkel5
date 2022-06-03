@@ -1,3 +1,6 @@
+<?php
+require_once 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,16 +30,16 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a class="nav_link active"> 
+                        <a href="berandaPemilik.php" class="nav_link active"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a href="pemilik/laporanPemilik.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a class="nav_link" style="margin-top:270px;" href="{{url('/login')}}"> 
+                        <a class="nav_link" style="margin-top:270px;" href="login.php"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -69,7 +72,7 @@
 
                             </div>
                             <div class="col" style="width:60%; margin-right:0px;margin-top:15px; line-height:20px; color:white;">
-                                <h4 class="mt-1"><p>Rp10.850.000</p></h4>
+                                <h4 class="mt-1"><p>Rp</p></h4>
                                 <p>Pendapatan</p>
                             </div>
                         </div>
@@ -86,7 +89,7 @@
 
                             </div>
                             <div class="col" style="width:60%; margin-right:10px;margin-top:15px; line-height:20px;color:white;">
-                                <h4 class="mt-1"><p >25 pcs       </p></h4>
+                                <h4 class="mt-1"><p >pcs</p></h4>
                                 <p>Produk Terjual</p>
                             </div>
                         </div>
@@ -103,7 +106,12 @@
 
                             </div>
                             <div class="col" style="width:60%; margin-right:10px;margin-top:15px; line-height:20px;color:white;">
-                                <h4 class="mt-1"><p >5</p></h4>
+                            <?php 
+                                $query = "SELECT * FROM tabel_barang WHERE stok_tersedia <6";
+                                $result = pg_query($conn, $query);
+                                $jumlah = pg_num_rows($result); 
+                                ?>
+                                <h4 class="mt-1"><p ><?php echo $jumlah; ?></p></h4>
                                 <p>Produk Restok</p>
                             </div>
                         </div>

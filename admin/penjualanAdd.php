@@ -53,10 +53,10 @@
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link "> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>

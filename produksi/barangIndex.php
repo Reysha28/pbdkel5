@@ -38,11 +38,11 @@ require_once '../connect.php';
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  href="../berandaProduksi.php" class="nav_link active"> 
+                        <a  href="../berandaProduksi.php" class="nav_link"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a href="barangIndex.php" class="nav_link"> 
+                        <a href="barangIndex.php" class="nav_link active"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
@@ -83,27 +83,41 @@ require_once '../connect.php';
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th>ID Barang</th>
                                                     <th>Nama Barang</th>
-                                                    <th>ID Kategori</th>
+                                                    <th>Kategori Barang</th>
                                                     <th>Warna</th>
                                                     <th>Harga</th>
                                                     <th>Stok</th>
                                                     <th>Keterangan</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_barang");
+                                            $result = pg_query($conn,"SELECT * FROM tabel_barang join tabel_kategori_barang on tabel_barang.id_katbarang=tabel_kategori_barang.id_katbarang");
 
                                             while($row=pg_fetch_array($result)){
                                             ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
                                                 <td ><?=$row['id_barang']?></td>
                                                 <td><?=$row['nama_barang']?></td>
-                                                <td><?=$row['id_katbarang']?></td>
+                                                <td><?=$row['kategori_barang']?></td>
                                                 <td><?=$row['warna_barang']?></td>
                                                 <td>Rp<?=number_format($row['harga_barang'],0,".",".")?></td>
                                                 <td><?=$row['stok_tersedia']?></td>
-                                                <td>Tersedia</td>
+                                                <td>
+                                                    <?php 
+                                                    if($row['stok_tersedia'] <= 5){
+                                                        echo 'Restok';
+                                                    }
+                                                    else{
+                                                        echo 'Tersedia';
+                                                    }?>
+                                                    </option>
+
+                                                </td>
+                                                <td>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #FFA63E;" href="restokAdd.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-add" style="color: white;"></i></a>
+                                                </td>
                                             </tr>
                                             <?php
                                             }
