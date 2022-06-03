@@ -104,7 +104,6 @@ require_once '../connect.php';
                                                     <th>ID Pengeluaran</th>
                                                     <th>Kategori</th>
                                                     <th>Harga</th>
-                                                    <th>ID Pegawai</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -122,12 +121,10 @@ require_once '../connect.php';
                                                 <td><?=$row['id_pengeluaran']?></td>
                                                 <td><?=$row['jenis_pengeluaran']?></td>
                                                 <td>Rp<?=number_format($row['harga'],0,".",".")?></td>
-                                                <td><?=$row['id_pegawai']?></td>
                                                 <td>
                                                     <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="pengeluaranEdit.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
                                                     <a type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data pengeluaran ini ?')" href="pengeluaranDelete.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>"><i class="fa-solid fa-trash"></i></a>
                                                 </td>
-                                                
                                             </tr>
                                             <?php
                                             }
@@ -139,7 +136,6 @@ require_once '../connect.php';
                                                     <th></th>
                                                     <th>Total Penjualan</th>
                                                     <th>Rp<?=number_format($total,0,".",".")?></th>
-                                                    <th></th>
                                                     <th></th>
                                                 </tr>
                                             </tfoot>

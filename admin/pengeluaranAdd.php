@@ -94,7 +94,7 @@
                                         <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Pengeluaran</h5>
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="tanggal_pengeluaran" style="margin-bottom:10px">Tanggal</label>
-                                        <input type="date" class="form-control" value=""  name="tanggal_pengeluaran" required>
+                                        <input type="date" class="form-control"  name="tanggal_pengeluaran" value="" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">

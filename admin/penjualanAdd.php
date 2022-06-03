@@ -95,12 +95,12 @@
                                         <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Penjualan</h5> 
                                         <div class="col-md-3">
                                         <label for="tanggal_penjualan">Tanggal</label>
-                                        <input type="date" class="form-control" name="tanggal_penjualan" required>
+                                        <input type="date" class="form-control" name="tanggal_penjualan"  required>
                                         </div>
 
                                         <div class="col-md-3">
                                         <label for="id_penjualan">ID Penjualan</label>
-                                        <input type="text"  class="form-control" name="ud_penjualan" required>
+                                        <input type="text"  class="form-control" name="id_penjualan" required>
                                         </div>
 
                                         <div class="col-md-3">
@@ -116,13 +116,13 @@
                                         <h5 align="left" style="margin-top:20px;margin-bottom:5px;">Add Items</h5>
 
                                         <div class="col-md-4">
-                                        <label for="id_barang">ID Barang</label>
+                                        <label for="id_barang">Barang</label>
                                         <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Barang" name="id_katbarang" required>
+                                        <option value="" disabled selected>Pilih Barang</option>
                                         <?php 
                                         $barang = pg_query($conn, "select * from tabel_barang order by id_barang ASC");
                                         while ($row = pg_fetch_assoc($barang)) {
                                             echo "
-                                            <option value=''></option>
                                             <option value='$row[id_barang]'>$row[nama_barang]</option>
                                             
                                             ";

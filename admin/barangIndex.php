@@ -120,7 +120,17 @@ require_once '../connect.php';
                                                 <td><?=$row['warna_barang']?></td>
                                                 <td>Rp<?=number_format($row['harga_barang'],0,".",".")?></td>
                                                 <td><?=$row['stok_tersedia']?></td>
-                                                <td>Tersedia</td>
+                                                <td>
+                                                    <?php 
+                                                    if($row['stok_tersedia'] <= 5){
+                                                        echo 'Restok';
+                                                    }
+                                                    else{
+                                                        echo 'Tersedia';
+                                                    }?>
+                                                    </option>
+
+                                                </td>
                                                 <td>
                                                     <a type="button" class="btn btn-warning" style="background-color: #FFA63E;" href="restokAdd.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-add" style="color: white;"></i></a>
                                                     <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="barangEdit.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
