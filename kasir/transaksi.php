@@ -33,7 +33,7 @@
             <div> 
                 <a href="#" class="nav_logo"> 
                     <i class='bx bx-grid-alt nav_logo-icon'></i> 
-                    <span class="nav_logo-name">Admin</span> 
+                    <span class="nav_logo-name">Kasir</span> 
                 </a>
                 <div class="nav_list"> 
                         <a  class="nav_link active"> 
@@ -84,7 +84,7 @@
 
                                         <div class="col-md-3">
                                         <label for="id_penjualan">ID Penjualan</label>
-                                        <input type="text"  class="form-control" name="ud_penjualan" required>
+                                        <input type="text"  class="form-control" name="id_penjualan" required>
                                         </div>
 
                                         <div class="col-md-3">
@@ -97,65 +97,8 @@
                                             <input type="text"  class="form-control" name="id_pegawai" required>
                                         </div>
 
-                                        <h5 align="left" style="margin-top:20px;margin-bottom:5px;">Add Items</h5>
+                                        <input class="btn btn-success" type="submit" name="tambah" value="tambah" style="width:10%; margin-top:40px;margin-left:30px;background-color:#ff7f5c">
 
-                                        <div class="col-md-4">
-                                        <label for="id_barang">ID Barang</label>
-                                        <input type="text" class="form-control" name="id_barang" required>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                        <label for="qty">Qty</label>
-                                        <input type="number" class="form-control" name="qty" required>
-                                        </div>
-
-                                        <input class="btn btn-success" type="submit" name="add" value="Add" style="width:10%; margin-top:40px;margin-left:30px;background-color:#ff7f5c">
-
-                                        <table id="myTable" class="table table-hover" >
-                                            <thead >
-                                                <tr align="center" bgcolor='#F3F6F9'>
-                                                    <th>ID Barang</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Qty</th>
-                                                    <th>Harga</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th></th>
-                                                <th></th>
-                                                <th span="5">No record found</th>
-                                                <th></th>
-                                                <th></th>
-                                            </tr>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr align="center" bgcolor='#F3F6F9'>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th>Total Harga</th>
-                                                    <th>Rp.0</th>
-                                                    <th></th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-
-                                        <div class="col-md-6">
-                                            <label for="bayar">Bayar</label>
-                                            <input type="text" class="form-control" name="bayar" required>
-                                        </div>
-    
-                                        <div class="col-md-6">
-                                            <label for="kembalian">Kembalian</label>
-                                            <input type="text" class="form-control" name="kembalian" required>
-                                        </div>
-
-                                        <div align="right" class="col-8" style="margin-bottom:30px">
-                                            <a class="btn btn-primary">Reset</a>
-                                            <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
-                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -167,9 +110,25 @@
     </div>
 
 
-    <div class="footer" style="bottom:-70px">
+    <div class="footer" style="bottom: 0">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
+
+    <?php 
+    if (isset($_POST['tambah'])) {
+    $id_penjualan = $_POST['id_penjualan'];
+    $pembeli = $_POST['pembeli'];
+    $id_pegawai = $_POST['id_pegawai'];
+    $tanggal_penjualan = $_POST['tanggal_penjualan'];
+
+    $sql = pg_query($conn, "insert into tabel_transaksi (id_penjualan,id_pegawai,pembeli,tanggal_penjualan) values('$id_penjualan','$id_pegawai','$pembeli','$tanggal_penjualan')");
+    if($sql){
+        echo "<script>alert('Data berhasil ditambahkan');window.location='pembayaran.php';</script>";
+        } else {
+        echo pg_last_error($conn);
+        }
+    }
+    ?>
 </body>
 </html>
 
