@@ -110,11 +110,10 @@ require_once '../connect.php';
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_transaksi");
+                                            $result = pg_query($conn,"SELECT * FROM tabel_detail_transaksi JOIN tabel_transaksi on tabel_transaksi.id_penjualan=tabel_detail_transaksi.id_penjualan");
                                             $total=0;
-                                            
                                             while($row=pg_fetch_array($result)){
-                                                $jumlah=$row['harga'];
+                                                $jumlah=$row['total_harga'];
                                                 $total+=$jumlah;
                                             ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
@@ -123,14 +122,14 @@ require_once '../connect.php';
                                                 <td><?=$row['pembeli']?></td>
                                                 <td><?=$row['id_barang']?></td>
                                                 <td><?=$row['qty']?></td>
-                                                $subharga=$row['harga']*$row['qty'];
-                                                <td>Rp<?=number_format($row['subharga'],0,".",".")?></td>
+                                                <td>Rp<?=number_format($row['total_harga'],0,".",".")?></td>
                                                 <td>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="penjualanView.php?id_penjualan=<?= $row['id_penjualan'] ?>"><i class="fa fa-zoom" style="color: white;"></i></a>
                                                     <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="penjualanEdit.php?id_penjualan=<?= $row['id_penjualan'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
                                                     <a type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data penjualan ini ?')" href="penjualanDelete.php?id_penjualan=<?= $row['id_penjualan'] ?>"><i class="fa-solid fa-trash"></i></a>
                                                 </td>
-                                                
+                                                <td>
+                                                <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="penjualanView.php?id_penjualan=<?= $row['id_penjualan'] ?>"><i class="fa fa-file" style="color: white;"></i></a>
+                                                </td>
                                             </tr>
                                             <?php
                                             }

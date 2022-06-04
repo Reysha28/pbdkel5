@@ -1,5 +1,13 @@
 <?php 
     include '../connect.php';
+
+    $query = pg_query($conn, "SELECT max(id_penjualan) as id_penjualan FROM tabel_transaksi");
+    $row = pg_fetch_array($query);
+    $kode = $row['id_penjualan'];
+    $urutan = (int) substr($kode, 3, 3);
+    $urutan=$urutan+1;
+    $huruf = "E";
+    $id = $huruf . sprintf("%03s", $urutan); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,28 +84,29 @@
                             <form action="" method="POST">
                                 <div class="row">
                                     <div class="row g-3">
+
                                         <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Penjualan</h5> 
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
+                                        <label for="id_penjualan">ID Penjualan</label>
+                                        <input type="text"  class="form-control" name="id_penjualan" value="<?php echo $id?>" readonly required>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
                                         <label for="tanggal_penjualan">Tanggal</label>
                                         <input type="date" class="form-control" name="tanggal_penjualan" required>
                                         </div>
 
-                                        <div class="col-md-3">
-                                        <label for="id_penjualan">ID Penjualan</label>
-                                        <input type="text"  class="form-control" name="id_penjualan" required>
-                                        </div>
-
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                         <label for="pembeli">Pembeli</label>
                                         <input type="text" class="form-control" name="pembeli" required>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <label for="id_pegawai">ID Pegawai</label>
                                             <input type="text"  class="form-control" name="id_pegawai" required>
                                         </div>
 
-                                        <input class="btn btn-success" type="submit" name="tambah" value="tambah" style="width:10%; margin-top:40px;margin-left:30px;background-color:#ff7f5c">
+                                        <input class="btn btn-success" type="submit" name="tambah" value="Tambah" style="width:10%; margin-top:40px;background-color:#ff7f5c">
 
                                     </div>
                                 </div>

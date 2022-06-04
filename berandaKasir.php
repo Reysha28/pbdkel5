@@ -71,8 +71,17 @@ require_once 'connect.php';
                                 <img class="img" style="width:30%; margin-left:50px;margin-top:20px;" src="images/empty-wallet.png"/>
                             </div>
                             <div class="col" style="width:85%; margin-right:10px;margin-top:15px; line-height:20px;">
-                                <h4 class="mt-1"><p>Rp.</p></h4>
-                                <p>Penjualan Hari ini</p>
+                            <?php 
+                                $query = "SELECT * FROM tabel_detail_transaksi";
+                                $total=0;
+                                $result = pg_query($conn, $query);
+                                while($row=pg_fetch_array($result)){
+                                    $jumlah=$row['total_harga'];
+                                    $total+=$jumlah;
+                                }
+                                ?>
+                                <h4 class="mt-1"><p>Rp<?=number_format($total,0,".",".")?></p></h4>
+                                <p>Pendapatan</p>
                             </div>
                         </div>
                     </div>
@@ -88,7 +97,16 @@ require_once 'connect.php';
 
                             </div>
                             <div class="col" style="width:85%; margin-right:10px;margin-top:15px; line-height:20px;">
-                                <h4 class="mt-1"><p >pcs</p></h4>
+                            <?php 
+                                $query = "SELECT * FROM tabel_detail_transaksi";
+                                $total=0;
+                                $result = pg_query($conn, $query);
+                                while($row=pg_fetch_array($result)){
+                                    $jumlah=$row['qty'];
+                                    $total+=$jumlah;
+                                }
+                                ?>
+                                <h4 class="mt-1"><p ><?php echo $total; ?></p></h4>
                                 <p>Produk Terjual</p>
                             </div>
                         </div>
