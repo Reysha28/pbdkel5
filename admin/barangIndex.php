@@ -55,10 +55,10 @@ require_once '../connect.php';
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -99,7 +99,7 @@ require_once '../connect.php';
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th>ID Barang</th>
                                                     <th>Nama Barang</th>
-                                                    <th>ID Kategori</th>
+                                                    <th>Kategori Barang</th>
                                                     <th>Warna</th>
                                                     <th>Harga</th>
                                                     <th>Stok</th>
@@ -109,18 +109,28 @@ require_once '../connect.php';
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_barang");
+                                            $result = pg_query($conn,"SELECT * FROM tabel_barang join tabel_kategori_barang on tabel_barang.id_katbarang=tabel_kategori_barang.id_katbarang");
 
                                             while($row=pg_fetch_array($result)){
                                             ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
                                                 <td ><?=$row['id_barang']?></td>
                                                 <td><?=$row['nama_barang']?></td>
-                                                <td><?=$row['id_katbarang']?></td>
+                                                <td><?=$row['kategori_barang']?></td>
                                                 <td><?=$row['warna_barang']?></td>
                                                 <td>Rp<?=number_format($row['harga_barang'],0,".",".")?></td>
                                                 <td><?=$row['stok_tersedia']?></td>
-                                                <td>Tersedia</td>
+                                                <td>
+                                                    <?php 
+                                                    if($row['stok_tersedia'] <= 5){
+                                                        echo 'Restok';
+                                                    }
+                                                    else{
+                                                        echo 'Tersedia';
+                                                    }?>
+                                                    </option>
+
+                                                </td>
                                                 <td>
                                                     <a type="button" class="btn btn-warning" style="background-color: #FFA63E;" href="restokAdd.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-add" style="color: white;"></i></a>
                                                     <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="barangEdit.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
@@ -141,11 +151,6 @@ require_once '../connect.php';
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="footer" style="bottom:-130px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>
 </html>

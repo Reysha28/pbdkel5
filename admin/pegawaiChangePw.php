@@ -19,6 +19,10 @@ $row = pg_fetch_array($sql);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
 <body id="body-pd" style="background-color: #F3F6F9;">
@@ -52,10 +56,10 @@ $row = pg_fetch_array($sql);
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -71,8 +75,8 @@ $row = pg_fetch_array($sql);
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
-                <ol class="breadcrumb">
+            <nav aria-label="breadcrumb" style="margin-top:75px">
+                <ol class="breadcrumb" style="background-color: #F3F6F9">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pegawai</a>
                 </li>
@@ -82,6 +86,40 @@ $row = pg_fetch_array($sql);
                 </ol>
             </nav>
         </div>
+
+        <div class="row">  
+        <?php 
+    if (isset($_POST['submit'])) {
+        $id_pegawai = $_POST['id_pegawai'];
+        $username= $_POST['username'];
+        $password= $_POST['password'];
+        $password2= $_POST['password2'];
+    
+    if(($_POST['password'])!=($_POST['password2']))
+    {
+        ?>
+        <div class="alert alert-warning alert-dismissible fade show ml-2" role="alert" style="width: 98%">
+        <strong>Warning!</strong> Password tidak sama
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <?php
+    }
+    else{
+    $password = password_hash($password, PASSWORD_DEFAULT); 
+
+    $sql =  pg_query($conn,"UPDATE tabel_pegawai SET username='$username' , password='$password' WHERE id_pegawai='$id_pegawai'");
+
+    if($sql){
+    echo "<script>window.location='pegawaiIndex.php';alert('Password berhasil diubah');</script>";
+    } else {
+    echo pg_last_error($conn);
+    }
+    }
+    }
+    ?>
+    </div>
 
         <div class="row">
                 <div  class="" style="border-radius:10px">
@@ -111,11 +149,16 @@ $row = pg_fetch_array($sql);
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="password" style="margin-bottom:10px">Password Baru</label>
-                                            <input type="password" class="form-control"  value="<?php echo $row['password']?>" name="password" required>
+                                            <input type="password" class="form-control"  value="" name="password" required>
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:20px">
+                                            <label for="password" style="margin-bottom:10px">Konfirmasi Password</label>
+                                            <input type="password" class="form-control"  value="" name="password2" required>
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
                                         </div>
@@ -128,23 +171,6 @@ $row = pg_fetch_array($sql);
             </div>
         </div>
     </div>
-
-    <?php 
-    if (isset($_POST['submit'])) {
-        $id_pegawai = $_POST['id_pegawai'];
-        $username= $_POST['username'];
-        $password= $_POST['password'];
-        $password = password_hash($password, PASSWORD_DEFAULT); 
-
-    $sql =  pg_query($conn,"UPDATE tabel_pegawai SET username='$username' , password='$password' WHERE id_pegawai='$id_pegawai'");
-
-    if($sql){
-    echo "<script>alert('Password berhasil diubah');window.location='pegawaiIndex.php';</script>";
-    } else {
-    echo pg_last_error($conn);
-    }
-    }
-    ?>
 
     <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
@@ -189,4 +215,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     linkColor.forEach(l=> l.addEventListener('click', colorLink))
     
 });
+
 </script>

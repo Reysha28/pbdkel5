@@ -1,14 +1,16 @@
-<?php
-include '../connect.php'; 
+<?php 
+    include '../connect.php';
+    $kode = $_GET['id_barang'];
+    $sql = pg_query($conn, "SELECT * from tabel_barang where id_barang='$kode'");
+    $row = pg_fetch_array($sql);
 
-$kode = $_GET['id_restok'];
-$sql = pg_query($conn, "SELECT * from tabel_restok where id_restok='$kode'");
-$sql2 = pg_query($conn, "SELECT * from tabel_detail_restok where id_restok='$kode'");
-$row = pg_fetch_array($sql);
-$row2 = pg_fetch_array($sql2);
-
-$sql2 = pg_query($conn, "SELECT * from tabel_barang where id_barang='$id_barang'");
-$stok_tersedia = $_POST['tambah_stok']-$_POST['stok_tersedia'];
+    $query = pg_query($conn, "SELECT max(id_restok) as id_restok FROM tabel_restok");
+    $row = pg_fetch_array($query);
+    $kode = $row['id_restok'];
+    $urutan = (int) substr($kode, 3, 3);
+    $urutan=$urutan+1;
+    $huruf = "G";
+    $id = $huruf . sprintf("%03s", $urutan); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,32 +41,16 @@ $stok_tersedia = $_POST['tambah_stok']-$_POST['stok_tersedia'];
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                <a href="../berandaAdmin.php" class="nav_link"> 
+                        <a  href="../berandaProduksi.php" class="nav_link"> 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a href="pegawaiIndex.php"  class="nav_link"> 
-                            <i class='bx bx-user nav_icon'></i> 
-                            <span class="nav_name">Pegawai</span> 
-                        </a> 
                         <a href="barangIndex.php" class="nav_link active"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a href="penjualanIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
-                            <span class="nav_name">Penjualan</span> 
-                        </a> 
-                        <a href="pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
-                            <span class="nav_name">Pengeluaran</span> 
-                        </a> 
-                        <a href="laporan.php" class="nav_link"> 
-                            <i class='bx bx-book nav_icon'></i> 
-                            <span class="nav_name">Laporan</span> 
-                        </a>
                         <br><br><br>
-                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" style="margin-top:270px;" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -75,13 +61,13 @@ $stok_tersedia = $_POST['tambah_stok']-$_POST['stok_tersedia'];
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:35px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Stok</a>
                 </li>
                 <li aria-current="page">
-                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Edit</a>
+                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Create</a>
                 </li>
                 </ol>
             </nav>
@@ -101,36 +87,47 @@ $stok_tersedia = $_POST['tambah_stok']-$_POST['stok_tersedia'];
                             <form action="" method="POST">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Edit Stok</h5>
+                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Stok</h5>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_restok" style="margin-bottom:10px">ID Restok</label>
-                                        <input type="text" class="form-control" name="id_restok" value="<?php echo $row["id_restok"]?>" required>
+                                        <input type="text" class="form-control" name="id_restok" value="<?php echo $id?>" readonly required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="id_pegawai" style="margin-bottom:10px">ID Pegawai</label>
-                                            <input type="text" class="form-control" name="id_pegawai" value="<?php echo $row["id_pegawai"]?>"  required>
+                                            <input type="text" class="form-control" name="id_pegawai" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="tanggal_masuk" style="margin-bottom:10px">Tanggal Restok</label>
-                                            <input type="date" class="form-control" name="tanggal_masuk" value="<?php echo $row["tanggal_masuk"]?>"  required >
+                                            <input type="date" class="form-control" name="tanggal_masuk" required>
                                         </div>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
-                                        <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
-                                        <input type="text" class="form-control" name="id_barang" value="<?php echo $row2["id_barang"]?>" required>
-                                        
+                                        <label for="id_barang" style="margin-bottom:10px">Barang</label>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Barang" name="id_barang" required>
+                                        <option value="" disabled selected>Pilih Barang</option>
+                                        <?php 
+                                        include '../connect.php';
+                                        $barang = pg_query($conn, "select * from tabel_barang order by id_barang ASC");
+                                        while ($row = pg_fetch_assoc($barang)) {
+                                            echo "
+                                            <option value='$row[id_barang]'>$row[nama_barang]</option>
+                                            
+                                            ";
+                                        }
+                                        ?>
+                                        </select>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="tambah_stok" style="margin-bottom:10px">Stok Tambahan</label>
-                                            <input type="number" class="form-control" name="tambah_stok" value="<?php echo $row2["tambah_stok"]?>" required>
+                                            <input type="number" class="form-control" name="tambah_stok" required>
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
@@ -144,8 +141,7 @@ $stok_tersedia = $_POST['tambah_stok']-$_POST['stok_tersedia'];
         </div>
     </div>
 
-    <?php
-
+    <?php 
     if (isset($_POST['simpan'])) {
     $id_restok = $_POST['id_restok'];
     $id_pegawai = $_POST['id_pegawai'];
@@ -153,17 +149,16 @@ $stok_tersedia = $_POST['tambah_stok']-$_POST['stok_tersedia'];
     $id_barang = $_POST['id_barang'];
     $tambah_stok = $_POST['tambah_stok'];
     $stok_tersedia = $_POST['tambah_stok']+$_POST['stok_tersedia'];
-    
 
-    $sql = pg_query($conn, "UPDATE tabel_restok SET id_pegawai='$id_pegawai', tanggal_masuk='$tanggal_masuk' WHERE id_restok='$id_restok'");
-    $sql2 = pg_query($conn, "UPDATE tabel_detail_restok SET id_barang='$id_barang', tambah_stok='$tambah_stok' WHERE id_restok='$id_restok' ");
+    $sql = pg_query($conn, "insert into tabel_restok (id_restok,id_pegawai,tanggal_masuk) values('$id_restok','$id_pegawai','$tanggal_masuk')");
+    $sql2 = pg_query($conn, "insert into tabel_detail_restok (id_restok,id_barang,tambah_stok)  values('$id_restok','$id_barang','$tambah_stok')");
     $sql3 =  pg_query($conn,"UPDATE tabel_barang SET stok_tersedia='$stok_tersedia' WHERE id_barang='$id_barang'");
 
     if ($sql) {
         if($sql2){
             if($sql3){
             ?>
-                echo "<script>alert('Data berhasil diedit');window.location='restokIndex.php';</script>";
+                echo "<script>alert('Data berhasil ditambah');window.location='restokIndex.php';</script>";
             <?php
             }
         }

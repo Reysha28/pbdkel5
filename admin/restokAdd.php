@@ -3,6 +3,14 @@
     $kode = $_GET['id_barang'];
     $sql = pg_query($conn, "SELECT * from tabel_barang where id_barang='$kode'");
     $row = pg_fetch_array($sql);
+
+    $query = pg_query($conn, "SELECT max(id_restok) as id_restok FROM tabel_restok");
+    $row = pg_fetch_array($query);
+    $kode = $row['id_restok'];
+    $urutan = (int) substr($kode, 3, 3);
+    $urutan=$urutan+1;
+    $huruf = "G";
+    $id = $huruf . sprintf("%03s", $urutan); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,10 +58,10 @@
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -69,7 +77,7 @@
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:35px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Stok</a>
@@ -99,7 +107,7 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_restok" style="margin-bottom:10px">ID Restok</label>
-                                        <input type="text" class="form-control" name="id_restok" required>
+                                        <input type="text" class="form-control" name="id_restok" value="<?php echo $id?>" readonly required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
@@ -113,8 +121,20 @@
                                         </div>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
-                                        <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
-                                        <input type="text" class="form-control" name="id_barang" required>
+                                        <label for="id_barang" style="margin-bottom:10px">Barang</label>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Barang" name="id_barang" required>
+                                        <option value="" disabled selected>Pilih Barang</option>
+                                        <?php 
+                                        include '../connect.php';
+                                        $barang = pg_query($conn, "select * from tabel_barang order by id_barang ASC");
+                                        while ($row = pg_fetch_assoc($barang)) {
+                                            echo "
+                                            <option value='$row[id_barang]'>$row[nama_barang]</option>
+                                            
+                                            ";
+                                        }
+                                        ?>
+                                        </select>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
@@ -122,13 +142,8 @@
                                             <input type="number" class="form-control" name="tambah_stok" required>
                                         </div>
 
-                                        <div class="form-group" style="margin-bottom:20px">
-                                            <label for="tambah_stok" style="margin-bottom:10px">Stok Sekarang</label>
-                                            <input type="number" class="form-control" name="stok_tersedia" value="<?php echo $row["stok_tersedia"]?>" required>
-                                        </div>
-
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>

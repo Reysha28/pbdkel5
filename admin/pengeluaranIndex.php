@@ -56,10 +56,10 @@ require_once '../connect.php';
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link active"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -104,13 +104,13 @@ require_once '../connect.php';
                                                     <th>ID Pengeluaran</th>
                                                     <th>Kategori</th>
                                                     <th>Harga</th>
-                                                    <th>ID Pegawai</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran");
+                                            $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran");
+
                                             $total=0;
                                             while($row=pg_fetch_array($result)){
                                                 $jumlah=$row['harga'];
@@ -119,14 +119,12 @@ require_once '../connect.php';
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
                                                 <td ><?=$row['tanggal_pengeluaran']?></td>
                                                 <td><?=$row['id_pengeluaran']?></td>
-                                                <td><?=$row['id_katpengeluaran']?></td>
+                                                <td><?=$row['jenis_pengeluaran']?></td>
                                                 <td>Rp<?=number_format($row['harga'],0,".",".")?></td>
-                                                <td><?=$row['id_pegawai']?></td>
                                                 <td>
                                                     <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="pengeluaranEdit.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
                                                     <a type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data pengeluaran ini ?')" href="pengeluaranDelete.php?id_pengeluaran=<?= $row['id_pengeluaran'] ?>"><i class="fa-solid fa-trash"></i></a>
                                                 </td>
-                                                
                                             </tr>
                                             <?php
                                             }
@@ -139,7 +137,6 @@ require_once '../connect.php';
                                                     <th>Total Penjualan</th>
                                                     <th>Rp<?=number_format($total,0,".",".")?></th>
                                                     <th></th>
-                                                    <th></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -151,11 +148,6 @@ require_once '../connect.php';
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="footer" style="bottom:-130px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>
 </html>

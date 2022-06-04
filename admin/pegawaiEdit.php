@@ -52,10 +52,10 @@ $row = pg_fetch_array($sql);
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -71,7 +71,7 @@ $row = pg_fetch_array($sql);
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:55px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pegawai</a>
@@ -111,7 +111,24 @@ $row = pg_fetch_array($sql);
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="status_pegawai" style="margin-bottom:10px">Status</label>
-                                        <input type="text" class="form-control" name="status_pegawai" value="<?php echo $row['status_pegawai']?>" required>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Status Pegawai" name="status_pegawai" required>
+                                        <?php
+                                            if ($row['status_pegawai']=="Admin"){
+                                                $status_pegawai = "Admin";
+                                            }
+                                            else if ($row['status_pegawai']=="Pemilik"){
+                                                $status_pegawai = "Pemilik";
+                                            }
+                                            else{
+                                                $status_pegawai = "Karyawan";
+                                            }
+                                            ?>
+                                        <option value="<?php echo $row["status_pegawai"]?>"><?=$status_pegawai?></option>
+                                        <option value="" disabled>Pilih Status</option>
+                                        <option value="Admin"><?php echo "Admin";?> </option>;
+                                        <option value="Pemilik"><?php echo "Pemilik";?> </option>;
+                                        <option value="Karyawan"><?php echo "Karyawan";?> </option>;
+                                        </select>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
@@ -131,11 +148,27 @@ $row = pg_fetch_array($sql);
 
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="id_role" style="margin-bottom:10px">Role</label>
-                                            <input style="padding:5px 10px; width:100%;" value="<?php echo $row["id_role"]?>"  data-placeholder="Pilih Jenis Role" name="id_role" required>
+                                            <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis ROle" name="id_role" required>
+                                            <option value="" disabled selected>Pilih Jenis Role</option>
+                                            <?php 
+                                            include '../connect.php';
+                                            $barang = pg_query($conn, "select * from tabel_role order by id_role ASC");
+                                            while ($row2 = pg_fetch_assoc($barang)) {
+                                            ?>  
+                                                <option value="<?php echo $row2['id_role']?>" 
+                                                <?php if($row['id_role'] == $row2['id_role']){
+                                                    echo 'selected';
+                                                }?>>
+                                                    <?php echo $row2['nama_role']?>
+                                                </option>
+                                            <?php 
+                                                }
+                                            ?>
+                                            </select>
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                        <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
                                         </div>

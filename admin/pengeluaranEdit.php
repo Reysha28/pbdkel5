@@ -52,10 +52,10 @@ $row = pg_fetch_array($sql);
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link active"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -98,14 +98,15 @@ $row = pg_fetch_array($sql);
                                 <div class="row">
                                     <div class="col">
                                         <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Update Pengeluaran</h5>
-                                        <div class="form-group" style="margin-bottom:20px">
-                                        <label for="tanggal_pengeluaran" style="margin-bottom:10px">Tanggal</label>
-                                        <input type="date" class="form-control" value="<?php echo $row['tanggal_pengeluaran']?>"  name="tanggal_pengeluaran" required>
-                                        </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_pengeluaran" style="margin-bottom:10px">ID Pengeluaran</label>
                                         <input type="text" class="form-control" readonly value="<?php echo $row['id_pengeluaran']?>" name="id_pengeluaran" required>
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:20px">
+                                        <label for="tanggal_pengeluaran" style="margin-bottom:10px">Tanggal</label>
+                                        <input type="date" class="form-control" value="<?php echo $row['tanggal_pengeluaran']?>"  name="tanggal_pengeluaran" required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
@@ -120,13 +121,27 @@ $row = pg_fetch_array($sql);
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="id_katpengeluaran" style="margin-bottom:10px">Kategori Pengeluaran</label>
-                                            <input style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Pengeluaran" name="id_katpengeluaran" required value="<?php echo $row['id_katpengeluaran'] ?>">
-                                           
-                                
+                                            <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih ID Kategori Pengeluaran" name="id_katpengeluaran" required>
+                                            <option value="" disabled selected>Pilih Kategori Pengeluaran</option>
+                                            <?php 
+                                            include '../connect.php';
+                                            $barang = pg_query($conn, "select * from tabel_kategori_pengeluaran order by id_katpengeluaran ASC");
+                                            while ($row2 = pg_fetch_assoc($barang)) {
+                                            ?>  
+                                                <option value="<?php echo $row2['id_katpengeluaran']?>" 
+                                                <?php if($row['id_katpengeluaran'] == $row2['id_katpengeluaran']){
+                                                    echo 'selected';
+                                                }?>>
+                                                    <?php echo $row2['jenis_pengeluaran']?>
+                                                </option>
+                                            <?php 
+                                                }
+                                            ?>
+                                            </select>
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                        <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px" href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="submit" value="Submit" style="margin-left:30px">
                                         </div>
@@ -141,7 +156,7 @@ $row = pg_fetch_array($sql);
     </div>
 
 
-    <div class="footer" style="bottom:-90px">
+    <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 

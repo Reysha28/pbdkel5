@@ -47,10 +47,10 @@
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -66,7 +66,7 @@
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:75px;">
+            <nav aria-label="breadcrumb" style="margin-top:55px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Pegawai</a>
@@ -107,7 +107,7 @@
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="status_pegawai" style="margin-bottom:10px">Status</label>
                                         <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Status Pegawai" name="status_pegawai" required>
-                                        <option value=""></option>;
+                                        <option value="" disabled selected>Pilih Status</option>
                                         <option value="Admin"><?php echo "Admin";?> </option>;
                                         <option value="Pemilik"><?php echo "Pemilik";?> </option>;
                                         <option value="Karyawan"><?php echo "Karyawan";?> </option>;
@@ -137,18 +137,22 @@
                                         <div class="form-group" style="margin-bottom:20px">
                                             <label for="id_role" style="margin-bottom:10px">Role</label>
                                             <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Role" name="id_role" required>
-                                            <option value=""></option>;
-                                            <option value="1"><?php echo "Admin";?> </option>;
-                                            <option value="2"><?php echo "Pemilik";?> </option>;
-                                            <option value="3"><?php echo "Kasir";?> </option>;
-                                            <option value="4"><?php echo "Staff Produksi";?> </option>;
-                                            <option value="5"><?php echo "Staff Lapangan";?> </option>;
-                                            <option value="6"><?php echo "Staff Marketing";?> </option>;
+                                            <option value="" disabled selected>Pilih Jenis Role</option>
+                                            <?php 
+                                            include '../connect.php';
+                                            $role = pg_query($conn, "select * from tabel_role order by id_role ASC");
+                                            while ($row = pg_fetch_assoc($role)) {
+                                                echo "
+                                                <option value='$row[id_role]'>$row[nama_role]</option>
+                                                
+                                                ";
+                                            }
+                                            ?>
                                             </select>
                                             </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary">Reset</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
@@ -186,7 +190,7 @@
     }
     ?>
 
-    <div class="footer" style="bottom:-90px">
+    <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>

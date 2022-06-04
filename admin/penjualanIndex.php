@@ -55,10 +55,10 @@ require_once '../connect.php';
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -109,40 +109,33 @@ require_once '../connect.php';
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php 
+                                            $result = pg_query($conn,"SELECT * FROM tabel_transaksi");
+                                            $total=0;
+                                            
+                                            while($row=pg_fetch_array($result)){
+                                                $jumlah=$row['harga'];
+                                                $total+=$jumlah;
+                                            ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>01/02/2022</th>
-                                                <th>P001</th>
-                                                <th>Customer 1</th>
-                                                <th>B001</th>
-                                                <th>2</th>
-                                                <th>Rp.20.000</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary" style="background-color: #3734A9;"><i class="fas fa-search"></i></button>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary" style="background-color: #C9F7F5; color:#1BC5BD">Print</button>
-                                                    
-                                                </th>
+                                                <td ><?=$row['tanggal_penjualan']?></td>
+                                                <td><?=$row['id_penjualan']?></td>
+                                                <td><?=$row['pembeli']?></td>
+                                                <td><?=$row['id_barang']?></td>
+                                                <td><?=$row['qty']?></td>
+                                                $subharga=$row['harga']*$row['qty'];
+                                                <td>Rp<?=number_format($row['subharga'],0,".",".")?></td>
+                                                <td>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="penjualanView.php?id_penjualan=<?= $row['id_penjualan'] ?>"><i class="fa fa-zoom" style="color: white;"></i></a>
+                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="penjualanEdit.php?id_penjualan=<?= $row['id_penjualan'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
+                                                    <a type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data penjualan ini ?')" href="penjualanDelete.php?id_penjualan=<?= $row['id_penjualan'] ?>"><i class="fa-solid fa-trash"></i></a>
+                                                </td>
+                                                
                                             </tr>
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>02/02/2022</th>
-                                                <th>P002</th>
-                                                <th>Customer 2</th>
-                                                <th>B002</th>
-                                                <th>1</th>
-                                                <th>Rp.30.000</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary" style="background-color: #3734A9;"><i class="fas fa-search"></i></button>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary" style="background-color: #C9F7F5; color:#1BC5BD;">Print</button>
-                                                    
-                                                </th>
-                                            </tr>
+                                            <?php
+                                            }
+                                            
+                                            ?>  
                                             </tbody>
                                             <tfoot>
                                                 <tr align="center" bgcolor='#F3F6F9'>
@@ -151,7 +144,7 @@ require_once '../connect.php';
                                                     <th></th>
                                                     <th></th>
                                                     <th>Total Penjualan</th>
-                                                    <th>Rp.50.000</th>
+                                                    <th>Rp<?=number_format($total,0,".",".")?></th>
                                                     <th></th>
                                                     <th></th>
                                                 </tr>
@@ -165,11 +158,6 @@ require_once '../connect.php';
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="footer" style="bottom:-130px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>
 </html>

@@ -1,5 +1,12 @@
 <?php 
     include '../connect.php';
+    $query = pg_query($conn, "SELECT max(id_pengeluaran) as id_pengeluaran FROM tabel_pengeluaran");
+    $row = pg_fetch_array($query);
+    $kode = $row['id_pengeluaran'];
+    $urutan = (int) substr($kode, 3, 3);
+    $urutan=$urutan+1;
+    $huruf = "D";
+    $id = $huruf . sprintf("%03s", $urutan); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,10 +53,10 @@
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="pengeluaranIndex.php" class="nav_link active"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
-                        <a href="laporan.php" class="nav_link"> 
+                        <a href="laporanAdmin.php" class="nav_link"> 
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
@@ -93,24 +100,24 @@
                                     <div class="col">
                                         <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Pengeluaran</h5>
                                         <div class="form-group" style="margin-bottom:20px">
-                                        <label for="tanggal_pengeluaran" style="margin-bottom:10px">Tanggal</label>
-                                        <input type="date" class="form-control" value=""  name="tanggal_pengeluaran" required>
-                                        </div>
-
-                                        <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_pengeluaran" style="margin-bottom:10px">ID Pengeluaran</label>
-                                        <input type="text" class="form-control" name="id_pengeluaran" required>
+                                        <input type="text" class="form-control" name="id_pengeluaran" value="<?php echo $id?>" readonly required>
+                                        </div>
+                                        
+                                        <div class="form-group" style="margin-bottom:20px">
+                                        <label for="tanggal_pengeluaran" style="margin-bottom:10px">Tanggal</label>
+                                        <input type="date" class="form-control"  name="tanggal_pengeluaran" value="" required>
                                         </div>
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_katpengeluaran" style="margin-bottom:10px">Kategori Pengeluaran</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Jenis Pengeluaran" name="id_katpengeluaran" required>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Kategori Pengeluaran" name="id_katpengeluaran" required>
+                                        <option value="" disabled selected>Pilih Kategori Pengeluaran</option>
                                         <?php 
                                         include '../connect.php';
                                         $pengeluaran = pg_query($conn, "select * from tabel_kategori_pengeluaran order by id_katpengeluaran ASC");
                                         while ($row = pg_fetch_assoc($pengeluaran)) {
                                             echo "
-                                            <option value=''></option>
                                             <option value='$row[id_katpengeluaran]'>$row[jenis_pengeluaran]</option>
                                             
                                             ";
@@ -130,7 +137,7 @@
                                         </div>
 
                                         <div align="right" class="col-9">
-                                            <a class="btn btn-primary" name="reset" type="submit" value="reset">Reset</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button> 
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
@@ -145,7 +152,7 @@
     </div>
 
 
-    <div class="footer" style="bottom:-90px">
+    <div class="footer" style="bottom:-120px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 
