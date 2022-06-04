@@ -108,8 +108,18 @@
                                         <h5 align="left" style="margin-top:40px;margin-bottom:5px;">Add Items</h5>
 
                                         <div class="col-md-4">
-                                        <label for="id_barang">ID Barang</label>
-                                        <input type="text" class="form-control" name="id_barang">
+                                        <label for="id_barang">Barang</label>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Barang" name="id_barang" required>
+                                        <option value="" disabled selected>Pilih Barang</option>
+                                        <?php 
+                                        $barang = pg_query($conn, "select * from tabel_barang order by id_barang ASC");
+                                        while ($row = pg_fetch_assoc($barang)) {
+                                            echo "
+                                            <option value='$row[id_barang], $row[harga_barang]' >$row[nama_barang]</option>
+                                            ";
+                                        }
+                                        ?>
+                                        </select>
                                         </div>
 
                                         <div class="col-md-4">
@@ -123,15 +133,15 @@
                                         <?php
                                         if (isset($_POST['add'])) {
                                         $kode = $_POST['id_barang'];
-                                        $sql = pg_query($conn, "SELECT nama_barang,harga_barang from tabel_barang where id_barang='$kode'");
+                                        $sql = pg_query($conn, "SELECT * from tabel_barang where id_barang=$kode");
                                         $row = pg_fetch_array($sql);
-                                        $harga = $row['harga_barang'];
+                                        $harga_barang = $row['harga_barang'];
                                         $qty = $_POST['qty'];
-                                        $total = $harga * $qty;
+                                        $total_harga = $harga * $qty;
                                         $id_penjualan = $_POST['id_penjualan'];
 
 
-                                        pg_query($conn, "insert into tabel_detail_transaksi (id_penjualan,id_barang,qty,total_harga) values('$id_penjualan','$id_pegawai','$pembeli','$tanggal_penjualan')");
+                                        pg_query($conn, "insert into tabel_detail_transaksi (id_penjualan,id_barang,qty,total_harga) values('$id_penjualan','$id_barang','$qty','$total_harga')");
 
                                         }
                                         ?>
@@ -152,7 +162,6 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th><th>
-                                                <th></th>
                                                 <th>
                                                     <a type="button" class="btn btn-warning" style="background-color: #FFA63E;" href="restokAdd.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-add" style="color: white;"></i></a>
                                                     <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="barangEdit.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
@@ -166,21 +175,7 @@
 
                                             while($row=pg_fetch_array($result)){
                                             ?>  
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <td ><?=$row['id_barang']?></td>
-                                                <td><?=$row['nama_barang']?></td>
-                                                <td><?=$row['id_katbarang']?></td>
-                                                <td><?=$row['warna_barang']?></td>
-                                                <td>Rp<?=number_format($row['harga_barang'],0,".",".")?></td>
-                                                <td><?=$row['stok_tersedia']?></td>
-                                                <td>Tersedia</td>
-                                                <td>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #FFA63E;" href="restokAdd.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-add" style="color: white;"></i></a>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="barangEdit.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
-                                                    <a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="barangDelete.php?id_barang=<?= $row['id_barang'] ?>"
-                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                                                </td>
-                                            </tr>
+                                            
                                             <?php
                                             }
                                             ?> 
@@ -198,12 +193,6 @@
                                             </tfoot>
                                         </table>
 
-    
-                                        <div class="col-md-6">
-                                            <label for="kembalian">Kembalian</label>
-                                            <input type="text" class="form-control" name="kembalian" value="<?php echo $kembalian;?>" readonly>>
-                                        </div>
-
                                         <div align="right" class="col-8" style="margin-bottom:30px">
                                             <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
@@ -217,11 +206,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="footer" style="bottom:-50px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 
 </body>

@@ -47,7 +47,7 @@ require_once 'connect.php';
                             <span class="nav_name">Penjualan</span> 
                         </a> 
                         <a href="admin/pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-money nav_icon'></i> 
+                            <i class='bx bx-id-card nav_icon'></i> 
                             <span class="nav_name">Pengeluaran</span> 
                         </a> 
                         <a href="admin/laporanAdmin.php" class="nav_link"> 
@@ -88,7 +88,16 @@ require_once 'connect.php';
 
                             </div>
                             <div class="col" style="width:60%; margin-right:10px;margin-top:15px; line-height:20px;">
-                                <h4 class="mt-1"><p >Rp.</p></h4>
+                            <?php 
+                                $query = "SELECT * FROM tabel_detail_transaksi";
+                                $total=0;
+                                $result = pg_query($conn, $query);
+                                while($row=pg_fetch_array($result)){
+                                    $jumlah=$row['total_harga'];
+                                    $total+=$jumlah;
+                                }
+                                ?>
+                                <h4 class="mt-1"><p>Rp<?=number_format($total,0,".",".")?></p></h4>
                                 <p>Pendapatan</p>
                             </div>
                         </div>

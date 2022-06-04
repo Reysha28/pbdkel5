@@ -72,7 +72,16 @@ require_once 'connect.php';
 
                             </div>
                             <div class="col" style="width:60%; margin-right:0px;margin-top:15px; line-height:20px; color:white;">
-                                <h4 class="mt-1"><p>Rp</p></h4>
+                            <?php 
+                                $query = "SELECT * FROM tabel_detail_transaksi";
+                                $total=0;
+                                $result = pg_query($conn, $query);
+                                while($row=pg_fetch_array($result)){
+                                    $jumlah=$row['total_harga'];
+                                    $total+=$jumlah;
+                                }
+                                ?>
+                                <h4 class="mt-1"><p>Rp<?=number_format($total,0,".",".")?></p></h4>
                                 <p>Pendapatan</p>
                             </div>
                         </div>
@@ -89,7 +98,16 @@ require_once 'connect.php';
 
                             </div>
                             <div class="col" style="width:60%; margin-right:10px;margin-top:15px; line-height:20px;color:white;">
-                                <h4 class="mt-1"><p >pcs</p></h4>
+                            <?php 
+                                $query = "SELECT * FROM tabel_detail_transaksi";
+                                $total=0;
+                                $result = pg_query($conn, $query);
+                                while($row=pg_fetch_array($result)){
+                                    $jumlah=$row['qty'];
+                                    $total+=$jumlah;
+                                }
+                                ?>
+                                <h4 class="mt-1"><p ><?php echo $total; ?></p></h4>
                                 <p>Produk Terjual</p>
                             </div>
                         </div>
