@@ -123,15 +123,17 @@
                                         <?php
                                         if (isset($_POST['add'])) {
                                         $kode = $_POST['id_barang'];
-                                        $sql = pg_query($conn, "SELECT nama_barang,harga_barang from tabel_barang where id_barang='$kode'");
+                                        $sql = pg_query($conn, "SELECT harga_barang from tabel_barang where id_barang='$kode'");
                                         $row = pg_fetch_array($sql);
                                         $harga = $row['harga_barang'];
+                                        $id_pegawai = $row1['id_pegawai'];
+
                                         $qty = $_POST['qty'];
                                         $total = $harga * $qty;
                                         $id_penjualan = $_POST['id_penjualan'];
+                                        $pembeli = $row1['pembeli'];
 
-
-                                        pg_query($conn, "insert into tabel_detail_transaksi (id_penjualan,id_barang,qty,total_harga) values('$id_penjualan','$id_pegawai','$pembeli','$tanggal_penjualan')");
+                                        pg_query($conn, "insert into tabel_detail_transaksi (id_penjualan,id_barang,qty,total_harga) values('$id_penjualan','$kode','$qty','$total')");
 
                                         }
                                         ?>
@@ -148,55 +150,41 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th></th>
-                                                <th></th>
-                                                <th><th>
-                                                <th></th>
-                                                <th>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #FFA63E;" href="restokAdd.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-add" style="color: white;"></i></a>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="barangEdit.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
-                                                    <a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="barangDelete.php?id_barang=<?= $row['id_barang'] ?>"
-                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                                                </th>
-                                            </tr>
-
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_barang");
-
-                                            while($row=pg_fetch_array($result)){
+                                            $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi, tabel_barang WHERE tabel_detail_transaksi.id_barang = tabel_barang.id_barang");
+                                            while($row2=pg_fetch_array($sql2)){
                                             ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <td ><?=$row['id_barang']?></td>
-                                                <td><?=$row['nama_barang']?></td>
-                                                <td><?=$row['id_katbarang']?></td>
-                                                <td><?=$row['warna_barang']?></td>
-                                                <td>Rp<?=number_format($row['harga_barang'],0,".",".")?></td>
-                                                <td><?=$row['stok_tersedia']?></td>
-                                                <td>Tersedia</td>
-                                                <td>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #FFA63E;" href="restokAdd.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-add" style="color: white;"></i></a>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="barangEdit.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
-                                                    <a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="barangDelete.php?id_barang=<?= $row['id_barang'] ?>"
-                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                                                </td>
+                                            <th><?=$row2['id_barang']?></th>
+                                            <th><?=$row2['nama_barang']?></th>
+                                            <th><?=$row2['qty']?></th>
+                                            <th>Rp<?=number_format($row2['harga_barang'],0,".",".")?></th>
+                                            <th><a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="delete_beli.php?id_barang=<?= $row2['id_barang'] ?>"
+                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></th>
                                             </tr>
                                             <?php
                                             }
                                             ?> 
-
                                             </tbody>
                                             
                                             <tfoot>
+                                            <?php
+                                            $total = pg_query($conn, "SELECT SUM(total_harga) FROM tabel_detail_transaksi");
+                                            while ($data3 = pg_fetch_array($total)){
+                                            ?>
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th></th>
                                                     <th></th>
                                                     <th>Total Harga</th>
-                                                    <th>Rp</th>
+                                                    <th></th>
                                                     <th></th>
                                                 </tr>
+                                            <?php
+                                            }
+                                            ?>
                                             </tfoot>
                                         </table>
+                                 
 
     
                                         <div class="col-md-6">
