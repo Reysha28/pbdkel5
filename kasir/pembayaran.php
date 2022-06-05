@@ -1,5 +1,10 @@
 <?php 
     include '../connect.php';
+    $id_b = 0;
+    if (isset($_POST['add'])){
+        $id_b = $_POST['id_barang'];
+
+    }
 
     $sql1 = pg_query($conn, "SELECT * from tabel_transaksi ORDER BY id_penjualan DESC LIMIT 1");
     $row1 = pg_fetch_array($sql1);
@@ -115,7 +120,7 @@
                                         $barang = pg_query($conn, "select * from tabel_barang order by id_barang ASC");
                                         while ($row = pg_fetch_assoc($barang)) {
                                             echo "
-                                            <option value='$row[id_barang], $row[harga_barang]' >$row[nama_barang]</option>
+                                            <option value='$row[id_barang]'>$row[nama_barang]</option>
                                             ";
                                         }
                                         ?>
@@ -126,39 +131,27 @@
                                         <label for="qty">Qty</label>
                                         <input type="number" class="form-control" name="qty">
                                         </div>
-                      
-
-                                        <input class="btn btn-success" type="submit" name="add" value="Add" style="width:10%; margin-top:40px;margin-left:30px;background-color:#ff7f5c">
 
                                         <?php
-                                        if (isset($_POST['add'])) {
-                                        $kode = $_POST['id_barang'];
-<<<<<<< HEAD
-                                        $sql = pg_query($conn, "SELECT harga_barang from tabel_barang where id_barang='$kode'");
-                                        $row = pg_fetch_array($sql);
-                                        $harga = $row['harga_barang'];
+                                        if (isset($_POST['add'])){
+
+                                        $detail = pg_query($conn, "SELECT harga_barang from tabel_barang where id_barang='$id_b'");
+                                        $row3 = pg_fetch_array($detail);
+                                        $harga = $row3['harga_barang'];
                                         $id_pegawai = $row1['id_pegawai'];
 
-=======
-                                        $sql = pg_query($conn, "SELECT * from tabel_barang where id_barang=$kode");
-                                        $row = pg_fetch_array($sql);
-                                        $harga_barang = $row['harga_barang'];
->>>>>>> a9ca4872925c4889f02bd2bde038dcf4c71e6842
                                         $qty = $_POST['qty'];
                                         $total_harga = $harga * $qty;
                                         $id_penjualan = $_POST['id_penjualan'];
                                         $pembeli = $row1['pembeli'];
 
-<<<<<<< HEAD
-                                        pg_query($conn, "insert into tabel_detail_transaksi (id_penjualan,id_barang,qty,total_harga) values('$id_penjualan','$kode','$qty','$total')");
-=======
 
-                                        pg_query($conn, "insert into tabel_detail_transaksi (id_penjualan,id_barang,qty,total_harga) values('$id_penjualan','$id_barang','$qty','$total_harga')");
->>>>>>> a9ca4872925c4889f02bd2bde038dcf4c71e6842
+                                        pg_query($conn, "insert into tabel_detail_transaksi (id_penjualan,id_barang,qty,total_harga) values('$id_penjualan','$id_b','$qty','$total_harga')");
 
                                         }
                                         ?>
-                                        
+                      
+                                        <input class="btn btn-success" type="submit" name="add" value="Add" style="width:10%; margin-top:20px; margin-bottom:20px; margin-left:30px;background-color:#ff7f5c">
 
                                         <table id="myTable" class="table table-hover" >
                                             <thead >
@@ -170,38 +163,21 @@
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-<<<<<<< HEAD
-=======
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th></th>
-                                                <th></th>
-                                                <th><th>
-                                                <th>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #FFA63E;" href="restokAdd.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-add" style="color: white;"></i></a>
-                                                    <a type="button" class="btn btn-warning" style="background-color: #E15B29;" href="barangEdit.php?id_barang=<?= $row['id_barang'] ?>"><i class="fa fa-pencil" style="color: white;"></i></a>
-                                                    <a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="barangDelete.php?id_barang=<?= $row['id_barang'] ?>"
-                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                                                </th>
-                                            </tr>
 
->>>>>>> a9ca4872925c4889f02bd2bde038dcf4c71e6842
+
+                                            <tbody>
                                             <?php 
                                             $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi, tabel_barang WHERE tabel_detail_transaksi.id_barang = tabel_barang.id_barang");
                                             while($row2=pg_fetch_array($sql2)){
                                             ?>  
-<<<<<<< HEAD
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
                                             <th><?=$row2['id_barang']?></th>
                                             <th><?=$row2['nama_barang']?></th>
                                             <th><?=$row2['qty']?></th>
-                                            <th>Rp<?=number_format($row2['harga_barang'],0,".",".")?></th>
+                                            <th>Rp<?=number_format($row2['total_harga'],0,".",".")?></th>
                                             <th><a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="delete_beli.php?id_barang=<?= $row2['id_barang'] ?>"
                                                     class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></th>
                                             </tr>
-=======
-                                            
->>>>>>> a9ca4872925c4889f02bd2bde038dcf4c71e6842
                                             <?php
                                             }
                                             ?> 
@@ -209,19 +185,20 @@
                                             
                                             <tfoot>
                                             <?php
-                                            $total = pg_query($conn, "SELECT SUM(total_harga) FROM tabel_detail_transaksi");
-                                            while ($data3 = pg_fetch_array($total)){
+                                            $total = 0;
+                                            $jlh = pg_query($conn, "SELECT * FROM tabel_detail_transaksi");
+                                            while ($data3 = pg_fetch_array($jlh)){
+                                                $jumlah=$data3['total_harga'];
+                                                $total+=$jumlah;
+                                            }
                                             ?>
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th></th>
                                                     <th></th>
                                                     <th>Total Harga</th>
-                                                    <th></th>
+                                                    <th>Rp<?=number_format($total,0,".",".")?></th>
                                                     <th></th>
                                                 </tr>
-                                            <?php
-                                            }
-                                            ?>
                                             </tfoot>
                                         </table>
                                  
