@@ -79,7 +79,7 @@
                         </div>
                         <div class="col">
                             <div class="input-group mb-3">
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="date" class="form-control" aria-label="Amount (to the nearest dollar)">
                             <span class="input-group-text"><i class='bx bx-calendar nav_icon'></i></span>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <input type="date" class="form-control" aria-label="Amount (to the nearest dollar)">
                         <span class="input-group-text"><i class='bx bx-calendar nav_icon'></i></span>
                         </div>
                     </div>

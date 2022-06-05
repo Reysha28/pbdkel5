@@ -109,9 +109,11 @@ require_once '../connect.php';
                                             </thead>
                                             <tbody>
                                             <?php 
+    
                                             $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran");
 
                                             $total=0;
+                                            
                                             while($row=pg_fetch_array($result)){
                                                 $jumlah=$row['harga'];
                                                 $total+=$jumlah;
@@ -128,13 +130,12 @@ require_once '../connect.php';
                                             </tr>
                                             <?php
                                             }
-                                            
                                             ?>  
                                             <tfoot>
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th></th>
                                                     <th></th>
-                                                    <th>Total Penjualan</th>
+                                                    <th>Total Pengeluaran</th>
                                                     <th>Rp<?=number_format($total,0,".",".")?></th>
                                                     <th></th>
                                                 </tr>

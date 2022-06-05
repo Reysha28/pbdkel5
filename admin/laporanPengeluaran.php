@@ -75,18 +75,18 @@
                 <div class="flex container" style="margin-bottom:0px;">
                     <div class="row align-items-start">
                         <div class="col">
-                        <p align="right">Dari Tanggal<p>
+                        <p align="right">Bulan<p>
                         </div>
                         <div class="col">
                             <div class="input-group mb-3">
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
                             <span class="input-group-text"><i class='bx bx-calendar nav_icon'></i></span>
                             </div>
                         </div>
                     </div>
                 <div class="row align-items-start">
                     <div class="col">
-                    <p align="right">Sampai Tanggal<p>
+                    <p align="right">Tahun<p>
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
@@ -96,14 +96,33 @@
                     </div>
                 </div>
                 <div align="right">
-                <button class="btn-search" type="submit">Cari Data</button>  
+                <button class="btn-search" name="back" type="submit">Cari Data</button>  
                 </div> 
             </div>
             </div>
         </div>
     </div>
 
-            
+    <?php
+    if (isset($_POST['back'])) {
+        $tgl1 = $_POST['tgl1'];
+        $tgl2 = $_POST['tgl2'];
+
+        $data = $conn->query("SELECT count(tabel_detail_pengeluaran.id_pengeluaran) as id FROM tabel_detail_pengeluaran join tabel_pengeluaran on
+        tabel_pengeluaran.id_pengeluaran=tabel_detail_pengeluaran.id_pengeluaran 
+        WHERE tgl1(tanggal_pengeluaran)='$tgl1' and 
+        tgl2(tanggal_pengeluaran)='$tgl2'");
+        while ($row1 = $data->fetch_assoc()) {
+            $brag = $row1['id'];
+        }
+
+        if ($brag == 0) {
+            $pesan_gagal = "Tidak ada transaksi!";
+        } else {
+            header("location:print_laporanPengeluaran.php?tgl1=$tgl1&&tgl2=$tgl1");
+        }
+    }
+    ?>        
 
     <div class="footer" style="bottom:-160px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
