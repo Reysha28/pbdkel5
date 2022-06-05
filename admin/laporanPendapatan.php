@@ -1,3 +1,6 @@
+<?php
+include_once('../connect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,6 +75,7 @@
                 <hr>
                 <p>Silahkan anda pilih dari tanggal dan sampai tanggal untuk menampilkan hasil penjualan pada toko anda</p>
                 <hr>
+                <form action="" method="post">
                 <div class="flex container" style="margin-bottom:0px;">
                     <div class="row align-items-start">
                         <div class="col">
@@ -79,8 +83,7 @@
                         </div>
                         <div class="col">
                             <div class="input-group mb-3">
-                            <input type="date" class="form-control" aria-label="Amount (to the nearest dollar)">
-                            <span class="input-group-text"><i class='bx bx-calendar nav_icon'></i></span>
+                            <input type="date" class="form-control" name="date1" value="<?php echo isset($_POST['date1']) ? $_POST['date1'] : '' ?>"">
                             </div>
                         </div>
                     </div>
@@ -90,21 +93,62 @@
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
-                        <input type="date" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <span class="input-group-text"><i class='bx bx-calendar nav_icon'></i></span>
+                        <input type="date" class="form-control" name="date2" value="<?php echo isset($_POST['date2']) ? $_POST['date2'] : '' ?>">
                         </div>
                     </div>
                 </div>
                 <div align="right">
-                <button class="btn-search" type="submit">Cari Data</button>  
-                </div> 
+                <button class="btn-search" name="back" type="submit">Cari Data</button>  
+                </div>
+            </form>
             </div>
             </div>
         </div>
+
+        <div class="table-responsive">	
+			<table class="table table-bordered">
+				<thead class="alert-info">
+					<tr>
+						<th>Penjualan</th>
+						<th>Pendapatan</th>
+						<th>Keuntungan</th>
+					</tr>
+				</thead>
+				<tbody>
+                <?php
+                $date1=0;
+                $date2=0;
+                if (isset($_POST['back'])) {
+                    $date1 = date("Y-m-d", strtotime($_POST['date1']));
+                    $date2 = date("Y-m-d", strtotime($_POST['date2']));
+                    $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran WHERE date(tanggal_pengeluaran) BETWEEN '$date1' AND '$date2'");
+                    $total=0;
+                    while($row=pg_fetch_array($result)){
+                        $jumlah=$row['harga'];
+                        $total+=$jumlah;
+                    }
+
+                    $result2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi JOIN tabel_transaksi on tabel_transaksi.id_penjualan=tabel_detail_transaksi.id_penjualan WHERE date(tanggal_penjualan) BETWEEN '$date1' AND '$date2'");
+                    $total2=0;
+                    while($row2=pg_fetch_array($result2)){
+                        $jumlah2=$row2['total_harga'];
+                        $total2+=$jumlah2;
+                    }
+                    $total3=$total2-$total;
+                    ?>
+                        <tr>
+                            <th>Rp<?=number_format($total,0,".",".")?></th>
+                            <th>Rp<?=number_format($total2,0,".",".")?></th>
+                            <th>Rp<?=number_format($total3,0,".",".")?></th>
+                        </tr>
+                    <?php
+                }
+                ?>	
+				</tbody>
+			</table>
+		</div>	 
+                
     </div>
-
-            
-
     <div class="footer" style="bottom:-160px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>

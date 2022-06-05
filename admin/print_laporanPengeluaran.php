@@ -1,12 +1,9 @@
 <?php
 	function generateRow(){
-		$contents = '';
+        $contents = '';
 		include_once('../connect.php');
-		$query = pg_query($conn,"SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran
-        WHERE tgl1(tanggal_pengeluaran)='$tgl1' and 
-        tgl2(tanggal_pengeluaran)='$tgl2'");
+		$query = pg_query($conn,"SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran");
 		$total=0;
-        
         while($row=pg_fetch_array($query)){
             $jumlah=$row['harga'];
             $total+=$jumlah;
@@ -15,11 +12,19 @@
 				<td>".$row['id_pengeluaran']."</td>
 				<td>".$row['tanggal_pengeluaran']."</td>
 				<td>".$row['jenis_pengeluaran']."</td>
-				<td>".$row['harga']."</td>
+				<td>Rp".$row['harga']."</td>
 			</tr>
 			";
 		}
         $total;
+            $contents .= "
+            <tr>
+				<td rowspan='2'></td>
+				<td></td>
+				<td>Total</td>
+				<td>Rp".$total."</td>
+			</tr>
+            ";
 		return $contents;
 	}
 
@@ -52,6 +57,12 @@
       ';  
     $content .= generateRow();  
     $content .= '</table>';
+    $content .= '
+    <br><br>
+    <p align="right">Padang,...................</p>
+    <p align="right">Mengetahui,</p>
+    <br><br><br><br>
+    <p align="right">Ananda Fitria</p>';
     $pdf->writeHTML($content);  
     $pdf->Output('Laporan Pengeluaran Tatitatu.pdf', 'I');
 	

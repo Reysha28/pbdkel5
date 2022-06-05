@@ -1,3 +1,6 @@
+<?php
+include_once('../connect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,57 +75,82 @@
                 <hr>
                 <p>Silahkan anda pilih dari tanggal dan sampai tanggal untuk menampilkan hasil penjualan pada toko anda</p>
                 <hr>
+                <form action="" method="post">
                 <div class="flex container" style="margin-bottom:0px;">
                     <div class="row align-items-start">
                         <div class="col">
-                        <p align="right">Bulan<p>
+                        <p align="right">Dari Tanggal<p>
                         </div>
                         <div class="col">
                             <div class="input-group mb-3">
-                            <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
-                            <span class="input-group-text"><i class='bx bx-calendar nav_icon'></i></span>
+                            <input type="date" class="form-control" name="date1" value="<?php echo isset($_POST['date1']) ? $_POST['date1'] : '' ?>"">
                             </div>
                         </div>
                     </div>
                 <div class="row align-items-start">
                     <div class="col">
-                    <p align="right">Tahun<p>
+                    <p align="right">Sampai Tanggal<p>
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <span class="input-group-text"><i class='bx bx-calendar nav_icon'></i></span>
+                        <input type="date" class="form-control" name="date2" value="<?php echo isset($_POST['date2']) ? $_POST['date2'] : '' ?>">
                         </div>
                     </div>
                 </div>
                 <div align="right">
                 <button class="btn-search" name="back" type="submit">Cari Data</button>  
-                </div> 
+                </div>
+            </form>
             </div>
             </div>
         </div>
+
+        <div class="table-responsive">	
+			<table class="table table-bordered">
+				<thead class="alert-info">
+					<tr>
+						<th>ID Pengeluaran</th>
+                        <th>Tanggal</th>
+						<th>Kategori</th>
+						<th>Harga</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+                <?php
+                $date1=0;
+                $date2=0;
+                if (isset($_POST['back'])) {
+                    $date1 = date("Y-m-d", strtotime($_POST['date1']));
+                    $date2 = date("Y-m-d", strtotime($_POST['date2']));
+                    $query=pg_query("SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran WHERE date(tanggal_pengeluaran) BETWEEN '$date1' AND '$date2'");
+                    $row=pg_num_rows($query);
+                    if($row>0){
+                        while($fetch=pg_fetch_array($query)){
+                    ?>
+                        <tr>
+                            <td><?php echo $fetch['id_pengeluaran']?></td>
+                            <td><?php echo $fetch['tanggal_pengeluaran']?></td>
+                            <td><?php echo $fetch['jenis_pengeluaran']?></td>
+                            <td>Rp<?=number_format($fetch['harga'],0,".",".")?></td>
+                        </tr>
+                    <?php
+                        }
+                    }else{
+                        echo'
+                        <tr>
+                            <td colspan = "4"><center>Record Not Found</center></td>
+                        </tr>';
+                    }
+                }
+                ?>	
+				</tbody>
+			</table>
+		</div>	 
+                
     </div>
 
-    <?php
-    if (isset($_POST['back'])) {
-        $tgl1 = $_POST['tgl1'];
-        $tgl2 = $_POST['tgl2'];
-
-        $data = $conn->query("SELECT count(tabel_detail_pengeluaran.id_pengeluaran) as id FROM tabel_detail_pengeluaran join tabel_pengeluaran on
-        tabel_pengeluaran.id_pengeluaran=tabel_detail_pengeluaran.id_pengeluaran 
-        WHERE tgl1(tanggal_pengeluaran)='$tgl1' and 
-        tgl2(tanggal_pengeluaran)='$tgl2'");
-        while ($row1 = $data->fetch_assoc()) {
-            $brag = $row1['id'];
-        }
-
-        if ($brag == 0) {
-            $pesan_gagal = "Tidak ada transaksi!";
-        } else {
-            header("location:print_laporanPengeluaran.php?tgl1=$tgl1&&tgl2=$tgl1");
-        }
-    }
-    ?>        
+            
 
     <div class="footer" style="bottom:-160px">
         <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>

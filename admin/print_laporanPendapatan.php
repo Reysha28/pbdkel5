@@ -2,9 +2,6 @@
 	function generateRow(){
 		$contents = '';
 		include_once('../connect.php');
-        $tgl1 = $_GET['tgl1'];
-        $tgl2 = $_GET['tgl2'];
-
 		$result = pg_query($conn,"SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran");
         $total=0;
         while($row=pg_fetch_array($result)){
@@ -20,11 +17,9 @@
         }
         $total3=$total2-$total;
         $contents .= "
-			<tr>
-				<td>".$total."</td>
-                <td>".$total2."</td>
-                <td>".$total3."</td>
-			</tr>
+				<p>Pengeluaran : Rp".$total."</p>
+                <p>Pendapatan  : Rp".$total2."</p>
+                <p>Keuntungan  : Rp".$total3."</p>
 			";
 		return $contents;
 	}
@@ -47,16 +42,17 @@
     $content = '';  
     $content .= '
       	<h2 align="center">Laporan Pendapatan Tatitatu</h2>
-      	
-      	<table border="1" cellspacing="0" cellpadding="3">  
-           <tr align="center">  
-                <th width="32%">Pengeluaran</th>
-                <th width="32%">Penjualan</th> 
-				<th width="32%">Pendapatan</th>
-           </tr>  
+        <br>
+        <h4>Hasil Kalkulasi</h4>
       ';  
     $content .= generateRow();  
-    $content .= '</table>';  
+    
+    $content .= '
+    <br><br>
+    <p align="right">Padang,...................</p>
+    <p align="right">Mengetahui,</p>
+    <br><br><br><br>
+    <p align="right">Ananda Fitria</p>';
     $pdf->writeHTML($content);  
     $pdf->Output('Laporan Pendapatan Tatitatu.pdf', 'I');
 	

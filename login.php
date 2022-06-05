@@ -76,14 +76,6 @@
                 $_SESSION['id_role'] = "4";
                 echo "<script>alert('Login Berhasil');window.location='berandaProduksi.php';</script>";
             }
-            else
-            {
-                header("location:login.php?pesan=gagal3");
-            }
-        }
-        else
-        {
-            header("location:login.php?pesan=gagal2"); 
         }
     }   
     ?>

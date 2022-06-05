@@ -3,7 +3,10 @@
 		$contents = '';
 		include_once('../connect.php');
 		$query = pg_query($conn,"SELECT * FROM tabel_detail_transaksi JOIN tabel_transaksi on tabel_transaksi.id_penjualan=tabel_detail_transaksi.id_penjualan JOIN tabel_barang on tabel_barang.id_barang=tabel_detail_transaksi.id_barang");
+        $total=0;
         while($row=pg_fetch_array($query)){
+            $jumlah=$row['total_harga'];
+            $total+=$jumlah;
 			$contents .= "
 			<tr>
 				<td>".$row['id_penjualan']."</td>
@@ -12,10 +15,21 @@
 				<td>".$row['id_pegawai']."</td>
                 <td>".$row['nama_barang']."</td>
 				<td>".$row['qty']."</td>
-				<td>".$row['total_harga']."</td>
+				<td>Rp".$row['total_harga']."</td>
 			</tr>
 			";
 		}
+        $contents .= "
+            <tr>
+				<td></td>
+				<td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+				<td>Total</td>
+				<td>Rp".$total."</td>
+			</tr>
+            ";
 		return $contents;
 	}
 
@@ -51,6 +65,12 @@
       ';  
     $content .= generateRow();  
     $content .= '</table>';  
+    $content .= '
+    <br><br>
+    <p align="right">Padang,...................</p>
+    <p align="right">Mengetahui,</p>
+    <br><br><br><br>
+    <p align="right">Ananda Fitria</p>';
     $pdf->writeHTML($content);  
     $pdf->Output('Laporan Penjualan Tatitatu.pdf', 'I');
 	
