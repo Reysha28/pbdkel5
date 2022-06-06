@@ -201,9 +201,33 @@
                                                 </tr>
                                             </tfoot>
                                         </table>
+
+                                        <h5><br>Pembayaran</h5> 
+                                        <div class="row justify-content-between">
+                                            <div class="col-md-5"  style="margin-bottom=30px>
+                                            <label for="bayar">Bayar</label>
+                                            <input type="number" id="bayar"  class="form-control" name="bayar" placeholder ="jumlah bayar">
+                                            </div>
+
+                                            <div class="col-md-5" style="margin-bottom=30px">
+                                            <label for="kembalian">Kembalian</label>
+                                            <input type="number" id="kembalian"  class="form-control" name="kembalian" placeholder ="kembalian" readonly>
+                                            </div>
+                                        </div>
+                                        <div><br> <br></div>
+
+                                        <script>
+                                            let harga= "<?php echo $total ?>";
+                                            let bayar = document.getElementById('bayar')
+                                            let kembalian = document.getElementById('kembalian')
+                                            
+                                            bayar.addEventListener('keyup',(e)=> {
+                                                kembalian.value = e.target.value ? e.target.value - harga : 0
+                                            });                                            
+                                        </script>
                                  
 
-                                        <div align="right" class="col-8" style="margin-bottom:30px">
+                                        <div align="right" class="col-7" style="margin-bottom:30px">
                                             <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
@@ -219,6 +243,21 @@
     </div>
 
 </body>
+
+<?php
+ if (isset($_POST['simpan'])) {
+    $id_barang = $_POST['id_barang'];
+    $id_katbarang = $_POST['id_katbarang'];
+    $nama_barang = $_POST['nama_barang'];
+    $warna_barang = $_POST['warna_barang'];
+    $harga_barang = $_POST['harga_barang'];
+    $stok_tersedia = $_POST['stok_tersedia'];
+
+$sql =  pg_query($conn,"UPDATE tabel_barang SET id_katbarang='$id_katbarang', nama_barang='$nama_barang', warna_barang='$warna_barang' 
+, harga_barang='$harga_barang' , stok_tersedia='$stok_tersedia' 
+WHERE id_barang='$id_barang'");
+?>
+
 </html>
 
 <script>
