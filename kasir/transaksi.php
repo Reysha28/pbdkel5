@@ -106,8 +106,7 @@
                                             <input type="text"  class="form-control" name="id_pegawai" required>
                                         </div>
 
-                                        <input class="btn btn-success" type="submit" name="tambah" value="Tambah" style="width:10%; margin-top:40px;background-color:#ff7f5c">
-
+                                        <input  class="btn btn-success" type="submit" name="tambah" value="Tambah" style="width:10%; margin-top:40px;background-color:#ff7f5c">
                                     </div>
                                 </div>
                             </form>
@@ -118,10 +117,12 @@
         </div>
     </div>
 
+        <div class="footer" style="bottom: -80px">
+            <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
+        </div>
 
-    <div class="footer" style="bottom: 0">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
-    </div>
+
+
 
     <?php 
     if (isset($_POST['tambah'])) {

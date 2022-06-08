@@ -114,7 +114,7 @@
 
                                         <div class="col-md-4">
                                         <label for="id_barang">Barang</label>
-                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Barang" name="id_barang" required>
+                                        <select style="padding:5px 10px; width:100%;" class="chosen-select" data-placeholder="Pilih Barang" name="id_barang">
                                         <option value="" disabled selected>Pilih Barang</option>
                                         <?php 
                                         $barang = pg_query($conn, "select * from tabel_barang order by id_barang ASC");
@@ -230,7 +230,7 @@
                                         <div align="right" class="col-7" style="margin-bottom:30px">
                                             <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
+                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px" readonly>
                                         </div>
                                     </div>
                                 </div>
