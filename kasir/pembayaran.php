@@ -150,7 +150,7 @@
 
                                         }
                                         ?>
-                      
+                    
                                         <input class="btn btn-success" type="submit" name="add" value="Add" style="width:10%; margin-top:20px; margin-bottom:20px; margin-left:30px;background-color:#ff7f5c">
 
                                         <table id="myTable" class="table table-hover" >
@@ -225,8 +225,7 @@
                                                 kembalian.value = e.target.value ? e.target.value - harga : 0
                                             });                                            
                                         </script>
-                                 
-
+                                
                                         <div align="right" class="col-7" style="margin-bottom:30px">
                                             <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
@@ -241,10 +240,7 @@
             </div>
         </div>
     </div>
-
-</body>
-
-<?php
+    <?php
  if (isset($_POST['simpan'])) {
     $id_barang = $_POST['id_barang'];
     $id_katbarang = $_POST['id_katbarang'];
@@ -256,10 +252,10 @@
 $sql =  pg_query($conn,"UPDATE tabel_barang SET id_katbarang='$id_katbarang', nama_barang='$nama_barang', warna_barang='$warna_barang' 
 , harga_barang='$harga_barang' , stok_tersedia='$stok_tersedia' 
 WHERE id_barang='$id_barang'");
+}
 ?>
-
+</body>
 </html>
-
 <script>
 document.addEventListener("DOMContentLoaded", function(event) { 
     const showNavbar = (toggleId, navId, bodyId, headerId) =>{
@@ -294,7 +290,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     this.classList.add('active')
     }
     }
-    linkColor.forEach(l=> l.addEventListener('click', colorLink))
-    
+    linkColor.forEach(l=> l.addEventListener('click', colorLink)) 
 });
 </script>

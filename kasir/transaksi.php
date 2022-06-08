@@ -118,11 +118,6 @@
         </div>
     </div>
 
-
-    <div class="footer" style="bottom: 0">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
-    </div>
-
     <?php 
     if (isset($_POST['tambah'])) {
     $id_penjualan = $_POST['id_penjualan'];
