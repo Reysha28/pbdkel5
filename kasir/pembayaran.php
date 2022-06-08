@@ -204,7 +204,7 @@
 
                                         <h5><br>Pembayaran</h5> 
                                         <div class="row justify-content-between">
-                                            <div class="col-md-5"  style="margin-bottom=30px>
+                                            <div class="col-md-5"  style="margin-bottom=30px">
                                             <label for="bayar">Bayar</label>
                                             <input type="number" id="bayar"  class="form-control" name="bayar" placeholder ="jumlah bayar">
                                             </div>
@@ -256,6 +256,7 @@
 $sql =  pg_query($conn,"UPDATE tabel_barang SET id_katbarang='$id_katbarang', nama_barang='$nama_barang', warna_barang='$warna_barang' 
 , harga_barang='$harga_barang' , stok_tersedia='$stok_tersedia' 
 WHERE id_barang='$id_barang'");
+ }
 ?>
 
 </html>
