@@ -106,8 +106,7 @@
                                             <input type="text"  class="form-control" name="id_pegawai" required>
                                         </div>
 
-                                        <input class="btn btn-success" type="submit" name="tambah" value="Tambah" style="width:10%; margin-top:40px;background-color:#ff7f5c">
-
+                                        <input  class="btn btn-success" type="submit" name="tambah" value="Tambah" style="width:10%; margin-top:40px;background-color:#ff7f5c">
                                     </div>
                                 </div>
                             </form>
