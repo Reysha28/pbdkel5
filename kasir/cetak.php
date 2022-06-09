@@ -1,3 +1,14 @@
+<?php 
+    include '../connect.php';
+    $id_b = 0;
+    if (isset($_POST['add'])){
+        $id_b = $_POST['id_barang'];
+
+    }
+
+    $sql1 = pg_query($conn, "SELECT * from tabel_transaksi ORDER BY id_penjualan DESC LIMIT 1");
+    $row1 = pg_fetch_array($sql1);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,8 +42,8 @@
                     <i  class="mdi mdi-account-edit">
                     </i> Cetak Transaksi</a>
             </div>
-            <h4>Nama Pelanggan : Pelanggan</h4>
-            <h6>Tanggal Transaksi : 09-06-2022</h6>
+            <h4>Nama Pelanggan : <?php echo $row1['pembeli']?></h4>
+            <h6>Tanggal Transaksi : <?php echo $row1['tanggal_penjualan']?></h6>
         </div>
         <div class="table-responsive">
             <table class="table">

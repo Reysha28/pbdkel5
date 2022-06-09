@@ -230,7 +230,7 @@
                                         <div align="right" class="col-7" style="margin-bottom:30px">
                                             <a class="btn btn-primary">Reset</a>
                                             <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px" readonly>
+                                            <a class="btn btn-success" type="submit" name="simpan" style="margin-left:30px" href="cetak.php">Submit</a>
                                         </div>
                                     </div>
                                 </div>

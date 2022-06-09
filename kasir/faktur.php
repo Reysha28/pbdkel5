@@ -28,24 +28,17 @@
         <div class="table-responsive">
             <table class="table">
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Kode Produk</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Harga</th>
-                        <th scope="col">QTY</th>
-                        <th scope="col">Subtotal</th>
+                    <tr style="font-size:7pt">
+                    <td>Pelanggan : Pelanggan</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>PRO-0012706</td>
-                        <td>TUNIC KRC 1/2</td>
-                        <td>135000</td>
-                        <td>1</td>
-                        <td>135000</td>
                     </tr>
+                    <p>Nama Barang</p>
+                    <th>Rp.150.000</th>
+                    <th>x22</th>
+                    <th>Rp.150.0000</th>
                 </tbody>
             </table>
         </div>
@@ -55,3 +48,6 @@
     
 </body>
 </html>
+<script>
+    // window.print()
+</script>
