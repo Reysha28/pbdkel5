@@ -85,11 +85,8 @@ include_once('../connect.php');
                 <button class="btn-search" name="back" type="submit">Cari Data</button>  
                 </div>
             </form>
-            </div>
-            </div>
-        </div>
-
-        <div class="table-responsive">	
+            <br><br>
+            <div class="table-responsive">	
 			<table class="table table-bordered">
 				<thead class="alert-info">
 					<tr>
@@ -130,7 +127,10 @@ include_once('../connect.php');
                 ?>	
 				</tbody>
 			</table>
-		</div>	 
+		</div>
+            </div>
+            </div>
+        </div>	 
                 
     </div>
 
