@@ -252,11 +252,7 @@
 $sql =  pg_query($conn,"UPDATE tabel_barang SET id_katbarang='$id_katbarang', nama_barang='$nama_barang', warna_barang='$warna_barang' 
 , harga_barang='$harga_barang' , stok_tersedia='$stok_tersedia' 
 WHERE id_barang='$id_barang'");
-<<<<<<< HEAD
 }
-=======
- }
->>>>>>> 719b9c0babb95d41a8fed2fc9dc7df24325686c6
 ?>
 </body>
 </html>
