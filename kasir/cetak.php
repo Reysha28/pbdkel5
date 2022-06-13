@@ -38,7 +38,7 @@
             <div class="col-md-8"><h6 class="card-title"><i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i> List Penjualan</h6>
             </div>
             <div class="col-md-4">
-                <a style="width:100%;height:40px;margin-right:20px;background-color:#36BEA6" href="#" class="btn btn-success btn-block">
+                <a style="width:100%;height:40px;margin-right:20px;background-color:#36BEA6" href="faktur.php" class="btn btn-success btn-block">
                     <i  class="mdi mdi-account-edit">
                     </i> Cetak Transaksi</a>
             </div>
