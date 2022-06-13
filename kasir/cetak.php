@@ -38,7 +38,7 @@
             <div class="col-md-8"><h6 class="card-title"><i class="m-r-5 font-18 mdi mdi-numeric-1-box-multiple-outline"></i> List Penjualan</h6>
             </div>
             <div class="col-md-4">
-                <a style="width:100%;height:40px;margin-right:20px;background-color:#36BEA6" href="faktur.php" class="btn btn-success btn-block">
+                <a style="width:100%;height:40px;margin-right:20px;background-color:#36BEA6" href="faktur.php" target="blank" class="btn btn-success btn-block">
                     <i  class="mdi mdi-account-edit">
                     </i> Cetak Transaksi</a>
             </div>
@@ -71,10 +71,9 @@
         </div>
         <div style="text-align:right">
             <div class="alert alert-success"><h5 class="text-right">Total : Rp.135.000</h5> </div>
-            <div class="alert alert-info"><h5 class="text-right">Diskon : 0%</h5> </div>
             <div class="alert alert-warning"><h5 class="text-right">Total Bayar : Rp.135.000</h5> </div>
         </div>
-        <a href="">Keluar</a>
+        <a href="transaksi.php">Keluar</a>
     </div>
     
 </body>

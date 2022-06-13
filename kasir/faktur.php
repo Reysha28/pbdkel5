@@ -44,7 +44,7 @@
             </tr>
             <tr>
             <td colspan="2">Sub Total  <br> Bayar <br> Total <br>Kembalian</td>
-            <td align="right">Sub total <br>RP,1 <br>RP2 <br>Rp3 </td>
+            <td align="right">Sub total<br>RP,1<br>RP2<br>Rp3</td>
             </tr>
         </tbody>
         </table>
