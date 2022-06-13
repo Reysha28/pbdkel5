@@ -25,23 +25,32 @@
         <div  style="text-align:center; font-size:9pt; margin-top : 10px">
             <p>Jl.Sudirman, Blk Gor <br> 081231231 </p>
         </div>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr style="font-size:7pt">
-                    <td>Pelanggan : Pelanggan</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    </tr>
-                    <p>Nama Barang</p>
-                    <th>Rp.150.000</th>
-                    <th>x22</th>
-                    <th>Rp.150.0000</th>
-                    <p>______________________________________________________________________</p>
-                </tbody>
-            </table>
+       
+
+       
+
+        <table class="table"style="border-style:hidden; font-size:7pt" >
+      
+        <tbody>
+            <tr s>
+            <td>Nama Pelangggan</td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td width="35%">Nama Barang <br> harga</td>
+            <td width="35%" align="center"> <br> Qty</td>
+            <td width="35%"align="right"><br>total</td>
+            </tr>
+            <tr>
+            <td colspan="2">Sub Total  <br> Bayar <br> Total <br>Kembalian</td>
+            <td align="right">Sub total <br>RP,1 <br>RP2 <br>Rp3 </td>
+            </tr>
+        </tbody>
+        </table>
+        <div style="font-size:7pt">
+            <p>Petugas : siapaa <br> Tanggal : 13-06-2022</p>
+            <p align="center" >TERIMAKASIH SUDAH BERBELANJA DI<br>TATITATU </p>
         </div>
 
     </head>
