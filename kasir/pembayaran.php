@@ -186,7 +186,7 @@
                                             <tfoot>
                                             <?php
                                             $total = 0;
-                                            $jlh = pg_query($conn, "SELECT * FROM tabel_detail_transaksi");
+                                            $jlh = pg_query($conn, "SELECT * FROM tabel_detail_transaksi where id_barang='$id_b'");
                                             while ($data3 = pg_fetch_array($jlh)){
                                                 $jumlah=$data3['total_harga'];
                                                 $total+=$jumlah;

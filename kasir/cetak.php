@@ -1,14 +1,10 @@
 <?php 
     include '../connect.php';
-    $id_b = 0;
-    if (isset($_POST['add'])){
-        $id_b = $_POST['id_barang'];
-
-    }
 
     $sql1 = pg_query($conn, "SELECT * from tabel_transaksi ORDER BY id_penjualan DESC LIMIT 1");
     $row1 = pg_fetch_array($sql1);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,20 +54,32 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php 
+                    $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi, tabel_barang WHERE tabel_detail_transaksi.id_barang = tabel_barang.id_barang");
+                    $x=1;
+                    $total = 0;
+                    while($row2=pg_fetch_array($sql2)){
+                        $jumlah=$row2['total_harga'];
+                        $total+=$jumlah;
+                    ?>
+
                     <tr>
-                        <th scope="row">1</th>
-                        <td>PRO-0012706</td>
-                        <td>TUNIC KRC 1/2</td>
-                        <td>135000</td>
-                        <td>1</td>
-                        <td>135000</td>
+                        <th scope="row"><?php echo $x ?></th>
+                        <td><?=$row2['id_barang']?></td>
+                        <td><?=$row2['nama_barang']?></td>
+                        <td><?=$row2['harga_barang']?></td>
+                        <td><?=$row2['qty']?></td>
+                        <td>Rp<?=number_format($row2['total_harga'],0,".",".")?></td>
                     </tr>
+                    <?php
+                    $x++;
+                    }
+                    ?> 
                 </tbody>
             </table>
         </div>
         <div style="text-align:right">
-            <div class="alert alert-success"><h5 class="text-right">Total : Rp.135.000</h5> </div>
-            <div class="alert alert-warning"><h5 class="text-right">Total Bayar : Rp.135.000</h5> </div>
+            <div class="alert alert-success"><h5 class="text-right">Total : Rp<?=number_format($total,0,".",".")?></h5> </div>
         </div>
         <a href="transaksi.php">Keluar</a>
     </div>

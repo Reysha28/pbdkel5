@@ -1,3 +1,10 @@
+<?php 
+    include '../connect.php';
+    
+    $sql1 = pg_query($conn, "SELECT * from tabel_transaksi ORDER BY id_penjualan DESC LIMIT 1");
+    $row1 = pg_fetch_array($sql1);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,8 +39,8 @@
         <table class="table"style="border-style:hidden; font-size:7pt" >
       
         <tbody>
-            <tr s>
-            <td>Nama Pelangggan</td>
+            <tr>
+            <td>Pelangggan :  <?php echo $row1['pembeli']?></td>
             <td></td>
             <td></td>
             </tr>
@@ -49,7 +56,7 @@
         </tbody>
         </table>
         <div style="font-size:7pt">
-            <p>Petugas : siapaa <br> Tanggal : 13-06-2022</p>
+            <p>Petugas : siapaa <br> Tanggal : <?php echo $row1['tanggal_penjualan']?></p>
             <p align="center" >TERIMAKASIH SUDAH BERBELANJA DI<br>TATITATU </p>
         </div>
 
