@@ -1,5 +1,13 @@
-<?php
-require_once '../connect.php';
+<?php 
+    include '../connect.php';
+
+    $query = pg_query($conn, "SELECT max(id_penjualan) as id_penjualan FROM tabel_transaksi");
+    $row = pg_fetch_array($query);
+    $kode = $row['id_penjualan'];
+    $urutan = (int) substr($kode, 3, 3);
+    $urutan=$urutan+1;
+    $huruf = "E";
+    $id = $huruf . sprintf("%03s", $urutan); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +22,6 @@ require_once '../connect.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-
     	<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <!-- data tabel CSS -->
@@ -46,11 +52,11 @@ require_once '../connect.php';
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a href="barangIndex.php" class="nav_link"> 
+                        <a href="barangIndex.php" class="nav_link active"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a href="penjualanIndex.php" class="nav_link  active"> 
+                        <a href="penjualanIndex.php" class="nav_link "> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
@@ -78,6 +84,9 @@ require_once '../connect.php';
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Penjualan</a>
                 </li>
+                <li aria-current="page">
+                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Create</a>
+                </li>
                 </ol>
             </nav>
         </div>
@@ -90,59 +99,29 @@ require_once '../connect.php';
                             <form action="" method="POST">
                                 <div class="row">
                                     <div class="row g-3">
-                                        <div align="right">
-                                        <a type="button" class="btn btn-success" type="submit" name="add" href="laporanPenjualan.php" value="New Report" style="width:10%;margin-left:40px;background-color:#3699FF">Report</a>
-                                        <a type="button" class="btn btn-success" href="transaksi.php"  value="Create" style="width:10%;height:40px;margin-left:20px;background-color:#F64E60">Create</a>
+
+                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Penjualan</h5> 
+                                        <div class="col-md-6">
+                                        <label for="id_penjualan">ID Penjualan</label>
+                                        <input type="text"  class="form-control" name="id_penjualan" value="<?php echo $id?>" readonly required>
                                         </div>
-                                        <table id="myTable" class="table table-hover" >
-                                            <thead >
-                                                <tr align="center" bgcolor='#F3F6F9'>
-                                                    <th>Tanggal</th>
-                                                    <th>ID Penjualan</th>
-                                                    <th>Pembeli</th>
-                                                    <th>ID Barang</th>
-                                                    <th>Qty</th>
-                                                    <th>Harga</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_detail_transaksi JOIN tabel_transaksi on tabel_transaksi.id_penjualan=tabel_detail_transaksi.id_penjualan");
-                                            $total=0;
-                                            while($row=pg_fetch_array($result)){
-                                                $jumlah=$row['total_harga'];
-                                                $total+=$jumlah;
-                                            ?>  
-                                            <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <td ><?=$row['tanggal_penjualan']?></td>
-                                                <td><?=$row['id_penjualan']?></td>
-                                                <td><?=$row['pembeli']?></td>
-                                                <td><?=$row['id_barang']?></td>
-                                                <td><?=$row['qty']?></td>
-                                                <td>Rp<?=number_format($row['total_harga'],0,".",".")?></td>
-                                                <td>
-                                                    <a type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data penjualan ini ?')" href="penjualanDelete.php?id_penjualan=<?= $row['id_penjualan'] ?>"><i class="fa-solid fa-trash"></i></a>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                            }
-                                            
-                                            ?>  
-                                            </tbody>
-                                            <tfoot>
-                                                <tr align="center" bgcolor='#F3F6F9'>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th>Total Penjualan</th>
-                                                    <th>Rp<?=number_format($total,0,".",".")?></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
+                                        
+                                        <div class="col-md-6">
+                                        <label for="tanggal_penjualan">Tanggal</label>
+                                        <input type="date" class="form-control" name="tanggal_penjualan" required>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                        <label for="pembeli">Pembeli</label>
+                                        <input type="text" class="form-control" name="pembeli" required>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="id_pegawai">ID Pegawai</label>
+                                            <input type="text"  class="form-control" name="id_pegawai" required>
+                                        </div>
+
+                                        <input  class="btn btn-success" type="submit" name="tambah" value="Tambah" style="width:10%; margin-top:40px;background-color:#ff7f5c">
                                     </div>
                                 </div>
                             </form>
@@ -152,6 +131,22 @@ require_once '../connect.php';
             </div>
         </div>
     </div>
+
+    <?php 
+    if (isset($_POST['tambah'])) {
+    $id_penjualan = $_POST['id_penjualan'];
+    $pembeli = $_POST['pembeli'];
+    $id_pegawai = $_POST['id_pegawai'];
+    $tanggal_penjualan = $_POST['tanggal_penjualan'];
+
+    $sql = pg_query($conn, "insert into tabel_transaksi (id_penjualan,id_pegawai,pembeli,tanggal_penjualan) values('$id_penjualan','$id_pegawai','$pembeli','$tanggal_penjualan')");
+    if($sql){
+        echo "<script>alert('Data berhasil ditambahkan');window.location='pembayaran.php';</script>";
+        } else {
+        echo pg_last_error($conn);
+        }
+    }
+    ?>
 </body>
 </html>
 

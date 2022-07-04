@@ -168,21 +168,8 @@
 
                                             <tbody>
                                             <?php 
-<<<<<<< HEAD
                                             $kode = $row1['id_penjualan'];
                                             $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi WHERE id_penjualan='$kode'");
-=======
-<<<<<<< HEAD
-                                             if (isset($_POST['add'])){
-                                            $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi, tabel_barang WHERE id_penjualan='E009'");
-                                            
-
-=======
-                                            
-                                            $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi WHERE id_penjualan='E003'");
->>>>>>> b89e15c3427f96cc1eda5614d420f045dce798a4
-                                            $total=0;
->>>>>>> 1cb0cc73b29d2e0ce0ef415266b3df203ddf74d5
                                             while($row2=pg_fetch_array($sql2)){
                                                 $jumlah=$row2['total_harga'];
                                                 $total+=$jumlah;
@@ -195,7 +182,7 @@
                                             </tr>
                                             <?php
                                             }
-                                            }
+                                            
                                             ?> 
                                             </tbody>
                                             
@@ -205,7 +192,6 @@
                                                     <th></th>
                                                     <th>Total Harga</th>
                                                     <th>Rp<?=number_format($total,0,".",".")?></th>
-                                                    <th></th>
                                                 </tr>
                                             </tfoot>
                                         </table>

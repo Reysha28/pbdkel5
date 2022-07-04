@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tatitatu</title>
@@ -89,7 +89,7 @@
                         <div class="container-fluid">
                             <form action="" method="POST">
                                 <div class="row">
-                                    <div class="row g-3">
+                                <div class="row g-3">
                                         <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Update Penjualan</h5> 
                                         <div class="col-md-3">
                                         <label for="tanggal_penjualan">Tanggal</label>
@@ -112,7 +112,6 @@
                                         </div>
 
                                         <h5 align="left" style="margin-top:20px;margin-bottom:5px;">Add Items</h5>
-
                                         <div class="col-md-4">
                                         <label for="id_barang">ID Barang</label>
                                         <input type="text" class="form-control" name="id_barang" required>
@@ -126,7 +125,7 @@
                                         <input class="btn btn-success" type="submit" name="add" value="Add" style="width:10%; margin-top:40px;margin-left:30px;background-color:#ff7f5c">
 
                                         <table id="myTable" class="table table-hover" >
-                                            <thead >
+                                        <thead >
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th>ID Barang</th>
                                                     <th>Nama Barang</th>
@@ -157,13 +156,13 @@
                                                 </tr>
                                             </tfoot>
                                         </table>
-
                                         <div align="right" class="col-8" style="margin-bottom:30px">
-                                        <button class="btn btn-primary" type="reset">Reset</button>
-                                            <a class="btn btn-warning" style="margin-left:30px" href="penjualanIndex.php"Cancel</a>
+                                            <button class="btn btn-primary" type="reset">Reset</button>
+                                            <a class="btn btn-warning" style="margin-left:30px" href="penjualanIndex.php">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
-                                    </div>
+                                        
+
                                 </div>
                             </form>
                         </div>
@@ -173,48 +172,7 @@
         </div>
     </div>
 
-
-    <div class="footer" style="bottom:-70px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
-    </div>
+        
+    
 </body>
 </html>
-
-<script>
-document.addEventListener("DOMContentLoaded", function(event) { 
-    const showNavbar = (toggleId, navId, bodyId, headerId) =>{
-    const toggle = document.getElementById(toggleId),
-    nav = document.getElementById(navId),
-    bodypd = document.getElementById(bodyId),
-    headerpd = document.getElementById(headerId)
-    
-    // Validate that all variables exist
-    if(toggle && nav && bodypd && headerpd){
-    toggle.addEventListener('click', ()=>{
-    // show navbar
-    nav.classList.toggle('show')
-    // change icon
-    toggle.classList.toggle('bx-x')
-    // add padding to body
-    bodypd.classList.toggle('body-pd')
-    // add padding to header
-    headerpd.classList.toggle('body-pd')
-    })
-    }
-    }
-    
-    showNavbar('header-toggle','nav-bar','body-pd','header')
-    
-    /*===== LINK ACTIVE =====*/
-    const linkColor = document.querySelectorAll('.nav_link')
-    
-    function colorLink(){
-    if(linkColor){
-    linkColor.forEach(l=> l.classList.remove('active'))
-    this.classList.add('active')
-    }
-    }
-    linkColor.forEach(l=> l.addEventListener('click', colorLink))
-    
-});
-</script>
