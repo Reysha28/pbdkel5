@@ -55,7 +55,9 @@
                 </thead>
                 <tbody>
                 <?php 
-                    $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi, tabel_barang WHERE tabel_detail_transaksi.id_barang = tabel_barang.id_barang");
+                    $kode = $row1['id_penjualan'];
+                   
+                    $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi, tabel_barang WHERE tabel_detail_transaksi.id_barang = tabel_barang.id_barang AND id_penjualan='$kode'");
                     $x=1;
                     $total = 0;
                     while($row2=pg_fetch_array($sql2)){

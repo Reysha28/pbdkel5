@@ -167,8 +167,8 @@
 
                                             <tbody>
                                             <?php 
-                                            
-                                            $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi WHERE id_penjualan='E003'");
+                                            $kode = $row1['id_penjualan'];
+                                            $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi WHERE id_penjualan='$kode'");
                                             $total=0;
                                             while($row2=pg_fetch_array($sql2)){
                                                 $jumlah=$row2['total_harga'];
