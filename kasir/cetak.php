@@ -81,7 +81,7 @@
         <div style="text-align:right">
             <div class="alert alert-success"><h5 class="text-right">Total : Rp<?=number_format($total,0,".",".")?></h5> </div>
         </div>
-        <a href="transaksi.php">Keluar</a>
+        <a href="penjualanIndex.php">Keluar</a>
     </div>
     
 </body>
