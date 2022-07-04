@@ -27,7 +27,7 @@ require_once 'connect.php';
             <div> 
                 <a href="#" class="nav_logo"> 
                     <i class='bx bx-grid-alt nav_logo-icon'></i> 
-                    <span class="nav_logo-name">Admin</span> 
+                    <span class="nav_logo-name">Kasir</span> 
                 </a>
                 <div class="nav_list"> 
                 <a  class="nav_link active" href="../berandaKasir.php" > 
