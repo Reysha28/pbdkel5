@@ -63,8 +63,7 @@ require_once '../connect.php';
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
-                        <br><br><br>
-                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -93,7 +92,6 @@ require_once '../connect.php';
                                 <div class="row">
                                     <div class="row g-3">
                                         <div align="right">
-                                        <a type="button" class="btn btn-success" type="submit" name="add" value="New Report" style="width:10%;margin-left:40px;background-color:#3699FF">Report</a>
                                         <a type="button" class="btn btn-success" href="pengeluaranAdd.php"  value="Create" style="width:10%;height:40px;margin-left:20px;background-color:#F64E60">Create</a>
                                         </div>
                                         <table id="myTable" class="table table-hover" >

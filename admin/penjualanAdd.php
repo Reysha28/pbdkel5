@@ -69,8 +69,7 @@
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
-                        <br><br><br>
-                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link"  href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -124,7 +123,7 @@
 
                                         <div align="right" class="col-8" style="margin-bottom:10px;margin-top:40px">
                                             <button class="btn btn-primary" type="reset">Reset</button>
-                                            <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
+                                            <a class="btn btn-warning" style="margin-left:30px" href="penjualanIndex.php">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
                                     </div>

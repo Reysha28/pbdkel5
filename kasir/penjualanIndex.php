@@ -1,3 +1,6 @@
+<?php
+require_once '../connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,31 +38,15 @@
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                <a href="../berandaAdmin.php" class="nav_link"> 
+                <a  class="nav_link" href="../berandaKasir.php" > 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a href="pegawaiIndex.php"  class="nav_link"> 
-                            <i class='bx bx-user nav_icon'></i> 
-                            <span class="nav_name">Pegawai</span> 
-                        </a> 
-                        <a href="barangIndex.php" class="nav_link"> 
-                            <i class='bx bx-clipboard nav_icon'></i> 
-                            <span class="nav_name">Produk</span> 
-                        </a> 
-                        <a href="penjualanIndex.php" class="nav_link  active"> 
+                        <a  class="nav_link active" href="penjualanIndex.php"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a href="pengeluaranIndex.php" class="nav_link"> 
-                            <i class='bx bx-id-card nav_icon'></i> 
-                            <span class="nav_name">Pengeluaran</span> 
-                        </a> 
-                        <a href="laporanAdmin.php" class="nav_link"> 
-                            <i class='bx bx-book nav_icon'></i> 
-                            <span class="nav_name">Laporan</span> 
-                        </a>
-                        <a href="../login.php" class="nav_link" href="{{url('/login')}}"> 
+                        <a class="nav_link" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -75,9 +62,6 @@
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Penjualan</a>
                 </li>
-                <li aria-current="page">
-                    <a href="" class="btn btn-sm shadow-sm px-3" style="background-color: #ff7f5c; color: #fff; font-weight:600;font-size: 17px; border-radius: 10px;">Update</a>
-                </li>
                 </ol>
             </nav>
         </div>
@@ -90,79 +74,52 @@
                             <form action="" method="POST">
                                 <div class="row">
                                     <div class="row g-3">
-                                        <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Update Penjualan</h5> 
-                                        <div class="col-md-3">
-                                        <label for="tanggal_penjualan">Tanggal</label>
-                                        <input type="date" class="form-control" name="tanggal_penjualan" required>
+                                        <div align="right">
+                                        <a type="button" class="btn btn-success" href="transaksi.php"  value="Create" style="width:10%;height:40px;margin-left:20px;background-color:#F64E60">Create</a>
                                         </div>
-
-                                        <div class="col-md-3">
-                                        <label for="id_penjualan">ID Penjualan</label>
-                                        <input type="text"  class="form-control" name="id_penjualan" required>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                        <label for="pembeli">Pembeli</label>
-                                        <input type="text" class="form-control" name="pembeli" required>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <label for="id_pegawai">ID Pegawai</label>
-                                            <input type="text"  class="form-control" name="id_pegawai" required>
-                                        </div>
-
-                                        <h5 align="left" style="margin-top:20px;margin-bottom:5px;">Add Items</h5>
-
-                                        <div class="col-md-4">
-                                        <label for="id_barang">ID Barang</label>
-                                        <input type="text" class="form-control" name="id_barang" required>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                        <label for="qty">Qty</label>
-                                        <input type="number" class="form-control" name="qty" required>
-                                        </div>
-
-                                        <input class="btn btn-success" type="submit" name="add" value="Add" style="width:10%; margin-top:40px;margin-left:30px;background-color:#ff7f5c">
-
                                         <table id="myTable" class="table table-hover" >
                                             <thead >
                                                 <tr align="center" bgcolor='#F3F6F9'>
+                                                    <th>Tanggal</th>
+                                                    <th>ID Penjualan</th>
+                                                    <th>Pembeli</th>
                                                     <th>ID Barang</th>
-                                                    <th>Nama Barang</th>
                                                     <th>Qty</th>
                                                     <th>Harga</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php 
+                                            $result = pg_query($conn,"SELECT * FROM tabel_detail_transaksi JOIN tabel_transaksi on tabel_transaksi.id_penjualan=tabel_detail_transaksi.id_penjualan");
+                                            $total=0;
+                                            while($row=pg_fetch_array($result)){
+                                                $jumlah=$row['total_harga'];
+                                                $total+=$jumlah;
+                                            ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
-                                                <th>B001</th>
-                                                <th>Strep Mask</th>
-                                                <th>2</th>
-                                                <th>Rp.20.000</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-warning" style="background-color: #E15B29;"><i class="fa fa-pencil" style="color: white;"></i></button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                </th>
+                                                <td ><?=$row['tanggal_penjualan']?></td>
+                                                <td><?=$row['id_penjualan']?></td>
+                                                <td><?=$row['pembeli']?></td>
+                                                <td><?=$row['id_barang']?></td>
+                                                <td><?=$row['qty']?></td>
+                                                <td>Rp<?=number_format($row['total_harga'],0,".",".")?></td>
                                             </tr>
+                                            <?php
+                                            }
+                                            
+                                            ?>  
                                             </tbody>
                                             <tfoot>
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th></th>
                                                     <th></th>
-                                                    <th>Total Harga</th>
-                                                    <th>Rp.20.000</th>
                                                     <th></th>
+                                                    <th></th>
+                                                    <th>Total Penjualan</th>
+                                                    <th>Rp<?=number_format($total,0,".",".")?></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
-
-                                        <div align="right" class="col-8" style="margin-bottom:30px">
-                                        <button class="btn btn-primary" type="reset">Reset</button>
-                                            <a class="btn btn-warning" style="margin-left:30px" href="penjualanIndex.php"Cancel</a>
-                                            <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
-                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -171,11 +128,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="footer" style="bottom:-70px">
-        <p>Copyright &copy 2022 Tatitatu. All Rights Reserved.</p>
     </div>
 </body>
 </html>

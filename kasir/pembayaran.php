@@ -44,18 +44,18 @@
                     <span class="nav_logo-name">Kasir</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a  class="nav_link active"> 
+                <a  class="nav_link active" href="../berandaKasir.php" > 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  class="nav_link"> 
+                        <a  class="nav_link" href="penjualanIndex.php"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <br><br><br>
-                        <a class="nav_link" href="{{url('/login')}}" style="margin-top:270px;"> 
+                        <a class="nav_link" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
+                        </a>an class="nav_name">Log Out</span> 
                         </a>
                 </div>
             </div> 
@@ -168,15 +168,18 @@
                                             <tbody>
                                             <?php 
                                             $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi, tabel_barang WHERE tabel_detail_transaksi.id_barang = tabel_barang.id_barang");
+                                            $total=0;
+
                                             while($row2=pg_fetch_array($sql2)){
+                                                $jumlah=$row2['total_harga'];
+                                                $total+=$jumlah;
                                             ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
                                             <th><?=$row2['id_barang']?></th>
                                             <th><?=$row2['nama_barang']?></th>
                                             <th><?=$row2['qty']?></th>
                                             <th>Rp<?=number_format($row2['total_harga'],0,".",".")?></th>
-                                            <th><a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="delete_beli.php?id_barang=<?= $row2['id_barang'] ?>"
-                                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></th>
+                                            <th><a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="delete_beli.php?id_barang=<?= $row2['id_barang'] ?>" class="btn btn-danger">Delete</a></th>
                                             </tr>
                                             <?php
                                             }
@@ -184,14 +187,6 @@
                                             </tbody>
                                             
                                             <tfoot>
-                                            <?php
-                                            $total = 0;
-                                            $jlh = pg_query($conn, "SELECT * FROM tabel_detail_transaksi where id_barang='$id_b'");
-                                            while ($data3 = pg_fetch_array($jlh)){
-                                                $jumlah=$data3['total_harga'];
-                                                $total+=$jumlah;
-                                            }
-                                            ?>
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th></th>
                                                     <th></th>

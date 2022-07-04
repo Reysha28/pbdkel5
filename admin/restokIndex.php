@@ -62,8 +62,7 @@ require_once '../connect.php';
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
-                        <br><br><br>
-                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -106,8 +105,8 @@ require_once '../connect.php';
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_detail_restok, tabel_restok");
-
+                                            $result = pg_query($conn,"SELECT * FROM tabel_detail_restok JOIN tabel_restok on tabel_restok.id_restok=tabel_detail_restok.id_restok");
+              
                                             while($row=pg_fetch_array($result)){
                                             ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">

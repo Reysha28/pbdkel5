@@ -65,8 +65,7 @@
                             <i class='bx bx-book nav_icon'></i> 
                             <span class="nav_name">Laporan</span> 
                         </a>
-                        <br><br><br>
-                        <a href="../login.php" class="nav_link" style="margin-top:20px;" href="{{url('/login')}}"> 
+                        <a href="../login.php" class="nav_link" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -77,7 +76,7 @@
 
     <div>
         <div class="row" >
-            <nav aria-label="breadcrumb" style="margin-top:35px;">
+            <nav aria-label="breadcrumb" style="margin-top:75px;">
                 <ol class="breadcrumb">
                 <li class="me-3">
                     <a href="" class="btn btn-sm" style="font-size: 17px;font-weight:600;color: #404444">Stok</a>
@@ -144,7 +143,7 @@
 
                                         <div align="right" class="col-9">
                                             <button class="btn btn-primary" type="reset">Reset</button>
-                                            <a class="btn btn-warning" style="margin-left:30px"href="">Cancel</a>
+                                            <a class="btn btn-warning" style="margin-left:30px" href="barangIndex.php">Cancel</a>
                                             <input class="btn btn-success" type="submit" name="simpan" value="Submit" style="margin-left:30px">
                                         </div>
                                     </div>

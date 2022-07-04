@@ -30,16 +30,15 @@ require_once 'connect.php';
                     <span class="nav_logo-name">Admin</span> 
                 </a>
                 <div class="nav_list"> 
-                        <a href="berandaKasir.php" class="nav_link active"> 
+                <a  class="nav_link active" href="../berandaKasir.php" > 
                             <i class='bx bx-home nav_icon'></i> 
                             <span class="nav_name">Beranda</span> 
                         </a>
-                        <a  href="kasir/penjualanAdd.php" class="nav_link"> 
+                        <a  class="nav_link" href="kasir/penjualanIndex.php"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <br><br><br>
-                        <a class="nav_link" href="login.php" style="margin-top:270px;"> 
+                        <a class="nav_link" href="{{url('/login')}}"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
