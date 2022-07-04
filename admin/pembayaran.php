@@ -151,8 +151,7 @@
 
                                         <?php
                                         if (isset($_POST['add'])){
-
-                                        $detail = pg_query($conn, "SELECT harga_barang from tabel_barang where id_barang='$id_b'");
+                                        $detail = pg_query($conn, "SELECT harga_barang, stok_tersedia from tabel_barang where id_barang='$id_b'");
                                         $row3 = pg_fetch_array($detail);
                                         $harga = $row3['harga_barang'];
                                         $id_pegawai = $row1['id_pegawai'];
@@ -162,8 +161,10 @@
                                         $id_penjualan = $_POST['id_penjualan'];
                                         $pembeli = $row1['pembeli'];
 
+                                        $stok_tersedia = $row3['stok_tersedia']-$qty;
 
                                         pg_query($conn, "insert into tabel_detail_transaksi (id_penjualan,id_barang,qty,total_harga) values('$id_penjualan','$id_b','$qty','$total_harga')");
+                                        pg_query($conn,"UPDATE tabel_barang SET stok_tersedia='$stok_tersedia' WHERE id_barang='$id_b'");
 
                                         }
                                         ?>
