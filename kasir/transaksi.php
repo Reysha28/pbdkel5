@@ -124,6 +124,7 @@
     $tanggal_penjualan = $_POST['tanggal_penjualan'];
 
     $sql = pg_query($conn, "insert into tabel_transaksi (id_penjualan,id_pegawai,pembeli,tanggal_penjualan) values('$id_penjualan','$id_pegawai','$pembeli','$tanggal_penjualan')");
+
     if($sql){
         echo "<script>alert('Data berhasil ditambahkan');window.location='pembayaran.php';</script>";
         } else {
