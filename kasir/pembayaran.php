@@ -9,6 +9,7 @@
 
     $sql1 = pg_query($conn, "SELECT * from tabel_transaksi ORDER BY id_penjualan DESC LIMIT 1");
     $row1 = pg_fetch_array($sql1);
+    $kode = $_GET['id_penjualan'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -158,7 +159,6 @@
                                             <thead >
                                                 <tr align="center" bgcolor='#F3F6F9'>
                                                     <th>ID Barang</th>
-                                                    <th>Nama Barang</th>
                                                     <th>Qty</th>
                                                     <th>Harga</th>
                                                     <th>Action</th>
@@ -168,17 +168,22 @@
 
                                             <tbody>
                                             <?php 
+<<<<<<< HEAD
                                              if (isset($_POST['add'])){
                                             $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi, tabel_barang WHERE id_penjualan='E009'");
                                             
 
+=======
+                                            
+                                            $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi WHERE id_penjualan='E003'");
+                                            $total=0;
+>>>>>>> 1cb0cc73b29d2e0ce0ef415266b3df203ddf74d5
                                             while($row2=pg_fetch_array($sql2)){
                                                 $jumlah=$row2['total_harga'];
                                                 $total+=$jumlah;
                                             ?>  
                                             <tr align="center" style="color:grey; font-weight:100; width:100%;">
                                             <th><?=$row2['id_barang']?></th>
-                                            <th><?=$row2['nama_barang']?></th>
                                             <th><?=$row2['qty']?></th>
                                             <th>Rp<?=number_format($row2['total_harga'],0,".",".")?></th>
                                             <th><a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="delete_beli.php?id_barang=<?= $row2['id_barang'] ?>" class="btn btn-danger">Delete</a></th>

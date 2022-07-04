@@ -27,7 +27,7 @@ include_once('../connect.php');
             <div> 
                 <a href="#" class="nav_logo"> 
                     <i class='bx bx-grid-alt nav_logo-icon'></i> 
-                    <span class="nav_logo-name">Admin</span> 
+                    <span class="nav_logo-name">Pemilik</span> 
                 </a>
                 <div class="nav_list"> 
                         <a href="../berandaPemilik.php" class="nav_link"> 
@@ -83,6 +83,7 @@ include_once('../connect.php');
                 </div>
                 <div align="right">
                 <button class="btn-search" name="back" type="submit">Cari Data</button>  
+                <a class="btn btn-warning" style="margin-left:30px" href="laporan.php">Cetak</a>
                 </div>
             </form>
             <br><br>

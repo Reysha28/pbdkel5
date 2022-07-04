@@ -35,7 +35,7 @@
             <div> 
                 <a href="#" class="nav_logo"> 
                     <i class='bx bx-grid-alt nav_logo-icon'></i> 
-                    <span class="nav_logo-name">Admin</span> 
+                    <span class="nav_logo-name">Produksi</span> 
                 </a>
                 <div class="nav_list"> 
                 <a  href="../berandaProduksi.php" class="nav_link"> 

@@ -17,48 +17,16 @@ include_once('../connect.php');
 </head>
 
 <body id="body-pd" style="background-color: #F3F6F9;">
-    <header class="header" id="header" style="background-color: white">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> 
-        </div>
-    </header>
-
-    <div class="l-navbar" id="nav-bar" >
-        <nav class="nav">
-            <div> 
-                <a href="#" class="nav_logo"> 
-                    <i class='bx bx-grid-alt nav_logo-icon'></i> 
-                    <span class="nav_logo-name">Pemilik</span> 
-                </a>
-                <div class="nav_list"> 
-                        <a href="../berandaPemilik.php" class="nav_link"> 
-                            <i class='bx bx-home nav_icon'></i> 
-                            <span class="nav_name">Beranda</span> 
-                        </a>
-                        <a href="laporanPemilik.php" class="nav_link active"> 
-                            <i class='bx bx-book nav_icon'></i> 
-                            <span class="nav_name">Laporan</span> 
-                        </a>
-                        <br><br><br>
-                        <a class="nav_link" style="margin-top:270px;" href="login"> 
-                            <i class='bx bx-log-out nav_icon'></i> 
-                            <span class="nav_name">Log Out</span> 
-                        </a>
-                </div>
-            </div> 
-        </nav>
+    
     </div>
 
     <div>
-        <h5 style="margin-top:80px;margin-bottom:15px;">Laporan Pengeluaran</h5>
+        <h5 style="margin-top:80px;margin-bottom:15px;">Laporan Penjualan</h5>
         <div class="col-12">
             <div class="card mb-4" style="border-radius: 10px; width:100%">
                 <div class="card-body" style=" box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.25);
                 border-radius: 10px; padding-left:30px; padding-right:30px">
-                <h5 style="color:grey">Input Data</h5>
-                <p>Silahkan  isikan data dibawah ini dengan benar</p>
-                <hr>
-                <p>Silahkan anda pilih dari tanggal dan sampai tanggal untuk menampilkan hasil penjualan pada toko anda</p>
-                <hr>
+                
                 <form action="" method="post">
                 <div class="flex container" style="margin-bottom:0px;">
                     <div class="row align-items-start">
@@ -90,11 +58,12 @@ include_once('../connect.php');
 			<table class="table table-bordered">
 				<thead class="alert-info">
 					<tr>
-						<th>ID Pengeluaran</th>
+						<th>ID Penjualan</th>
                         <th>Tanggal</th>
-						<th>Kategori</th>
-						<th>Harga</th>
-						
+						<th>Pembeli</th>
+						<th>Barang</th>
+                        <th>Qty</th>
+						<th>Sub Harga</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -104,16 +73,18 @@ include_once('../connect.php');
                 if (isset($_POST['back'])) {
                     $date1 = date("Y-m-d", strtotime($_POST['date1']));
                     $date2 = date("Y-m-d", strtotime($_POST['date2']));
-                    $query=pg_query("SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran WHERE date(tanggal_pengeluaran) BETWEEN '$date1' AND '$date2'");
+                    $query=pg_query("SELECT * FROM tabel_detail_transaksi JOIN tabel_transaksi on tabel_transaksi.id_penjualan=tabel_detail_transaksi.id_penjualan JOIN tabel_barang on tabel_barang.id_barang=tabel_detail_transaksi.id_barang WHERE date(tanggal_penjualan) BETWEEN '$date1' AND '$date2'");
                     $row=pg_num_rows($query);
                     if($row>0){
                         while($fetch=pg_fetch_array($query)){
                     ?>
                         <tr>
-                            <td><?php echo $fetch['id_pengeluaran']?></td>
-                            <td><?php echo $fetch['tanggal_pengeluaran']?></td>
-                            <td><?php echo $fetch['jenis_pengeluaran']?></td>
-                            <td>Rp<?=number_format($fetch['harga'],0,".",".")?></td>
+                            <td><?php echo $fetch['id_penjualan']?></td>
+                            <td><?php echo $fetch['tanggal_penjualan']?></td>
+                            <td><?php echo $fetch['pembeli']?></td>
+                            <td><?php echo $fetch['nama_barang']?></td>
+                            <td><?php echo $fetch['qty']?></td>
+                            <td>Rp<?=number_format($fetch['total_harga'],0,".",".")?></td>
                         </tr>
                     <?php
                         }
@@ -127,12 +98,11 @@ include_once('../connect.php');
                 ?>	
 				</tbody>
 			</table>
-		</div>
+		</div>	 
             </div>
             </div>
-        </div>	 
-                
-    </div>
+        </div>
+
 
             
 
