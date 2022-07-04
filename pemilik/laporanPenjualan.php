@@ -39,7 +39,7 @@ include_once('../connect.php');
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a class="nav_link" style="margin-top:270px;" href="login"> 
+                        <a class="nav_link" style="margin-top:270px;" href="../login.php"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
@@ -83,7 +83,6 @@ include_once('../connect.php');
                 </div>
                 <div align="right">
                 <button class="btn-search" name="back" type="submit">Cari Data</button>  
-                <a class="btn btn-warning" style="margin-left:30px" href="laporan.php">Cetak</a>
                 </div>
             </form>
             <br><br>

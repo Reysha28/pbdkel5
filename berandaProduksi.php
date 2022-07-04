@@ -39,7 +39,7 @@ require_once 'connect.php';
                             <span class="nav_name">Produk</span> 
                         </a> 
                         <br><br><br>
-                        <a href="login.php" class="nav_link" style="margin-top:270px;"> 
+                        <a href="login.php" class="nav_link" style="margin-top:270px;" href="logout.php"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>

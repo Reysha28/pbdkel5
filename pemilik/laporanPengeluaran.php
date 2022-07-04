@@ -39,7 +39,7 @@ include_once('../connect.php');
                             <span class="nav_name">Laporan</span> 
                         </a>
                         <br><br><br>
-                        <a class="nav_link" style="margin-top:270px;" href="login"> 
+                        <a class="nav_link" style="margin-top:270px;" href="../login.php"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>

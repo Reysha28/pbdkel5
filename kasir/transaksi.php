@@ -52,7 +52,7 @@
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 
-                        <a class="nav_link" href="{{url('/login')}}"> 
+                        <a class="nav_link" href="../login.php"> 
                             <i class='bx bx-log-out nav_icon'></i> 
                             <span class="nav_name">Log Out</span> 
                         </a>
