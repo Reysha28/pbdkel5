@@ -1,6 +1,7 @@
 <?php 
     include '../connect.php';
     $id_b = 0;
+    $total=0;
     if (isset($_POST['add'])){
         $id_b = $_POST['id_barang'];
 
@@ -167,9 +168,21 @@
 
                                             <tbody>
                                             <?php 
+<<<<<<< HEAD
                                             $kode = $row1['id_penjualan'];
                                             $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi WHERE id_penjualan='$kode'");
+=======
+<<<<<<< HEAD
+                                             if (isset($_POST['add'])){
+                                            $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi, tabel_barang WHERE id_penjualan='E009'");
+                                            
+
+=======
+                                            
+                                            $sql2 = pg_query($conn,"SELECT * FROM tabel_detail_transaksi WHERE id_penjualan='E003'");
+>>>>>>> b89e15c3427f96cc1eda5614d420f045dce798a4
                                             $total=0;
+>>>>>>> 1cb0cc73b29d2e0ce0ef415266b3df203ddf74d5
                                             while($row2=pg_fetch_array($sql2)){
                                                 $jumlah=$row2['total_harga'];
                                                 $total+=$jumlah;
@@ -181,6 +194,7 @@
                                             <th><a type="button" onclick="return confirm('Anda yakin menghapus data barang ini ?')" href="delete_beli.php?id_barang=<?= $row2['id_barang'] ?>" class="btn btn-danger">Delete</a></th>
                                             </tr>
                                             <?php
+                                            }
                                             }
                                             ?> 
                                             </tbody>
