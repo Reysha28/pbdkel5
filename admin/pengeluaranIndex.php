@@ -92,6 +92,7 @@ require_once '../connect.php';
                                 <div class="row">
                                     <div class="row g-3">
                                         <div align="right">
+                                        <a type="button" class="btn btn-success" href="laporanPengeluaran.php" type="submit" name="add" value="New Report" style="width:10%;margin-left:40px;background-color:#3699FF">Report</a>
                                         <a type="button" class="btn btn-success" href="pengeluaranAdd.php"  value="Create" style="width:10%;height:40px;margin-left:20px;background-color:#F64E60">Create</a>
                                         </div>
                                         <table id="myTable" class="table table-hover" >

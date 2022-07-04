@@ -17,35 +17,7 @@ include_once('../connect.php');
 </head>
 
 <body id="body-pd" style="background-color: #F3F6F9;">
-    <header class="header" id="header" style="background-color: white">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> 
-        </div>
-    </header>
-
-    <div class="l-navbar" id="nav-bar" >
-        <nav class="nav">
-            <div> 
-                <a href="#" class="nav_logo"> 
-                    <i class='bx bx-grid-alt nav_logo-icon'></i> 
-                    <span class="nav_logo-name">Admin</span> 
-                </a>
-                <div class="nav_list"> 
-                        <a href="../berandaPemilik.php" class="nav_link"> 
-                            <i class='bx bx-home nav_icon'></i> 
-                            <span class="nav_name">Beranda</span> 
-                        </a>
-                        <a href="laporanPemilik.php" class="nav_link active"> 
-                            <i class='bx bx-book nav_icon'></i> 
-                            <span class="nav_name">Laporan</span> 
-                        </a>
-                        <br><br><br>
-                        <a class="nav_link" style="margin-top:270px;" href="login"> 
-                            <i class='bx bx-log-out nav_icon'></i> 
-                            <span class="nav_name">Log Out</span> 
-                        </a>
-                </div>
-            </div> 
-        </nav>
+    
     </div>
 
     <div>
@@ -54,11 +26,7 @@ include_once('../connect.php');
             <div class="card mb-4" style="border-radius: 10px; width:100%">
                 <div class="card-body" style=" box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.25);
                 border-radius: 10px; padding-left:30px; padding-right:30px">
-                <h5 style="color:grey">Input Data</h5>
-                <p>Silahkan  isikan data dibawah ini dengan benar</p>
-                <hr>
-                <p>Silahkan anda pilih dari tanggal dan sampai tanggal untuk menampilkan hasil penjualan pada toko anda</p>
-                <hr>
+                
                 <form action="" method="post">
                 <div class="flex container" style="margin-bottom:0px;">
                     <div class="row align-items-start">
@@ -83,7 +51,6 @@ include_once('../connect.php');
                 </div>
                 <div align="right">
                 <button class="btn-search" name="back" type="submit">Cari Data</button>  
-                <a class="btn btn-warning" style="margin-left:30px" href="laporan.php">Cetak</a>
                 </div>
             </form>
             <br><br>
