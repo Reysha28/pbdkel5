@@ -105,7 +105,7 @@ include_once('../connect.php');
 			<table class="table table-bordered">
 				<thead class="alert-info">
 					<tr>
-						<th>Penjualan</th>
+						<th>Pengeluaran</th>
 						<th>Pendapatan</th>
 						<th>Keuntungan</th>
 					</tr>

@@ -54,11 +54,11 @@
                             <i class='bx bx-user nav_icon'></i> 
                             <span class="nav_name">Pegawai</span> 
                         </a> 
-                        <a href="barangIndex.php" class="nav_link active"> 
+                        <a href="barangIndex.php" class="nav_link"> 
                             <i class='bx bx-clipboard nav_icon'></i> 
                             <span class="nav_name">Produk</span> 
                         </a> 
-                        <a href="penjualanIndex.php" class="nav_link "> 
+                        <a href="penjualanIndex.php" class="nav_link  active"> 
                             <i class='bx bx-money nav_icon'></i> 
                             <span class="nav_name">Penjualan</span> 
                         </a> 

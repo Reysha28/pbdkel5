@@ -90,7 +90,7 @@ require_once '../connect.php';
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_detail_transaksi JOIN tabel_transaksi on tabel_transaksi.id_penjualan=tabel_detail_transaksi.id_penjualan");
+                                            $result = pg_query($conn,"SELECT * FROM tabel_detail_transaksi JOIN tabel_transaksi on tabel_transaksi.id_penjualan=tabel_detail_transaksi.id_penjualan order by tanggal_penjualan asc");
                                             $total=0;
                                             while($row=pg_fetch_array($result)){
                                                 $jumlah=$row['total_harga'];

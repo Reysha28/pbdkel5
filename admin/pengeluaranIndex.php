@@ -109,7 +109,7 @@ require_once '../connect.php';
                                             <tbody>
                                             <?php 
     
-                                            $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran");
+                                            $result = pg_query($conn,"SELECT * FROM tabel_pengeluaran join tabel_kategori_pengeluaran on tabel_pengeluaran.id_katpengeluaran=tabel_kategori_pengeluaran.id_katpengeluaran ORDER BY id_pengeluaran asc");
 
                                             $total=0;
                                             

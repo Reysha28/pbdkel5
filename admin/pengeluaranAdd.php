@@ -3,8 +3,8 @@
     $query = pg_query($conn, "SELECT max(id_pengeluaran) as id_pengeluaran FROM tabel_pengeluaran");
     $row = pg_fetch_array($query);
     $kode = $row['id_pengeluaran'];
-    $urutan = (int) substr($kode, 3, 3);
-    $urutan=$urutan+1;
+    $urutan = (int) substr($kode, 2, 2);
+    $urutan++;
     $huruf = "D";
     $id = $huruf . sprintf("%03s", $urutan); 
 ?>
@@ -100,7 +100,7 @@
                                         <h5 align="center" style="margin-top:10px;margin-bottom:15px;">Form Create Pengeluaran</h5>
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_pengeluaran" style="margin-bottom:10px">ID Pengeluaran</label>
-                                        <input type="text" class="form-control" name="id_pengeluaran" value="<?php echo $id?>" readonly required>
+                                        <input type="text" class="form-control" name="id_pengeluaran" value="<?php echo $id?>"  readonly required>
                                         </div>
                                         
                                         <div class="form-group" style="margin-bottom:20px">

@@ -108,7 +108,7 @@ require_once '../connect.php';
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * FROM tabel_barang join tabel_kategori_barang on tabel_barang.id_katbarang=tabel_kategori_barang.id_katbarang");
+                                            $result = pg_query($conn,"SELECT * FROM tabel_barang join tabel_kategori_barang on tabel_barang.id_katbarang=tabel_kategori_barang.id_katbarang ORDER BY id_barang asc");
 
                                             while($row=pg_fetch_array($result)){
                                             ?>  

@@ -110,7 +110,7 @@ require_once '../connect.php';
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            $result = pg_query($conn,"SELECT * from tabel_pegawai");
+                                            $result = pg_query($conn,"SELECT * from tabel_pegawai ORDER BY id_pegawai asc");
 
                                             while($row=pg_fetch_array($result)){
                                             ?>  

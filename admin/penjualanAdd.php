@@ -4,7 +4,7 @@
     $query = pg_query($conn, "SELECT max(id_penjualan) as id_penjualan FROM tabel_transaksi");
     $row = pg_fetch_array($query);
     $kode = $row['id_penjualan'];
-    $urutan = (int) substr($kode, 3, 3);
+    $urutan = (int) substr($kode, 2, 2);
     $urutan=$urutan+1;
     $huruf = "E";
     $id = $huruf . sprintf("%03s", $urutan); 

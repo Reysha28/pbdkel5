@@ -3,7 +3,7 @@
     $query = pg_query($conn, "SELECT max(id_barang) as id_barang FROM tabel_barang");
     $row = pg_fetch_array($query);
     $kode = $row['id_barang'];
-    $urutan = (int) substr($kode, 3, 3);
+    $urutan = (int) substr($kode, 2, 2);
     $urutan=$urutan+1;
     $huruf = "H";
     $id = $huruf . sprintf("%03s", $urutan);    
@@ -104,7 +104,7 @@
                                         
                                         <div class="form-group" style="margin-bottom:20px">
                                         <label for="id_barang" style="margin-bottom:10px">ID Barang</label>
-                                        <input type="text" class="form-control" name="id_barang" value="<?php echo $id?>" readonly required>
+                                        <input type="text" class="form-control" name="id_barang"  value="<?php echo $id?>"  readonly required>
                                         </div>
 
                                         <div class="form-group" style="margin-bottom:20px">
